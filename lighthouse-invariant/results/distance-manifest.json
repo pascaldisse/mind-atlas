@@ -1,0 +1,24 @@
+{
+  "measured_at": "2026-08-05T21:58:01.558960+00:00",
+  "method": "true embedding; deterministic cosine distance",
+  "model": "Apple NaturalLanguage NLEmbedding.wordEmbedding(for: .english)",
+  "language": "English word embeddings; Japanese labels translated before lookup",
+  "dimension": 300,
+  "concept_to_embedding_token": {
+    "灯台": "lighthouse",
+    "灯": "lamp",
+    "守": "guard",
+    "孤": "solitude",
+    "愛": "love",
+    "無": "nothingness",
+    "塔": "tower",
+    "井戸": "well",
+    "市場": "market",
+    "道": "road",
+    "船": "ship",
+    "海": "sea",
+    "境界": "boundary"
+  },
+  "matrix": "lighthouse-invariant/results/distance-matrix.tsv",
+  "uncertainty": "No sampling occurred; a 95% CI is not defined for this deterministic model lookup."
+}

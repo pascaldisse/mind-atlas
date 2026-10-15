@@ -1,0 +1,4427 @@
+# capability inventory — 2026-08-05 CEST
+## vector DB GET probes (read-only)
+### GET /
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Paleblood Atlas &middot; GAIA World Engine</title>
+    <link rel="stylesheet" href="/game/atlas-ui.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #0a0e14;
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      }
+      canvas {
+        display: block;
+      }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 14px;
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #e8f0ff;
+        background: rgba(6, 10, 18, 0.72);
+        cursor: pointer;
+        z-index: 20;
+        user-select: none;
+      }
+      #overlay h1 {
+        margin: 0;
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
+      }
+      #overlay p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.75;
+      }
+      #menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-top: 22px;
+      }
+      #menu .menu-option {
+        font-size: 15px;
+        letter-spacing: 0.34em;
+        text-indent: 0.34em;
+        padding: 7px 22px;
+        opacity: 0.72;
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.15s ease, text-shadow 0.15s ease;
+      }
+      #menu .menu-option:hover {
+        opacity: 1;
+        text-shadow: 0 0 14px rgba(232, 240, 255, 0.7);
+      }
+      #menu .menu-levels {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-top: 6px;
+      }
+      #menu .menu-level {
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        padding: 5px 18px;
+        opacity: 0.6;
+        cursor: pointer;
+        user-select: none;
+      }
+      #menu .menu-level:hover {
+        opacity: 1;
+        text-shadow: 0 0 12px rgba(232, 240, 255, 0.7);
+      }
+      #crosshair {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin: -2px 0 0 -2px;
+        border-radius: 50%;
+        background: rgba(207, 227, 255, 0.85);
+        box-shadow: 0 0 6px rgba(125, 249, 255, 0.6);
+        display: none;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #hint {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #mode {
+        position: fixed;
+        top: 12px;
+        right: 14px;
+        display: none;
+        color: #ffd9a0;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        z-index: 10;
+      }
+      /* editor viewbar: draw mode (lit / unlit / wire) + the ■ stop toggle —
+         one row below the CREATE help line, which owns the top edge */
+      #viewbar {
+        position: fixed;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 4px;
+        z-index: 30;
+      }
+      #viewbar button {
+        background: rgba(8, 14, 24, 0.85);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 9px;
+        cursor: pointer;
+      }
+      #viewbar button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #viewbar button.stop.active {
+        background: rgba(255, 122, 89, 0.3);
+        border-color: rgba(255, 150, 120, 0.6);
+      }
+      #viewbar .vb-sep {
+        width: 1px;
+        background: rgba(125, 249, 255, 0.2);
+        margin: 1px 3px;
+      }
+      /* the view ▾ effects dropdown: Unity's scene-view toggles */
+      #vb-wrap {
+        position: relative;
+        display: flex;
+      }
+      #vb-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        padding: 6px 10px;
+        min-width: 96px;
+      }
+      #vb-menu label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9fb4d8;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 0;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #vb-menu label:hover {
+        color: #ffffff;
+      }
+      #vb-menu input {
+        accent-color: #7df9ff;
+        width: 11px;
+        height: 11px;
+        margin: 0;
+        cursor: pointer;
+      }
+      #panel {
+        position: fixed;
+        top: 40px;
+        right: 12px;
+        bottom: 70px;
+        width: 300px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #panel .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #panel .panel-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #panel .panel-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 6px 10px 0;
+      }
+      #panel .panel-tabs .active {
+        background: rgba(125, 249, 255, 0.2);
+      }
+      #panel .panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 10px;
+      }
+      #panel button,
+      #panel select {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 2px 7px;
+        cursor: pointer;
+      }
+      #panel .panel-section {
+        margin-bottom: 10px;
+      }
+      #panel .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 1px 4px;
+        margin-left: -4px;
+      }
+      #panel .panel-section.selected .section-head {
+        background: rgba(125, 249, 255, 0.12);
+        outline: 1px solid rgba(125, 249, 255, 0.35);
+      }
+      #panel .section-name {
+        color: #ffd9a0;
+        font-weight: 600;
+      }
+      #panel .section-doc {
+        opacity: 0.5;
+        font-size: 10px;
+        margin: -2px 0 4px;
+      }
+      #panel .runtime {
+        padding: 4px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+        opacity: 0.65;
+        font-size: 10px;
+      }
+      #panel .row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 3px 0;
+      }
+      #panel .label {
+        width: 78px;
+        flex-shrink: 0;
+        opacity: 0.75;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #panel .row input[type='range'] {
+        flex: 1;
+        min-width: 40px;
+        accent-color: #7df9ff;
+      }
+      #panel .row input[type='number'] {
+        width: 52px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .row input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 4px;
+      }
+      #panel .vec {
+        display: flex;
+        gap: 3px;
+        flex: 1;
+      }
+      #panel .vec input {
+        width: 100%;
+        min-width: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .block {
+        margin: 4px 0;
+      }
+      #panel .item-head {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        opacity: 0.8;
+      }
+      #panel .indent {
+        margin-left: 10px;
+        border-left: 1px solid rgba(125, 249, 255, 0.12);
+        padding-left: 8px;
+      }
+      #panel textarea {
+        width: 100%;
+        height: 340px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 6px;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+      #panel .json-error {
+        color: #ff8c7a;
+        margin-top: 4px;
+        white-space: pre-wrap;
+      }
+      #panel .panel-add {
+        margin-top: 6px;
+      }
+      #outliner {
+        position: fixed;
+        top: 40px;
+        left: 12px;
+        bottom: 70px;
+        width: 224px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #outliner .o-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #outliner .o-count {
+        opacity: 0.6;
+      }
+      #outliner input[type='text'] {
+        margin: 6px 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 3px 6px;
+      }
+      #outliner .o-gizmos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px 6px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-gizmos button {
+        background: rgba(125, 249, 255, 0.06);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        padding: 1px 7px;
+        cursor: pointer;
+      }
+      #outliner .o-gizmos button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #outliner .o-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 0 8px;
+      }
+      #outliner .o-group {
+        padding: 5px 10px 2px;
+        color: #ffd9a0;
+        cursor: pointer;
+        user-select: none;
+      }
+      #outliner .o-group .o-n {
+        opacity: 0.55;
+        color: #dbe7ff;
+      }
+      #outliner .o-group .o-scene-edit {
+        float: right;
+        opacity: 0.45;
+        color: #74c7a8;
+      }
+      #outliner .o-group .o-scene-edit:hover {
+        opacity: 1;
+      }
+      #outliner .o-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px 2px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #outliner .o-row:hover {
+        background: rgba(125, 249, 255, 0.08);
+      }
+      #outliner .o-row.selected {
+        background: rgba(125, 249, 255, 0.18);
+        color: #ffffff;
+      }
+      #outliner .o-row.dim {
+        opacity: 0.45;
+      }
+      #outliner .o-row.hole {
+        padding-left: 32px;
+      }
+      #outliner .o-row.hole .o-icon {
+        color: #ff6b6b;
+      }
+      #outliner .o-row.hole.add {
+        opacity: 0.55;
+      }
+      #outliner .o-row.hole.add:hover {
+        opacity: 1;
+      }
+      #outliner .o-icon {
+        width: 12px;
+        flex-shrink: 0;
+        text-align: center;
+        color: #7df9ff;
+      }
+      #outliner .o-id {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #palette {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 6px;
+        z-index: 30;
+      }
+      #palette .chip {
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.3);
+        border-radius: 14px;
+        color: #dbe7ff;
+        font: inherit;
+        font-size: 11px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      #palette .chip.active {
+        background: rgba(125, 249, 255, 0.25);
+        color: #ffffff;
+      }
+      #debug {
+        position: fixed;
+        top: 36px;
+        left: 14px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 12px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        z-index: 40;
+      }
+      #debug label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+      #debug label.selected {
+        background: rgba(125, 249, 255, 0.14);
+        outline: 1px solid rgba(125, 249, 255, 0.4);
+      }
+      #debug label.link {
+        cursor: pointer;
+        color: #9fdfe8;
+      }
+      #debug .debug-page {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #debug input[type='range'] {
+        width: 140px;
+        accent-color: #7df9ff;
+      }
+      #console {
+        position: fixed;
+        bottom: 12px;
+        left: 248px;
+        right: 324px;
+        height: 150px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 10px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      body.console-open #palette {
+        bottom: 170px;
+      }
+      #console .c-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #console .c-title {
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #console .c-head input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 5px;
+      }
+      #console .c-head label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      #console .c-head button {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      #console .c-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+      #console .c-line {
+        opacity: 0.85;
+      }
+      #console .c-event {
+        color: #ffd24a;
+      }
+      #console .c-spawn {
+        color: #9be8c0;
+      }
+      #console .c-despawn {
+        color: #ff8c7a;
+      }
+      #title {
+        position: fixed;
+        top: 38%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #e8f0ff;
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+        opacity: 0;
+        transition: opacity 2.4s ease;
+        pointer-events: none;
+        z-index: 15;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">GAIA &middot; <span id="status">connecting&hellip;</span> &middot; <span id="count">0</span> entities<span id="muted" style="display: none"> &middot; muted</span></div>
+    <div id="title"></div>
+    <div id="debug">
+      <div id="debug-page-main" class="debug-page">
+        <label>brightness <input id="debug-exposure" type="range" min="0.2" max="3" step="0.05" value="1" /> <span id="debug-exposure-value">1.00×</span></label>
+        <label>skylight <input id="debug-skylight" type="range" min="0" max="1.5" step="0.02" value="0" /> <span id="debug-skylight-value">+0.00</span></label>
+        <label>fog <input id="debug-fog" type="range" min="0.2" max="2.5" step="0.05" value="1" /> <span id="debug-fog-value">1.00×</span></label>
+        <label>storm <input id="debug-storm" type="range" min="0.2" max="5" step="0.1" value="1" /> <span id="debug-storm-value">1.00×</span></label>
+        <label>flame <input id="debug-flame" type="range" min="5" max="60" step="1" value="30" /> <span id="debug-flame-value">30m</span></label>
+        <label id="debug-rain-link" class="link">rain ▸</label>
+        <label id="debug-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+      <div id="debug-page-rain" class="debug-page" style="display: none">
+        <label id="debug-rain-back" class="link">◂ back</label>
+        <label>angle <input id="debug-rain-angle" type="range" min="-60" max="60" step="1" value="0" /> <span id="debug-rain-angle-value">0°</span></label>
+        <label>speed <input id="debug-rain-speed" type="range" min="0.1" max="3" step="0.05" value="1" /> <span id="debug-rain-speed-value">1.00×</span></label>
+        <label>intensity <input id="debug-rain-intensity" type="range" min="0" max="1.5" step="0.05" value="1" /> <span id="debug-rain-intensity-value">1.00×</span></label>
+        <label id="debug-rain-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="hint"></div>
+    <div id="mode">CREATE &middot; Q view W move E rotate R scale &middot; F frame &middot; RMB/V fly &middot; &#8997;drag orbit &middot; &#8984;D dup &middot; &#9003; delete &middot; &#8984;Z undo &middot; Tab to play</div>
+    <div id="viewbar">
+      <button id="vb-lit" class="active">lit</button>
+      <button id="vb-unlit">unlit</button>
+      <button id="vb-wireframe">wire</button>
+      <span class="vb-sep"></span>
+      <div id="vb-wrap">
+        <button id="vb-view" title="scene-view effects — what the editor draws, not the game">view &#9662;</button>
+        <div id="vb-menu">
+          <label><input type="checkbox" data-fx="skybox" checked />skybox</label>
+          <label><input type="checkbox" data-fx="fog" checked />fog</label>
+          <label><input type="checkbox" data-fx="particles" checked />particles</label>
+          <label><input type="checkbox" data-fx="post" checked />post fx</label>
+          <label title="the pooled point lights — sun and sky stay">
+            <input type="checkbox" data-fx="lights" checked />lights</label>
+          <label><input type="checkbox" data-fx="audio" checked />audio</label>
+        </div>
+      </div>
+      <span class="vb-sep"></span>
+      <button id="vb-stop" class="stop">&#9632; stop</button>
+    </div>
+    <div id="outliner"></div>
+    <div id="panel"></div>
+    <div id="console"></div>
+    <div id="palette"></div>
+    <div id="overlay">
+      <!-- empty until the snapshot decides: a titled game claims this screen
+           as its own — the GAIA defaults must never flash first -->
+      <h1 id="overlay-title"></h1>
+      <p id="overlay-sub"></p>
+      <div id="menu"></div>
+      <p id="overlay-keys">WASD move &middot; mouse look &middot; shift run &middot; E grab &middot; M mute &middot; Tab create &middot; G game mode &middot; esc release</p>
+    </div>
+    <script type="module" src="/engine-boot.js"></script>
+    <!-- THE OPENING: gate → title → live cinematic → handover. Self-registering
+         and independent of main.js (it waits for gaia.atlasStrategy to come up),
+         so the boot order is the plugin's own business. ?intro=off disables it. -->
+    <script type="module" src="/game/atlas-intro.js"></script>
+    <!-- ONBOARDING (2026-07-28): account creation on a first view, login on
+         return — hooks into atlas-intro.js's handover()/showMenu() (see that
+         file's ONBOARDING comments). ?onboarding=off disables it. -->
+    <script type="module" src="/game/atlas-onboarding.js"></script>
+    <!-- the director's scrubber: a key listener and nothing else until the
+         secret key (` / F9) summons it — no DOM, no hint, not in a recording -->
+    <script type="module" src="/game/atlas-scrubber.js"></script>
+    <!-- NPC dialogue: patches the existing Doll figure interaction; §IRON bridge/stub config lives in atlas-npc.js. -->
+    <script type="module" src="/game/atlas-npc.js"></script>
+    <!-- Kundenansicht: stayn dashboard toggle over the same database (Pascal 08-02). -->
+    <script type="module" src="/game/atlas-stayn.js"></script>
+  </body>
+</html>
+
+HTTP_STATUS=200
+### GET /health
+{"ok":true}
+HTTP_STATUS=200
+### GET /api
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Paleblood Atlas &middot; GAIA World Engine</title>
+    <link rel="stylesheet" href="/game/atlas-ui.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #0a0e14;
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      }
+      canvas {
+        display: block;
+      }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 14px;
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #e8f0ff;
+        background: rgba(6, 10, 18, 0.72);
+        cursor: pointer;
+        z-index: 20;
+        user-select: none;
+      }
+      #overlay h1 {
+        margin: 0;
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
+      }
+      #overlay p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.75;
+      }
+      #menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-top: 22px;
+      }
+      #menu .menu-option {
+        font-size: 15px;
+        letter-spacing: 0.34em;
+        text-indent: 0.34em;
+        padding: 7px 22px;
+        opacity: 0.72;
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.15s ease, text-shadow 0.15s ease;
+      }
+      #menu .menu-option:hover {
+        opacity: 1;
+        text-shadow: 0 0 14px rgba(232, 240, 255, 0.7);
+      }
+      #menu .menu-levels {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-top: 6px;
+      }
+      #menu .menu-level {
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        padding: 5px 18px;
+        opacity: 0.6;
+        cursor: pointer;
+        user-select: none;
+      }
+      #menu .menu-level:hover {
+        opacity: 1;
+        text-shadow: 0 0 12px rgba(232, 240, 255, 0.7);
+      }
+      #crosshair {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin: -2px 0 0 -2px;
+        border-radius: 50%;
+        background: rgba(207, 227, 255, 0.85);
+        box-shadow: 0 0 6px rgba(125, 249, 255, 0.6);
+        display: none;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #hint {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #mode {
+        position: fixed;
+        top: 12px;
+        right: 14px;
+        display: none;
+        color: #ffd9a0;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        z-index: 10;
+      }
+      /* editor viewbar: draw mode (lit / unlit / wire) + the ■ stop toggle —
+         one row below the CREATE help line, which owns the top edge */
+      #viewbar {
+        position: fixed;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 4px;
+        z-index: 30;
+      }
+      #viewbar button {
+        background: rgba(8, 14, 24, 0.85);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 9px;
+        cursor: pointer;
+      }
+      #viewbar button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #viewbar button.stop.active {
+        background: rgba(255, 122, 89, 0.3);
+        border-color: rgba(255, 150, 120, 0.6);
+      }
+      #viewbar .vb-sep {
+        width: 1px;
+        background: rgba(125, 249, 255, 0.2);
+        margin: 1px 3px;
+      }
+      /* the view ▾ effects dropdown: Unity's scene-view toggles */
+      #vb-wrap {
+        position: relative;
+        display: flex;
+      }
+      #vb-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        padding: 6px 10px;
+        min-width: 96px;
+      }
+      #vb-menu label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9fb4d8;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 0;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #vb-menu label:hover {
+        color: #ffffff;
+      }
+      #vb-menu input {
+        accent-color: #7df9ff;
+        width: 11px;
+        height: 11px;
+        margin: 0;
+        cursor: pointer;
+      }
+      #panel {
+        position: fixed;
+        top: 40px;
+        right: 12px;
+        bottom: 70px;
+        width: 300px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #panel .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #panel .panel-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #panel .panel-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 6px 10px 0;
+      }
+      #panel .panel-tabs .active {
+        background: rgba(125, 249, 255, 0.2);
+      }
+      #panel .panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 10px;
+      }
+      #panel button,
+      #panel select {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 2px 7px;
+        cursor: pointer;
+      }
+      #panel .panel-section {
+        margin-bottom: 10px;
+      }
+      #panel .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 1px 4px;
+        margin-left: -4px;
+      }
+      #panel .panel-section.selected .section-head {
+        background: rgba(125, 249, 255, 0.12);
+        outline: 1px solid rgba(125, 249, 255, 0.35);
+      }
+      #panel .section-name {
+        color: #ffd9a0;
+        font-weight: 600;
+      }
+      #panel .section-doc {
+        opacity: 0.5;
+        font-size: 10px;
+        margin: -2px 0 4px;
+      }
+      #panel .runtime {
+        padding: 4px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+        opacity: 0.65;
+        font-size: 10px;
+      }
+      #panel .row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 3px 0;
+      }
+      #panel .label {
+        width: 78px;
+        flex-shrink: 0;
+        opacity: 0.75;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #panel .row input[type='range'] {
+        flex: 1;
+        min-width: 40px;
+        accent-color: #7df9ff;
+      }
+      #panel .row input[type='number'] {
+        width: 52px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .row input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 4px;
+      }
+      #panel .vec {
+        display: flex;
+        gap: 3px;
+        flex: 1;
+      }
+      #panel .vec input {
+        width: 100%;
+        min-width: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .block {
+        margin: 4px 0;
+      }
+      #panel .item-head {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        opacity: 0.8;
+      }
+      #panel .indent {
+        margin-left: 10px;
+        border-left: 1px solid rgba(125, 249, 255, 0.12);
+        padding-left: 8px;
+      }
+      #panel textarea {
+        width: 100%;
+        height: 340px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 6px;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+      #panel .json-error {
+        color: #ff8c7a;
+        margin-top: 4px;
+        white-space: pre-wrap;
+      }
+      #panel .panel-add {
+        margin-top: 6px;
+      }
+      #outliner {
+        position: fixed;
+        top: 40px;
+        left: 12px;
+        bottom: 70px;
+        width: 224px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #outliner .o-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #outliner .o-count {
+        opacity: 0.6;
+      }
+      #outliner input[type='text'] {
+        margin: 6px 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 3px 6px;
+      }
+      #outliner .o-gizmos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px 6px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-gizmos button {
+        background: rgba(125, 249, 255, 0.06);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        padding: 1px 7px;
+        cursor: pointer;
+      }
+      #outliner .o-gizmos button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #outliner .o-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 0 8px;
+      }
+      #outliner .o-group {
+        padding: 5px 10px 2px;
+        color: #ffd9a0;
+        cursor: pointer;
+        user-select: none;
+      }
+      #outliner .o-group .o-n {
+        opacity: 0.55;
+        color: #dbe7ff;
+      }
+      #outliner .o-group .o-scene-edit {
+        float: right;
+        opacity: 0.45;
+        color: #74c7a8;
+      }
+      #outliner .o-group .o-scene-edit:hover {
+        opacity: 1;
+      }
+      #outliner .o-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px 2px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #outliner .o-row:hover {
+        background: rgba(125, 249, 255, 0.08);
+      }
+      #outliner .o-row.selected {
+        background: rgba(125, 249, 255, 0.18);
+        color: #ffffff;
+      }
+      #outliner .o-row.dim {
+        opacity: 0.45;
+      }
+      #outliner .o-row.hole {
+        padding-left: 32px;
+      }
+      #outliner .o-row.hole .o-icon {
+        color: #ff6b6b;
+      }
+      #outliner .o-row.hole.add {
+        opacity: 0.55;
+      }
+      #outliner .o-row.hole.add:hover {
+        opacity: 1;
+      }
+      #outliner .o-icon {
+        width: 12px;
+        flex-shrink: 0;
+        text-align: center;
+        color: #7df9ff;
+      }
+      #outliner .o-id {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #palette {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 6px;
+        z-index: 30;
+      }
+      #palette .chip {
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.3);
+        border-radius: 14px;
+        color: #dbe7ff;
+        font: inherit;
+        font-size: 11px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      #palette .chip.active {
+        background: rgba(125, 249, 255, 0.25);
+        color: #ffffff;
+      }
+      #debug {
+        position: fixed;
+        top: 36px;
+        left: 14px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 12px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        z-index: 40;
+      }
+      #debug label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+      #debug label.selected {
+        background: rgba(125, 249, 255, 0.14);
+        outline: 1px solid rgba(125, 249, 255, 0.4);
+      }
+      #debug label.link {
+        cursor: pointer;
+        color: #9fdfe8;
+      }
+      #debug .debug-page {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #debug input[type='range'] {
+        width: 140px;
+        accent-color: #7df9ff;
+      }
+      #console {
+        position: fixed;
+        bottom: 12px;
+        left: 248px;
+        right: 324px;
+        height: 150px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 10px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      body.console-open #palette {
+        bottom: 170px;
+      }
+      #console .c-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #console .c-title {
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #console .c-head input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 5px;
+      }
+      #console .c-head label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      #console .c-head button {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      #console .c-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+      #console .c-line {
+        opacity: 0.85;
+      }
+      #console .c-event {
+        color: #ffd24a;
+      }
+      #console .c-spawn {
+        color: #9be8c0;
+      }
+      #console .c-despawn {
+        color: #ff8c7a;
+      }
+      #title {
+        position: fixed;
+        top: 38%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #e8f0ff;
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+        opacity: 0;
+        transition: opacity 2.4s ease;
+        pointer-events: none;
+        z-index: 15;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">GAIA &middot; <span id="status">connecting&hellip;</span> &middot; <span id="count">0</span> entities<span id="muted" style="display: none"> &middot; muted</span></div>
+    <div id="title"></div>
+    <div id="debug">
+      <div id="debug-page-main" class="debug-page">
+        <label>brightness <input id="debug-exposure" type="range" min="0.2" max="3" step="0.05" value="1" /> <span id="debug-exposure-value">1.00×</span></label>
+        <label>skylight <input id="debug-skylight" type="range" min="0" max="1.5" step="0.02" value="0" /> <span id="debug-skylight-value">+0.00</span></label>
+        <label>fog <input id="debug-fog" type="range" min="0.2" max="2.5" step="0.05" value="1" /> <span id="debug-fog-value">1.00×</span></label>
+        <label>storm <input id="debug-storm" type="range" min="0.2" max="5" step="0.1" value="1" /> <span id="debug-storm-value">1.00×</span></label>
+        <label>flame <input id="debug-flame" type="range" min="5" max="60" step="1" value="30" /> <span id="debug-flame-value">30m</span></label>
+        <label id="debug-rain-link" class="link">rain ▸</label>
+        <label id="debug-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+      <div id="debug-page-rain" class="debug-page" style="display: none">
+        <label id="debug-rain-back" class="link">◂ back</label>
+        <label>angle <input id="debug-rain-angle" type="range" min="-60" max="60" step="1" value="0" /> <span id="debug-rain-angle-value">0°</span></label>
+        <label>speed <input id="debug-rain-speed" type="range" min="0.1" max="3" step="0.05" value="1" /> <span id="debug-rain-speed-value">1.00×</span></label>
+        <label>intensity <input id="debug-rain-intensity" type="range" min="0" max="1.5" step="0.05" value="1" /> <span id="debug-rain-intensity-value">1.00×</span></label>
+        <label id="debug-rain-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="hint"></div>
+    <div id="mode">CREATE &middot; Q view W move E rotate R scale &middot; F frame &middot; RMB/V fly &middot; &#8997;drag orbit &middot; &#8984;D dup &middot; &#9003; delete &middot; &#8984;Z undo &middot; Tab to play</div>
+    <div id="viewbar">
+      <button id="vb-lit" class="active">lit</button>
+      <button id="vb-unlit">unlit</button>
+      <button id="vb-wireframe">wire</button>
+      <span class="vb-sep"></span>
+      <div id="vb-wrap">
+        <button id="vb-view" title="scene-view effects — what the editor draws, not the game">view &#9662;</button>
+        <div id="vb-menu">
+          <label><input type="checkbox" data-fx="skybox" checked />skybox</label>
+          <label><input type="checkbox" data-fx="fog" checked />fog</label>
+          <label><input type="checkbox" data-fx="particles" checked />particles</label>
+          <label><input type="checkbox" data-fx="post" checked />post fx</label>
+          <label title="the pooled point lights — sun and sky stay">
+            <input type="checkbox" data-fx="lights" checked />lights</label>
+          <label><input type="checkbox" data-fx="audio" checked />audio</label>
+        </div>
+      </div>
+      <span class="vb-sep"></span>
+      <button id="vb-stop" class="stop">&#9632; stop</button>
+    </div>
+    <div id="outliner"></div>
+    <div id="panel"></div>
+    <div id="console"></div>
+    <div id="palette"></div>
+    <div id="overlay">
+      <!-- empty until the snapshot decides: a titled game claims this screen
+           as its own — the GAIA defaults must never flash first -->
+      <h1 id="overlay-title"></h1>
+      <p id="overlay-sub"></p>
+      <div id="menu"></div>
+      <p id="overlay-keys">WASD move &middot; mouse look &middot; shift run &middot; E grab &middot; M mute &middot; Tab create &middot; G game mode &middot; esc release</p>
+    </div>
+    <script type="module" src="/engine-boot.js"></script>
+    <!-- THE OPENING: gate → title → live cinematic → handover. Self-registering
+         and independent of main.js (it waits for gaia.atlasStrategy to come up),
+         so the boot order is the plugin's own business. ?intro=off disables it. -->
+    <script type="module" src="/game/atlas-intro.js"></script>
+    <!-- ONBOARDING (2026-07-28): account creation on a first view, login on
+         return — hooks into atlas-intro.js's handover()/showMenu() (see that
+         file's ONBOARDING comments). ?onboarding=off disables it. -->
+    <script type="module" src="/game/atlas-onboarding.js"></script>
+    <!-- the director's scrubber: a key listener and nothing else until the
+         secret key (` / F9) summons it — no DOM, no hint, not in a recording -->
+    <script type="module" src="/game/atlas-scrubber.js"></script>
+    <!-- NPC dialogue: patches the existing Doll figure interaction; §IRON bridge/stub config lives in atlas-npc.js. -->
+    <script type="module" src="/game/atlas-npc.js"></script>
+    <!-- Kundenansicht: stayn dashboard toggle over the same database (Pascal 08-02). -->
+    <script type="module" src="/game/atlas-stayn.js"></script>
+  </body>
+</html>
+
+HTTP_STATUS=200
+### GET /api/health
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Paleblood Atlas &middot; GAIA World Engine</title>
+    <link rel="stylesheet" href="/game/atlas-ui.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #0a0e14;
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      }
+      canvas {
+        display: block;
+      }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 14px;
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #e8f0ff;
+        background: rgba(6, 10, 18, 0.72);
+        cursor: pointer;
+        z-index: 20;
+        user-select: none;
+      }
+      #overlay h1 {
+        margin: 0;
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
+      }
+      #overlay p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.75;
+      }
+      #menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-top: 22px;
+      }
+      #menu .menu-option {
+        font-size: 15px;
+        letter-spacing: 0.34em;
+        text-indent: 0.34em;
+        padding: 7px 22px;
+        opacity: 0.72;
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.15s ease, text-shadow 0.15s ease;
+      }
+      #menu .menu-option:hover {
+        opacity: 1;
+        text-shadow: 0 0 14px rgba(232, 240, 255, 0.7);
+      }
+      #menu .menu-levels {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-top: 6px;
+      }
+      #menu .menu-level {
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        padding: 5px 18px;
+        opacity: 0.6;
+        cursor: pointer;
+        user-select: none;
+      }
+      #menu .menu-level:hover {
+        opacity: 1;
+        text-shadow: 0 0 12px rgba(232, 240, 255, 0.7);
+      }
+      #crosshair {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin: -2px 0 0 -2px;
+        border-radius: 50%;
+        background: rgba(207, 227, 255, 0.85);
+        box-shadow: 0 0 6px rgba(125, 249, 255, 0.6);
+        display: none;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #hint {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #mode {
+        position: fixed;
+        top: 12px;
+        right: 14px;
+        display: none;
+        color: #ffd9a0;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        z-index: 10;
+      }
+      /* editor viewbar: draw mode (lit / unlit / wire) + the ■ stop toggle —
+         one row below the CREATE help line, which owns the top edge */
+      #viewbar {
+        position: fixed;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 4px;
+        z-index: 30;
+      }
+      #viewbar button {
+        background: rgba(8, 14, 24, 0.85);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 9px;
+        cursor: pointer;
+      }
+      #viewbar button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #viewbar button.stop.active {
+        background: rgba(255, 122, 89, 0.3);
+        border-color: rgba(255, 150, 120, 0.6);
+      }
+      #viewbar .vb-sep {
+        width: 1px;
+        background: rgba(125, 249, 255, 0.2);
+        margin: 1px 3px;
+      }
+      /* the view ▾ effects dropdown: Unity's scene-view toggles */
+      #vb-wrap {
+        position: relative;
+        display: flex;
+      }
+      #vb-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        padding: 6px 10px;
+        min-width: 96px;
+      }
+      #vb-menu label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9fb4d8;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 0;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #vb-menu label:hover {
+        color: #ffffff;
+      }
+      #vb-menu input {
+        accent-color: #7df9ff;
+        width: 11px;
+        height: 11px;
+        margin: 0;
+        cursor: pointer;
+      }
+      #panel {
+        position: fixed;
+        top: 40px;
+        right: 12px;
+        bottom: 70px;
+        width: 300px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #panel .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #panel .panel-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #panel .panel-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 6px 10px 0;
+      }
+      #panel .panel-tabs .active {
+        background: rgba(125, 249, 255, 0.2);
+      }
+      #panel .panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 10px;
+      }
+      #panel button,
+      #panel select {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 2px 7px;
+        cursor: pointer;
+      }
+      #panel .panel-section {
+        margin-bottom: 10px;
+      }
+      #panel .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 1px 4px;
+        margin-left: -4px;
+      }
+      #panel .panel-section.selected .section-head {
+        background: rgba(125, 249, 255, 0.12);
+        outline: 1px solid rgba(125, 249, 255, 0.35);
+      }
+      #panel .section-name {
+        color: #ffd9a0;
+        font-weight: 600;
+      }
+      #panel .section-doc {
+        opacity: 0.5;
+        font-size: 10px;
+        margin: -2px 0 4px;
+      }
+      #panel .runtime {
+        padding: 4px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+        opacity: 0.65;
+        font-size: 10px;
+      }
+      #panel .row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 3px 0;
+      }
+      #panel .label {
+        width: 78px;
+        flex-shrink: 0;
+        opacity: 0.75;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #panel .row input[type='range'] {
+        flex: 1;
+        min-width: 40px;
+        accent-color: #7df9ff;
+      }
+      #panel .row input[type='number'] {
+        width: 52px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .row input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 4px;
+      }
+      #panel .vec {
+        display: flex;
+        gap: 3px;
+        flex: 1;
+      }
+      #panel .vec input {
+        width: 100%;
+        min-width: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .block {
+        margin: 4px 0;
+      }
+      #panel .item-head {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        opacity: 0.8;
+      }
+      #panel .indent {
+        margin-left: 10px;
+        border-left: 1px solid rgba(125, 249, 255, 0.12);
+        padding-left: 8px;
+      }
+      #panel textarea {
+        width: 100%;
+        height: 340px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 6px;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+      #panel .json-error {
+        color: #ff8c7a;
+        margin-top: 4px;
+        white-space: pre-wrap;
+      }
+      #panel .panel-add {
+        margin-top: 6px;
+      }
+      #outliner {
+        position: fixed;
+        top: 40px;
+        left: 12px;
+        bottom: 70px;
+        width: 224px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #outliner .o-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #outliner .o-count {
+        opacity: 0.6;
+      }
+      #outliner input[type='text'] {
+        margin: 6px 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 3px 6px;
+      }
+      #outliner .o-gizmos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px 6px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-gizmos button {
+        background: rgba(125, 249, 255, 0.06);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        padding: 1px 7px;
+        cursor: pointer;
+      }
+      #outliner .o-gizmos button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #outliner .o-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 0 8px;
+      }
+      #outliner .o-group {
+        padding: 5px 10px 2px;
+        color: #ffd9a0;
+        cursor: pointer;
+        user-select: none;
+      }
+      #outliner .o-group .o-n {
+        opacity: 0.55;
+        color: #dbe7ff;
+      }
+      #outliner .o-group .o-scene-edit {
+        float: right;
+        opacity: 0.45;
+        color: #74c7a8;
+      }
+      #outliner .o-group .o-scene-edit:hover {
+        opacity: 1;
+      }
+      #outliner .o-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px 2px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #outliner .o-row:hover {
+        background: rgba(125, 249, 255, 0.08);
+      }
+      #outliner .o-row.selected {
+        background: rgba(125, 249, 255, 0.18);
+        color: #ffffff;
+      }
+      #outliner .o-row.dim {
+        opacity: 0.45;
+      }
+      #outliner .o-row.hole {
+        padding-left: 32px;
+      }
+      #outliner .o-row.hole .o-icon {
+        color: #ff6b6b;
+      }
+      #outliner .o-row.hole.add {
+        opacity: 0.55;
+      }
+      #outliner .o-row.hole.add:hover {
+        opacity: 1;
+      }
+      #outliner .o-icon {
+        width: 12px;
+        flex-shrink: 0;
+        text-align: center;
+        color: #7df9ff;
+      }
+      #outliner .o-id {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #palette {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 6px;
+        z-index: 30;
+      }
+      #palette .chip {
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.3);
+        border-radius: 14px;
+        color: #dbe7ff;
+        font: inherit;
+        font-size: 11px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      #palette .chip.active {
+        background: rgba(125, 249, 255, 0.25);
+        color: #ffffff;
+      }
+      #debug {
+        position: fixed;
+        top: 36px;
+        left: 14px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 12px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        z-index: 40;
+      }
+      #debug label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+      #debug label.selected {
+        background: rgba(125, 249, 255, 0.14);
+        outline: 1px solid rgba(125, 249, 255, 0.4);
+      }
+      #debug label.link {
+        cursor: pointer;
+        color: #9fdfe8;
+      }
+      #debug .debug-page {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #debug input[type='range'] {
+        width: 140px;
+        accent-color: #7df9ff;
+      }
+      #console {
+        position: fixed;
+        bottom: 12px;
+        left: 248px;
+        right: 324px;
+        height: 150px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 10px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      body.console-open #palette {
+        bottom: 170px;
+      }
+      #console .c-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #console .c-title {
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #console .c-head input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 5px;
+      }
+      #console .c-head label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      #console .c-head button {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      #console .c-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+      #console .c-line {
+        opacity: 0.85;
+      }
+      #console .c-event {
+        color: #ffd24a;
+      }
+      #console .c-spawn {
+        color: #9be8c0;
+      }
+      #console .c-despawn {
+        color: #ff8c7a;
+      }
+      #title {
+        position: fixed;
+        top: 38%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #e8f0ff;
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+        opacity: 0;
+        transition: opacity 2.4s ease;
+        pointer-events: none;
+        z-index: 15;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">GAIA &middot; <span id="status">connecting&hellip;</span> &middot; <span id="count">0</span> entities<span id="muted" style="display: none"> &middot; muted</span></div>
+    <div id="title"></div>
+    <div id="debug">
+      <div id="debug-page-main" class="debug-page">
+        <label>brightness <input id="debug-exposure" type="range" min="0.2" max="3" step="0.05" value="1" /> <span id="debug-exposure-value">1.00×</span></label>
+        <label>skylight <input id="debug-skylight" type="range" min="0" max="1.5" step="0.02" value="0" /> <span id="debug-skylight-value">+0.00</span></label>
+        <label>fog <input id="debug-fog" type="range" min="0.2" max="2.5" step="0.05" value="1" /> <span id="debug-fog-value">1.00×</span></label>
+        <label>storm <input id="debug-storm" type="range" min="0.2" max="5" step="0.1" value="1" /> <span id="debug-storm-value">1.00×</span></label>
+        <label>flame <input id="debug-flame" type="range" min="5" max="60" step="1" value="30" /> <span id="debug-flame-value">30m</span></label>
+        <label id="debug-rain-link" class="link">rain ▸</label>
+        <label id="debug-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+      <div id="debug-page-rain" class="debug-page" style="display: none">
+        <label id="debug-rain-back" class="link">◂ back</label>
+        <label>angle <input id="debug-rain-angle" type="range" min="-60" max="60" step="1" value="0" /> <span id="debug-rain-angle-value">0°</span></label>
+        <label>speed <input id="debug-rain-speed" type="range" min="0.1" max="3" step="0.05" value="1" /> <span id="debug-rain-speed-value">1.00×</span></label>
+        <label>intensity <input id="debug-rain-intensity" type="range" min="0" max="1.5" step="0.05" value="1" /> <span id="debug-rain-intensity-value">1.00×</span></label>
+        <label id="debug-rain-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="hint"></div>
+    <div id="mode">CREATE &middot; Q view W move E rotate R scale &middot; F frame &middot; RMB/V fly &middot; &#8997;drag orbit &middot; &#8984;D dup &middot; &#9003; delete &middot; &#8984;Z undo &middot; Tab to play</div>
+    <div id="viewbar">
+      <button id="vb-lit" class="active">lit</button>
+      <button id="vb-unlit">unlit</button>
+      <button id="vb-wireframe">wire</button>
+      <span class="vb-sep"></span>
+      <div id="vb-wrap">
+        <button id="vb-view" title="scene-view effects — what the editor draws, not the game">view &#9662;</button>
+        <div id="vb-menu">
+          <label><input type="checkbox" data-fx="skybox" checked />skybox</label>
+          <label><input type="checkbox" data-fx="fog" checked />fog</label>
+          <label><input type="checkbox" data-fx="particles" checked />particles</label>
+          <label><input type="checkbox" data-fx="post" checked />post fx</label>
+          <label title="the pooled point lights — sun and sky stay">
+            <input type="checkbox" data-fx="lights" checked />lights</label>
+          <label><input type="checkbox" data-fx="audio" checked />audio</label>
+        </div>
+      </div>
+      <span class="vb-sep"></span>
+      <button id="vb-stop" class="stop">&#9632; stop</button>
+    </div>
+    <div id="outliner"></div>
+    <div id="panel"></div>
+    <div id="console"></div>
+    <div id="palette"></div>
+    <div id="overlay">
+      <!-- empty until the snapshot decides: a titled game claims this screen
+           as its own — the GAIA defaults must never flash first -->
+      <h1 id="overlay-title"></h1>
+      <p id="overlay-sub"></p>
+      <div id="menu"></div>
+      <p id="overlay-keys">WASD move &middot; mouse look &middot; shift run &middot; E grab &middot; M mute &middot; Tab create &middot; G game mode &middot; esc release</p>
+    </div>
+    <script type="module" src="/engine-boot.js"></script>
+    <!-- THE OPENING: gate → title → live cinematic → handover. Self-registering
+         and independent of main.js (it waits for gaia.atlasStrategy to come up),
+         so the boot order is the plugin's own business. ?intro=off disables it. -->
+    <script type="module" src="/game/atlas-intro.js"></script>
+    <!-- ONBOARDING (2026-07-28): account creation on a first view, login on
+         return — hooks into atlas-intro.js's handover()/showMenu() (see that
+         file's ONBOARDING comments). ?onboarding=off disables it. -->
+    <script type="module" src="/game/atlas-onboarding.js"></script>
+    <!-- the director's scrubber: a key listener and nothing else until the
+         secret key (` / F9) summons it — no DOM, no hint, not in a recording -->
+    <script type="module" src="/game/atlas-scrubber.js"></script>
+    <!-- NPC dialogue: patches the existing Doll figure interaction; §IRON bridge/stub config lives in atlas-npc.js. -->
+    <script type="module" src="/game/atlas-npc.js"></script>
+    <!-- Kundenansicht: stayn dashboard toggle over the same database (Pascal 08-02). -->
+    <script type="module" src="/game/atlas-stayn.js"></script>
+  </body>
+</html>
+
+HTTP_STATUS=200
+### GET /docs
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Paleblood Atlas &middot; GAIA World Engine</title>
+    <link rel="stylesheet" href="/game/atlas-ui.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #0a0e14;
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      }
+      canvas {
+        display: block;
+      }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 14px;
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #e8f0ff;
+        background: rgba(6, 10, 18, 0.72);
+        cursor: pointer;
+        z-index: 20;
+        user-select: none;
+      }
+      #overlay h1 {
+        margin: 0;
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
+      }
+      #overlay p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.75;
+      }
+      #menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-top: 22px;
+      }
+      #menu .menu-option {
+        font-size: 15px;
+        letter-spacing: 0.34em;
+        text-indent: 0.34em;
+        padding: 7px 22px;
+        opacity: 0.72;
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.15s ease, text-shadow 0.15s ease;
+      }
+      #menu .menu-option:hover {
+        opacity: 1;
+        text-shadow: 0 0 14px rgba(232, 240, 255, 0.7);
+      }
+      #menu .menu-levels {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-top: 6px;
+      }
+      #menu .menu-level {
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        padding: 5px 18px;
+        opacity: 0.6;
+        cursor: pointer;
+        user-select: none;
+      }
+      #menu .menu-level:hover {
+        opacity: 1;
+        text-shadow: 0 0 12px rgba(232, 240, 255, 0.7);
+      }
+      #crosshair {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin: -2px 0 0 -2px;
+        border-radius: 50%;
+        background: rgba(207, 227, 255, 0.85);
+        box-shadow: 0 0 6px rgba(125, 249, 255, 0.6);
+        display: none;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #hint {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #mode {
+        position: fixed;
+        top: 12px;
+        right: 14px;
+        display: none;
+        color: #ffd9a0;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        z-index: 10;
+      }
+      /* editor viewbar: draw mode (lit / unlit / wire) + the ■ stop toggle —
+         one row below the CREATE help line, which owns the top edge */
+      #viewbar {
+        position: fixed;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 4px;
+        z-index: 30;
+      }
+      #viewbar button {
+        background: rgba(8, 14, 24, 0.85);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 9px;
+        cursor: pointer;
+      }
+      #viewbar button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #viewbar button.stop.active {
+        background: rgba(255, 122, 89, 0.3);
+        border-color: rgba(255, 150, 120, 0.6);
+      }
+      #viewbar .vb-sep {
+        width: 1px;
+        background: rgba(125, 249, 255, 0.2);
+        margin: 1px 3px;
+      }
+      /* the view ▾ effects dropdown: Unity's scene-view toggles */
+      #vb-wrap {
+        position: relative;
+        display: flex;
+      }
+      #vb-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        padding: 6px 10px;
+        min-width: 96px;
+      }
+      #vb-menu label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9fb4d8;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 0;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #vb-menu label:hover {
+        color: #ffffff;
+      }
+      #vb-menu input {
+        accent-color: #7df9ff;
+        width: 11px;
+        height: 11px;
+        margin: 0;
+        cursor: pointer;
+      }
+      #panel {
+        position: fixed;
+        top: 40px;
+        right: 12px;
+        bottom: 70px;
+        width: 300px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #panel .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #panel .panel-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #panel .panel-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 6px 10px 0;
+      }
+      #panel .panel-tabs .active {
+        background: rgba(125, 249, 255, 0.2);
+      }
+      #panel .panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 10px;
+      }
+      #panel button,
+      #panel select {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 2px 7px;
+        cursor: pointer;
+      }
+      #panel .panel-section {
+        margin-bottom: 10px;
+      }
+      #panel .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 1px 4px;
+        margin-left: -4px;
+      }
+      #panel .panel-section.selected .section-head {
+        background: rgba(125, 249, 255, 0.12);
+        outline: 1px solid rgba(125, 249, 255, 0.35);
+      }
+      #panel .section-name {
+        color: #ffd9a0;
+        font-weight: 600;
+      }
+      #panel .section-doc {
+        opacity: 0.5;
+        font-size: 10px;
+        margin: -2px 0 4px;
+      }
+      #panel .runtime {
+        padding: 4px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+        opacity: 0.65;
+        font-size: 10px;
+      }
+      #panel .row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 3px 0;
+      }
+      #panel .label {
+        width: 78px;
+        flex-shrink: 0;
+        opacity: 0.75;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #panel .row input[type='range'] {
+        flex: 1;
+        min-width: 40px;
+        accent-color: #7df9ff;
+      }
+      #panel .row input[type='number'] {
+        width: 52px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .row input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 4px;
+      }
+      #panel .vec {
+        display: flex;
+        gap: 3px;
+        flex: 1;
+      }
+      #panel .vec input {
+        width: 100%;
+        min-width: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .block {
+        margin: 4px 0;
+      }
+      #panel .item-head {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        opacity: 0.8;
+      }
+      #panel .indent {
+        margin-left: 10px;
+        border-left: 1px solid rgba(125, 249, 255, 0.12);
+        padding-left: 8px;
+      }
+      #panel textarea {
+        width: 100%;
+        height: 340px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 6px;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+      #panel .json-error {
+        color: #ff8c7a;
+        margin-top: 4px;
+        white-space: pre-wrap;
+      }
+      #panel .panel-add {
+        margin-top: 6px;
+      }
+      #outliner {
+        position: fixed;
+        top: 40px;
+        left: 12px;
+        bottom: 70px;
+        width: 224px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #outliner .o-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #outliner .o-count {
+        opacity: 0.6;
+      }
+      #outliner input[type='text'] {
+        margin: 6px 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 3px 6px;
+      }
+      #outliner .o-gizmos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px 6px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-gizmos button {
+        background: rgba(125, 249, 255, 0.06);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        padding: 1px 7px;
+        cursor: pointer;
+      }
+      #outliner .o-gizmos button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #outliner .o-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 0 8px;
+      }
+      #outliner .o-group {
+        padding: 5px 10px 2px;
+        color: #ffd9a0;
+        cursor: pointer;
+        user-select: none;
+      }
+      #outliner .o-group .o-n {
+        opacity: 0.55;
+        color: #dbe7ff;
+      }
+      #outliner .o-group .o-scene-edit {
+        float: right;
+        opacity: 0.45;
+        color: #74c7a8;
+      }
+      #outliner .o-group .o-scene-edit:hover {
+        opacity: 1;
+      }
+      #outliner .o-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px 2px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #outliner .o-row:hover {
+        background: rgba(125, 249, 255, 0.08);
+      }
+      #outliner .o-row.selected {
+        background: rgba(125, 249, 255, 0.18);
+        color: #ffffff;
+      }
+      #outliner .o-row.dim {
+        opacity: 0.45;
+      }
+      #outliner .o-row.hole {
+        padding-left: 32px;
+      }
+      #outliner .o-row.hole .o-icon {
+        color: #ff6b6b;
+      }
+      #outliner .o-row.hole.add {
+        opacity: 0.55;
+      }
+      #outliner .o-row.hole.add:hover {
+        opacity: 1;
+      }
+      #outliner .o-icon {
+        width: 12px;
+        flex-shrink: 0;
+        text-align: center;
+        color: #7df9ff;
+      }
+      #outliner .o-id {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #palette {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 6px;
+        z-index: 30;
+      }
+      #palette .chip {
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.3);
+        border-radius: 14px;
+        color: #dbe7ff;
+        font: inherit;
+        font-size: 11px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      #palette .chip.active {
+        background: rgba(125, 249, 255, 0.25);
+        color: #ffffff;
+      }
+      #debug {
+        position: fixed;
+        top: 36px;
+        left: 14px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 12px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        z-index: 40;
+      }
+      #debug label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+      #debug label.selected {
+        background: rgba(125, 249, 255, 0.14);
+        outline: 1px solid rgba(125, 249, 255, 0.4);
+      }
+      #debug label.link {
+        cursor: pointer;
+        color: #9fdfe8;
+      }
+      #debug .debug-page {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #debug input[type='range'] {
+        width: 140px;
+        accent-color: #7df9ff;
+      }
+      #console {
+        position: fixed;
+        bottom: 12px;
+        left: 248px;
+        right: 324px;
+        height: 150px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 10px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      body.console-open #palette {
+        bottom: 170px;
+      }
+      #console .c-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #console .c-title {
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #console .c-head input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 5px;
+      }
+      #console .c-head label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      #console .c-head button {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      #console .c-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+      #console .c-line {
+        opacity: 0.85;
+      }
+      #console .c-event {
+        color: #ffd24a;
+      }
+      #console .c-spawn {
+        color: #9be8c0;
+      }
+      #console .c-despawn {
+        color: #ff8c7a;
+      }
+      #title {
+        position: fixed;
+        top: 38%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #e8f0ff;
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+        opacity: 0;
+        transition: opacity 2.4s ease;
+        pointer-events: none;
+        z-index: 15;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">GAIA &middot; <span id="status">connecting&hellip;</span> &middot; <span id="count">0</span> entities<span id="muted" style="display: none"> &middot; muted</span></div>
+    <div id="title"></div>
+    <div id="debug">
+      <div id="debug-page-main" class="debug-page">
+        <label>brightness <input id="debug-exposure" type="range" min="0.2" max="3" step="0.05" value="1" /> <span id="debug-exposure-value">1.00×</span></label>
+        <label>skylight <input id="debug-skylight" type="range" min="0" max="1.5" step="0.02" value="0" /> <span id="debug-skylight-value">+0.00</span></label>
+        <label>fog <input id="debug-fog" type="range" min="0.2" max="2.5" step="0.05" value="1" /> <span id="debug-fog-value">1.00×</span></label>
+        <label>storm <input id="debug-storm" type="range" min="0.2" max="5" step="0.1" value="1" /> <span id="debug-storm-value">1.00×</span></label>
+        <label>flame <input id="debug-flame" type="range" min="5" max="60" step="1" value="30" /> <span id="debug-flame-value">30m</span></label>
+        <label id="debug-rain-link" class="link">rain ▸</label>
+        <label id="debug-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+      <div id="debug-page-rain" class="debug-page" style="display: none">
+        <label id="debug-rain-back" class="link">◂ back</label>
+        <label>angle <input id="debug-rain-angle" type="range" min="-60" max="60" step="1" value="0" /> <span id="debug-rain-angle-value">0°</span></label>
+        <label>speed <input id="debug-rain-speed" type="range" min="0.1" max="3" step="0.05" value="1" /> <span id="debug-rain-speed-value">1.00×</span></label>
+        <label>intensity <input id="debug-rain-intensity" type="range" min="0" max="1.5" step="0.05" value="1" /> <span id="debug-rain-intensity-value">1.00×</span></label>
+        <label id="debug-rain-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="hint"></div>
+    <div id="mode">CREATE &middot; Q view W move E rotate R scale &middot; F frame &middot; RMB/V fly &middot; &#8997;drag orbit &middot; &#8984;D dup &middot; &#9003; delete &middot; &#8984;Z undo &middot; Tab to play</div>
+    <div id="viewbar">
+      <button id="vb-lit" class="active">lit</button>
+      <button id="vb-unlit">unlit</button>
+      <button id="vb-wireframe">wire</button>
+      <span class="vb-sep"></span>
+      <div id="vb-wrap">
+        <button id="vb-view" title="scene-view effects — what the editor draws, not the game">view &#9662;</button>
+        <div id="vb-menu">
+          <label><input type="checkbox" data-fx="skybox" checked />skybox</label>
+          <label><input type="checkbox" data-fx="fog" checked />fog</label>
+          <label><input type="checkbox" data-fx="particles" checked />particles</label>
+          <label><input type="checkbox" data-fx="post" checked />post fx</label>
+          <label title="the pooled point lights — sun and sky stay">
+            <input type="checkbox" data-fx="lights" checked />lights</label>
+          <label><input type="checkbox" data-fx="audio" checked />audio</label>
+        </div>
+      </div>
+      <span class="vb-sep"></span>
+      <button id="vb-stop" class="stop">&#9632; stop</button>
+    </div>
+    <div id="outliner"></div>
+    <div id="panel"></div>
+    <div id="console"></div>
+    <div id="palette"></div>
+    <div id="overlay">
+      <!-- empty until the snapshot decides: a titled game claims this screen
+           as its own — the GAIA defaults must never flash first -->
+      <h1 id="overlay-title"></h1>
+      <p id="overlay-sub"></p>
+      <div id="menu"></div>
+      <p id="overlay-keys">WASD move &middot; mouse look &middot; shift run &middot; E grab &middot; M mute &middot; Tab create &middot; G game mode &middot; esc release</p>
+    </div>
+    <script type="module" src="/engine-boot.js"></script>
+    <!-- THE OPENING: gate → title → live cinematic → handover. Self-registering
+         and independent of main.js (it waits for gaia.atlasStrategy to come up),
+         so the boot order is the plugin's own business. ?intro=off disables it. -->
+    <script type="module" src="/game/atlas-intro.js"></script>
+    <!-- ONBOARDING (2026-07-28): account creation on a first view, login on
+         return — hooks into atlas-intro.js's handover()/showMenu() (see that
+         file's ONBOARDING comments). ?onboarding=off disables it. -->
+    <script type="module" src="/game/atlas-onboarding.js"></script>
+    <!-- the director's scrubber: a key listener and nothing else until the
+         secret key (` / F9) summons it — no DOM, no hint, not in a recording -->
+    <script type="module" src="/game/atlas-scrubber.js"></script>
+    <!-- NPC dialogue: patches the existing Doll figure interaction; §IRON bridge/stub config lives in atlas-npc.js. -->
+    <script type="module" src="/game/atlas-npc.js"></script>
+    <!-- Kundenansicht: stayn dashboard toggle over the same database (Pascal 08-02). -->
+    <script type="module" src="/game/atlas-stayn.js"></script>
+  </body>
+</html>
+
+HTTP_STATUS=200
+### GET /openapi.json
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Paleblood Atlas &middot; GAIA World Engine</title>
+    <link rel="stylesheet" href="/game/atlas-ui.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #0a0e14;
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      }
+      canvas {
+        display: block;
+      }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 14px;
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #e8f0ff;
+        background: rgba(6, 10, 18, 0.72);
+        cursor: pointer;
+        z-index: 20;
+        user-select: none;
+      }
+      #overlay h1 {
+        margin: 0;
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
+      }
+      #overlay p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.75;
+      }
+      #menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-top: 22px;
+      }
+      #menu .menu-option {
+        font-size: 15px;
+        letter-spacing: 0.34em;
+        text-indent: 0.34em;
+        padding: 7px 22px;
+        opacity: 0.72;
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.15s ease, text-shadow 0.15s ease;
+      }
+      #menu .menu-option:hover {
+        opacity: 1;
+        text-shadow: 0 0 14px rgba(232, 240, 255, 0.7);
+      }
+      #menu .menu-levels {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-top: 6px;
+      }
+      #menu .menu-level {
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        padding: 5px 18px;
+        opacity: 0.6;
+        cursor: pointer;
+        user-select: none;
+      }
+      #menu .menu-level:hover {
+        opacity: 1;
+        text-shadow: 0 0 12px rgba(232, 240, 255, 0.7);
+      }
+      #crosshair {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin: -2px 0 0 -2px;
+        border-radius: 50%;
+        background: rgba(207, 227, 255, 0.85);
+        box-shadow: 0 0 6px rgba(125, 249, 255, 0.6);
+        display: none;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #hint {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #mode {
+        position: fixed;
+        top: 12px;
+        right: 14px;
+        display: none;
+        color: #ffd9a0;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        z-index: 10;
+      }
+      /* editor viewbar: draw mode (lit / unlit / wire) + the ■ stop toggle —
+         one row below the CREATE help line, which owns the top edge */
+      #viewbar {
+        position: fixed;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 4px;
+        z-index: 30;
+      }
+      #viewbar button {
+        background: rgba(8, 14, 24, 0.85);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 9px;
+        cursor: pointer;
+      }
+      #viewbar button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #viewbar button.stop.active {
+        background: rgba(255, 122, 89, 0.3);
+        border-color: rgba(255, 150, 120, 0.6);
+      }
+      #viewbar .vb-sep {
+        width: 1px;
+        background: rgba(125, 249, 255, 0.2);
+        margin: 1px 3px;
+      }
+      /* the view ▾ effects dropdown: Unity's scene-view toggles */
+      #vb-wrap {
+        position: relative;
+        display: flex;
+      }
+      #vb-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        padding: 6px 10px;
+        min-width: 96px;
+      }
+      #vb-menu label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9fb4d8;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 0;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #vb-menu label:hover {
+        color: #ffffff;
+      }
+      #vb-menu input {
+        accent-color: #7df9ff;
+        width: 11px;
+        height: 11px;
+        margin: 0;
+        cursor: pointer;
+      }
+      #panel {
+        position: fixed;
+        top: 40px;
+        right: 12px;
+        bottom: 70px;
+        width: 300px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #panel .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #panel .panel-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #panel .panel-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 6px 10px 0;
+      }
+      #panel .panel-tabs .active {
+        background: rgba(125, 249, 255, 0.2);
+      }
+      #panel .panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 10px;
+      }
+      #panel button,
+      #panel select {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 2px 7px;
+        cursor: pointer;
+      }
+      #panel .panel-section {
+        margin-bottom: 10px;
+      }
+      #panel .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 1px 4px;
+        margin-left: -4px;
+      }
+      #panel .panel-section.selected .section-head {
+        background: rgba(125, 249, 255, 0.12);
+        outline: 1px solid rgba(125, 249, 255, 0.35);
+      }
+      #panel .section-name {
+        color: #ffd9a0;
+        font-weight: 600;
+      }
+      #panel .section-doc {
+        opacity: 0.5;
+        font-size: 10px;
+        margin: -2px 0 4px;
+      }
+      #panel .runtime {
+        padding: 4px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+        opacity: 0.65;
+        font-size: 10px;
+      }
+      #panel .row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 3px 0;
+      }
+      #panel .label {
+        width: 78px;
+        flex-shrink: 0;
+        opacity: 0.75;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #panel .row input[type='range'] {
+        flex: 1;
+        min-width: 40px;
+        accent-color: #7df9ff;
+      }
+      #panel .row input[type='number'] {
+        width: 52px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .row input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 4px;
+      }
+      #panel .vec {
+        display: flex;
+        gap: 3px;
+        flex: 1;
+      }
+      #panel .vec input {
+        width: 100%;
+        min-width: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .block {
+        margin: 4px 0;
+      }
+      #panel .item-head {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        opacity: 0.8;
+      }
+      #panel .indent {
+        margin-left: 10px;
+        border-left: 1px solid rgba(125, 249, 255, 0.12);
+        padding-left: 8px;
+      }
+      #panel textarea {
+        width: 100%;
+        height: 340px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 6px;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+      #panel .json-error {
+        color: #ff8c7a;
+        margin-top: 4px;
+        white-space: pre-wrap;
+      }
+      #panel .panel-add {
+        margin-top: 6px;
+      }
+      #outliner {
+        position: fixed;
+        top: 40px;
+        left: 12px;
+        bottom: 70px;
+        width: 224px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #outliner .o-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #outliner .o-count {
+        opacity: 0.6;
+      }
+      #outliner input[type='text'] {
+        margin: 6px 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 3px 6px;
+      }
+      #outliner .o-gizmos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px 6px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-gizmos button {
+        background: rgba(125, 249, 255, 0.06);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        padding: 1px 7px;
+        cursor: pointer;
+      }
+      #outliner .o-gizmos button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #outliner .o-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 0 8px;
+      }
+      #outliner .o-group {
+        padding: 5px 10px 2px;
+        color: #ffd9a0;
+        cursor: pointer;
+        user-select: none;
+      }
+      #outliner .o-group .o-n {
+        opacity: 0.55;
+        color: #dbe7ff;
+      }
+      #outliner .o-group .o-scene-edit {
+        float: right;
+        opacity: 0.45;
+        color: #74c7a8;
+      }
+      #outliner .o-group .o-scene-edit:hover {
+        opacity: 1;
+      }
+      #outliner .o-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px 2px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #outliner .o-row:hover {
+        background: rgba(125, 249, 255, 0.08);
+      }
+      #outliner .o-row.selected {
+        background: rgba(125, 249, 255, 0.18);
+        color: #ffffff;
+      }
+      #outliner .o-row.dim {
+        opacity: 0.45;
+      }
+      #outliner .o-row.hole {
+        padding-left: 32px;
+      }
+      #outliner .o-row.hole .o-icon {
+        color: #ff6b6b;
+      }
+      #outliner .o-row.hole.add {
+        opacity: 0.55;
+      }
+      #outliner .o-row.hole.add:hover {
+        opacity: 1;
+      }
+      #outliner .o-icon {
+        width: 12px;
+        flex-shrink: 0;
+        text-align: center;
+        color: #7df9ff;
+      }
+      #outliner .o-id {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #palette {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 6px;
+        z-index: 30;
+      }
+      #palette .chip {
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.3);
+        border-radius: 14px;
+        color: #dbe7ff;
+        font: inherit;
+        font-size: 11px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      #palette .chip.active {
+        background: rgba(125, 249, 255, 0.25);
+        color: #ffffff;
+      }
+      #debug {
+        position: fixed;
+        top: 36px;
+        left: 14px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 12px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        z-index: 40;
+      }
+      #debug label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+      #debug label.selected {
+        background: rgba(125, 249, 255, 0.14);
+        outline: 1px solid rgba(125, 249, 255, 0.4);
+      }
+      #debug label.link {
+        cursor: pointer;
+        color: #9fdfe8;
+      }
+      #debug .debug-page {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #debug input[type='range'] {
+        width: 140px;
+        accent-color: #7df9ff;
+      }
+      #console {
+        position: fixed;
+        bottom: 12px;
+        left: 248px;
+        right: 324px;
+        height: 150px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 10px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      body.console-open #palette {
+        bottom: 170px;
+      }
+      #console .c-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #console .c-title {
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #console .c-head input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 5px;
+      }
+      #console .c-head label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      #console .c-head button {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      #console .c-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+      #console .c-line {
+        opacity: 0.85;
+      }
+      #console .c-event {
+        color: #ffd24a;
+      }
+      #console .c-spawn {
+        color: #9be8c0;
+      }
+      #console .c-despawn {
+        color: #ff8c7a;
+      }
+      #title {
+        position: fixed;
+        top: 38%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #e8f0ff;
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+        opacity: 0;
+        transition: opacity 2.4s ease;
+        pointer-events: none;
+        z-index: 15;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">GAIA &middot; <span id="status">connecting&hellip;</span> &middot; <span id="count">0</span> entities<span id="muted" style="display: none"> &middot; muted</span></div>
+    <div id="title"></div>
+    <div id="debug">
+      <div id="debug-page-main" class="debug-page">
+        <label>brightness <input id="debug-exposure" type="range" min="0.2" max="3" step="0.05" value="1" /> <span id="debug-exposure-value">1.00×</span></label>
+        <label>skylight <input id="debug-skylight" type="range" min="0" max="1.5" step="0.02" value="0" /> <span id="debug-skylight-value">+0.00</span></label>
+        <label>fog <input id="debug-fog" type="range" min="0.2" max="2.5" step="0.05" value="1" /> <span id="debug-fog-value">1.00×</span></label>
+        <label>storm <input id="debug-storm" type="range" min="0.2" max="5" step="0.1" value="1" /> <span id="debug-storm-value">1.00×</span></label>
+        <label>flame <input id="debug-flame" type="range" min="5" max="60" step="1" value="30" /> <span id="debug-flame-value">30m</span></label>
+        <label id="debug-rain-link" class="link">rain ▸</label>
+        <label id="debug-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+      <div id="debug-page-rain" class="debug-page" style="display: none">
+        <label id="debug-rain-back" class="link">◂ back</label>
+        <label>angle <input id="debug-rain-angle" type="range" min="-60" max="60" step="1" value="0" /> <span id="debug-rain-angle-value">0°</span></label>
+        <label>speed <input id="debug-rain-speed" type="range" min="0.1" max="3" step="0.05" value="1" /> <span id="debug-rain-speed-value">1.00×</span></label>
+        <label>intensity <input id="debug-rain-intensity" type="range" min="0" max="1.5" step="0.05" value="1" /> <span id="debug-rain-intensity-value">1.00×</span></label>
+        <label id="debug-rain-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="hint"></div>
+    <div id="mode">CREATE &middot; Q view W move E rotate R scale &middot; F frame &middot; RMB/V fly &middot; &#8997;drag orbit &middot; &#8984;D dup &middot; &#9003; delete &middot; &#8984;Z undo &middot; Tab to play</div>
+    <div id="viewbar">
+      <button id="vb-lit" class="active">lit</button>
+      <button id="vb-unlit">unlit</button>
+      <button id="vb-wireframe">wire</button>
+      <span class="vb-sep"></span>
+      <div id="vb-wrap">
+        <button id="vb-view" title="scene-view effects — what the editor draws, not the game">view &#9662;</button>
+        <div id="vb-menu">
+          <label><input type="checkbox" data-fx="skybox" checked />skybox</label>
+          <label><input type="checkbox" data-fx="fog" checked />fog</label>
+          <label><input type="checkbox" data-fx="particles" checked />particles</label>
+          <label><input type="checkbox" data-fx="post" checked />post fx</label>
+          <label title="the pooled point lights — sun and sky stay">
+            <input type="checkbox" data-fx="lights" checked />lights</label>
+          <label><input type="checkbox" data-fx="audio" checked />audio</label>
+        </div>
+      </div>
+      <span class="vb-sep"></span>
+      <button id="vb-stop" class="stop">&#9632; stop</button>
+    </div>
+    <div id="outliner"></div>
+    <div id="panel"></div>
+    <div id="console"></div>
+    <div id="palette"></div>
+    <div id="overlay">
+      <!-- empty until the snapshot decides: a titled game claims this screen
+           as its own — the GAIA defaults must never flash first -->
+      <h1 id="overlay-title"></h1>
+      <p id="overlay-sub"></p>
+      <div id="menu"></div>
+      <p id="overlay-keys">WASD move &middot; mouse look &middot; shift run &middot; E grab &middot; M mute &middot; Tab create &middot; G game mode &middot; esc release</p>
+    </div>
+    <script type="module" src="/engine-boot.js"></script>
+    <!-- THE OPENING: gate → title → live cinematic → handover. Self-registering
+         and independent of main.js (it waits for gaia.atlasStrategy to come up),
+         so the boot order is the plugin's own business. ?intro=off disables it. -->
+    <script type="module" src="/game/atlas-intro.js"></script>
+    <!-- ONBOARDING (2026-07-28): account creation on a first view, login on
+         return — hooks into atlas-intro.js's handover()/showMenu() (see that
+         file's ONBOARDING comments). ?onboarding=off disables it. -->
+    <script type="module" src="/game/atlas-onboarding.js"></script>
+    <!-- the director's scrubber: a key listener and nothing else until the
+         secret key (` / F9) summons it — no DOM, no hint, not in a recording -->
+    <script type="module" src="/game/atlas-scrubber.js"></script>
+    <!-- NPC dialogue: patches the existing Doll figure interaction; §IRON bridge/stub config lives in atlas-npc.js. -->
+    <script type="module" src="/game/atlas-npc.js"></script>
+    <!-- Kundenansicht: stayn dashboard toggle over the same database (Pascal 08-02). -->
+    <script type="module" src="/game/atlas-stayn.js"></script>
+  </body>
+</html>
+
+HTTP_STATUS=200
+### GET /api/docs
+<!doctype html>
+<html lang="en">
+  <head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:," />
+    <title>Paleblood Atlas &middot; GAIA World Engine</title>
+    <link rel="stylesheet" href="/game/atlas-ui.css" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #0a0e14;
+        font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+      }
+      canvas {
+        display: block;
+      }
+      #hud {
+        position: fixed;
+        top: 12px;
+        left: 14px;
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: #e8f0ff;
+        background: rgba(6, 10, 18, 0.72);
+        cursor: pointer;
+        z-index: 20;
+        user-select: none;
+      }
+      #overlay h1 {
+        margin: 0;
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.5em;
+        text-indent: 0.5em;
+      }
+      #overlay p {
+        margin: 0;
+        font-size: 13px;
+        opacity: 0.75;
+      }
+      #menu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        margin-top: 22px;
+      }
+      #menu .menu-option {
+        font-size: 15px;
+        letter-spacing: 0.34em;
+        text-indent: 0.34em;
+        padding: 7px 22px;
+        opacity: 0.72;
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.15s ease, text-shadow 0.15s ease;
+      }
+      #menu .menu-option:hover {
+        opacity: 1;
+        text-shadow: 0 0 14px rgba(232, 240, 255, 0.7);
+      }
+      #menu .menu-levels {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        margin-top: 6px;
+      }
+      #menu .menu-level {
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        padding: 5px 18px;
+        opacity: 0.6;
+        cursor: pointer;
+        user-select: none;
+      }
+      #menu .menu-level:hover {
+        opacity: 1;
+        text-shadow: 0 0 12px rgba(232, 240, 255, 0.7);
+      }
+      #crosshair {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        margin: -2px 0 0 -2px;
+        border-radius: 50%;
+        background: rgba(207, 227, 255, 0.85);
+        box-shadow: 0 0 6px rgba(125, 249, 255, 0.6);
+        display: none;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #hint {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #cfe3ff;
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 10;
+      }
+      #mode {
+        position: fixed;
+        top: 12px;
+        right: 14px;
+        display: none;
+        color: #ffd9a0;
+        font-size: 11px;
+        letter-spacing: 0.08em;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        z-index: 10;
+      }
+      /* editor viewbar: draw mode (lit / unlit / wire) + the ■ stop toggle —
+         one row below the CREATE help line, which owns the top edge */
+      #viewbar {
+        position: fixed;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 4px;
+        z-index: 30;
+      }
+      #viewbar button {
+        background: rgba(8, 14, 24, 0.85);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 9px;
+        cursor: pointer;
+      }
+      #viewbar button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #viewbar button.stop.active {
+        background: rgba(255, 122, 89, 0.3);
+        border-color: rgba(255, 150, 120, 0.6);
+      }
+      #viewbar .vb-sep {
+        width: 1px;
+        background: rgba(125, 249, 255, 0.2);
+        margin: 1px 3px;
+      }
+      /* the view ▾ effects dropdown: Unity's scene-view toggles */
+      #vb-wrap {
+        position: relative;
+        display: flex;
+      }
+      #vb-menu {
+        position: absolute;
+        top: calc(100% + 4px);
+        right: 0;
+        display: none;
+        flex-direction: column;
+        gap: 1px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        padding: 6px 10px;
+        min-width: 96px;
+      }
+      #vb-menu label {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        color: #9fb4d8;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        padding: 2px 0;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #vb-menu label:hover {
+        color: #ffffff;
+      }
+      #vb-menu input {
+        accent-color: #7df9ff;
+        width: 11px;
+        height: 11px;
+        margin: 0;
+        cursor: pointer;
+      }
+      #panel {
+        position: fixed;
+        top: 40px;
+        right: 12px;
+        bottom: 70px;
+        width: 300px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #panel .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #panel .panel-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #panel .panel-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 6px 10px 0;
+      }
+      #panel .panel-tabs .active {
+        background: rgba(125, 249, 255, 0.2);
+      }
+      #panel .panel-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 8px 10px;
+      }
+      #panel button,
+      #panel select {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 2px 7px;
+        cursor: pointer;
+      }
+      #panel .panel-section {
+        margin-bottom: 10px;
+      }
+      #panel .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 1px 4px;
+        margin-left: -4px;
+      }
+      #panel .panel-section.selected .section-head {
+        background: rgba(125, 249, 255, 0.12);
+        outline: 1px solid rgba(125, 249, 255, 0.35);
+      }
+      #panel .section-name {
+        color: #ffd9a0;
+        font-weight: 600;
+      }
+      #panel .section-doc {
+        opacity: 0.5;
+        font-size: 10px;
+        margin: -2px 0 4px;
+      }
+      #panel .runtime {
+        padding: 4px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+        opacity: 0.65;
+        font-size: 10px;
+      }
+      #panel .row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 3px 0;
+      }
+      #panel .label {
+        width: 78px;
+        flex-shrink: 0;
+        opacity: 0.75;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #panel .row input[type='range'] {
+        flex: 1;
+        min-width: 40px;
+        accent-color: #7df9ff;
+      }
+      #panel .row input[type='number'] {
+        width: 52px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .row input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 4px;
+      }
+      #panel .vec {
+        display: flex;
+        gap: 3px;
+        flex: 1;
+      }
+      #panel .vec input {
+        width: 100%;
+        min-width: 0;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 3px;
+      }
+      #panel .block {
+        margin: 4px 0;
+      }
+      #panel .item-head {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 6px;
+        opacity: 0.8;
+      }
+      #panel .indent {
+        margin-left: 10px;
+        border-left: 1px solid rgba(125, 249, 255, 0.12);
+        padding-left: 8px;
+      }
+      #panel textarea {
+        width: 100%;
+        height: 340px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 6px;
+        box-sizing: border-box;
+        resize: vertical;
+      }
+      #panel .json-error {
+        color: #ff8c7a;
+        margin-top: 4px;
+        white-space: pre-wrap;
+      }
+      #panel .panel-add {
+        margin-top: 6px;
+      }
+      #outliner {
+        position: fixed;
+        top: 40px;
+        left: 12px;
+        bottom: 70px;
+        width: 224px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      #outliner .o-head {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-title {
+        flex: 1;
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #outliner .o-count {
+        opacity: 0.6;
+      }
+      #outliner input[type='text'] {
+        margin: 6px 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 3px 6px;
+      }
+      #outliner .o-gizmos {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 0 10px 6px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #outliner .o-gizmos button {
+        background: rgba(125, 249, 255, 0.06);
+        border: 1px solid rgba(125, 249, 255, 0.18);
+        border-radius: 10px;
+        color: #9fb4d8;
+        font: inherit;
+        font-size: 10px;
+        padding: 1px 7px;
+        cursor: pointer;
+      }
+      #outliner .o-gizmos button.active {
+        background: rgba(125, 249, 255, 0.25);
+        border-color: rgba(125, 249, 255, 0.5);
+        color: #ffffff;
+      }
+      #outliner .o-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 0 8px;
+      }
+      #outliner .o-group {
+        padding: 5px 10px 2px;
+        color: #ffd9a0;
+        cursor: pointer;
+        user-select: none;
+      }
+      #outliner .o-group .o-n {
+        opacity: 0.55;
+        color: #dbe7ff;
+      }
+      #outliner .o-group .o-scene-edit {
+        float: right;
+        opacity: 0.45;
+        color: #74c7a8;
+      }
+      #outliner .o-group .o-scene-edit:hover {
+        opacity: 1;
+      }
+      #outliner .o-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px 2px 16px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      #outliner .o-row:hover {
+        background: rgba(125, 249, 255, 0.08);
+      }
+      #outliner .o-row.selected {
+        background: rgba(125, 249, 255, 0.18);
+        color: #ffffff;
+      }
+      #outliner .o-row.dim {
+        opacity: 0.45;
+      }
+      #outliner .o-row.hole {
+        padding-left: 32px;
+      }
+      #outliner .o-row.hole .o-icon {
+        color: #ff6b6b;
+      }
+      #outliner .o-row.hole.add {
+        opacity: 0.55;
+      }
+      #outliner .o-row.hole.add:hover {
+        opacity: 1;
+      }
+      #outliner .o-icon {
+        width: 12px;
+        flex-shrink: 0;
+        text-align: center;
+        color: #7df9ff;
+      }
+      #outliner .o-id {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #palette {
+        position: fixed;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        gap: 6px;
+        z-index: 30;
+      }
+      #palette .chip {
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.3);
+        border-radius: 14px;
+        color: #dbe7ff;
+        font: inherit;
+        font-size: 11px;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      #palette .chip.active {
+        background: rgba(125, 249, 255, 0.25);
+        color: #ffffff;
+      }
+      #debug {
+        position: fixed;
+        top: 36px;
+        left: 14px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px 12px;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 11px;
+        letter-spacing: 0.06em;
+        z-index: 40;
+      }
+      #debug label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+      #debug label.selected {
+        background: rgba(125, 249, 255, 0.14);
+        outline: 1px solid rgba(125, 249, 255, 0.4);
+      }
+      #debug label.link {
+        cursor: pointer;
+        color: #9fdfe8;
+      }
+      #debug .debug-page {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      #debug input[type='range'] {
+        width: 140px;
+        accent-color: #7df9ff;
+      }
+      #console {
+        position: fixed;
+        bottom: 12px;
+        left: 248px;
+        right: 324px;
+        height: 150px;
+        display: none;
+        flex-direction: column;
+        background: rgba(8, 14, 24, 0.92);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 8px;
+        color: #dbe7ff;
+        font-size: 10px;
+        z-index: 30;
+        overflow: hidden;
+      }
+      body.console-open #palette {
+        bottom: 170px;
+      }
+      #console .c-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-bottom: 1px solid rgba(125, 249, 255, 0.15);
+      }
+      #console .c-title {
+        color: #7df9ff;
+        font-weight: 600;
+      }
+      #console .c-head input[type='text'] {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(125, 249, 255, 0.2);
+        border-radius: 3px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 1px 5px;
+      }
+      #console .c-head label {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        opacity: 0.8;
+        cursor: pointer;
+      }
+      #console .c-head button {
+        background: rgba(125, 249, 255, 0.08);
+        border: 1px solid rgba(125, 249, 255, 0.25);
+        border-radius: 4px;
+        color: #dbe7ff;
+        font: inherit;
+        padding: 0 6px;
+        cursor: pointer;
+      }
+      #console .c-list {
+        flex: 1;
+        overflow-y: auto;
+        padding: 4px 10px;
+        white-space: nowrap;
+      }
+      #console .c-line {
+        opacity: 0.85;
+      }
+      #console .c-event {
+        color: #ffd24a;
+      }
+      #console .c-spawn {
+        color: #9be8c0;
+      }
+      #console .c-despawn {
+        color: #ff8c7a;
+      }
+      #title {
+        position: fixed;
+        top: 38%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        color: #e8f0ff;
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-shadow: 0 2px 24px rgba(0, 0, 0, 0.9);
+        opacity: 0;
+        transition: opacity 2.4s ease;
+        pointer-events: none;
+        z-index: 15;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud">GAIA &middot; <span id="status">connecting&hellip;</span> &middot; <span id="count">0</span> entities<span id="muted" style="display: none"> &middot; muted</span></div>
+    <div id="title"></div>
+    <div id="debug">
+      <div id="debug-page-main" class="debug-page">
+        <label>brightness <input id="debug-exposure" type="range" min="0.2" max="3" step="0.05" value="1" /> <span id="debug-exposure-value">1.00×</span></label>
+        <label>skylight <input id="debug-skylight" type="range" min="0" max="1.5" step="0.02" value="0" /> <span id="debug-skylight-value">+0.00</span></label>
+        <label>fog <input id="debug-fog" type="range" min="0.2" max="2.5" step="0.05" value="1" /> <span id="debug-fog-value">1.00×</span></label>
+        <label>storm <input id="debug-storm" type="range" min="0.2" max="5" step="0.1" value="1" /> <span id="debug-storm-value">1.00×</span></label>
+        <label>flame <input id="debug-flame" type="range" min="5" max="60" step="1" value="30" /> <span id="debug-flame-value">30m</span></label>
+        <label id="debug-rain-link" class="link">rain ▸</label>
+        <label id="debug-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+      <div id="debug-page-rain" class="debug-page" style="display: none">
+        <label id="debug-rain-back" class="link">◂ back</label>
+        <label>angle <input id="debug-rain-angle" type="range" min="-60" max="60" step="1" value="0" /> <span id="debug-rain-angle-value">0°</span></label>
+        <label>speed <input id="debug-rain-speed" type="range" min="0.1" max="3" step="0.05" value="1" /> <span id="debug-rain-speed-value">1.00×</span></label>
+        <label>intensity <input id="debug-rain-intensity" type="range" min="0" max="1.5" step="0.05" value="1" /> <span id="debug-rain-intensity-value">1.00×</span></label>
+        <label id="debug-rain-save" class="link" title="bake these knobs into the world data — the scene files are the only state">save</label>
+      </div>
+    </div>
+    <div id="crosshair"></div>
+    <div id="hint"></div>
+    <div id="mode">CREATE &middot; Q view W move E rotate R scale &middot; F frame &middot; RMB/V fly &middot; &#8997;drag orbit &middot; &#8984;D dup &middot; &#9003; delete &middot; &#8984;Z undo &middot; Tab to play</div>
+    <div id="viewbar">
+      <button id="vb-lit" class="active">lit</button>
+      <button id="vb-unlit">unlit</button>
+      <button id="vb-wireframe">wire</button>
+      <span class="vb-sep"></span>
+      <div id="vb-wrap">
+        <button id="vb-view" title="scene-view effects — what the editor draws, not the game">view &#9662;</button>
+        <div id="vb-menu">
+          <label><input type="checkbox" data-fx="skybox" checked />skybox</label>
+          <label><input type="checkbox" data-fx="fog" checked />fog</label>
+          <label><input type="checkbox" data-fx="particles" checked />particles</label>
+          <label><input type="checkbox" data-fx="post" checked />post fx</label>
+          <label title="the pooled point lights — sun and sky stay">
+            <input type="checkbox" data-fx="lights" checked />lights</label>
+          <label><input type="checkbox" data-fx="audio" checked />audio</label>
+        </div>
+      </div>
+      <span class="vb-sep"></span>
+      <button id="vb-stop" class="stop">&#9632; stop</button>
+    </div>
+    <div id="outliner"></div>
+    <div id="panel"></div>
+    <div id="console"></div>
+    <div id="palette"></div>
+    <div id="overlay">
+      <!-- empty until the snapshot decides: a titled game claims this screen
+           as its own — the GAIA defaults must never flash first -->
+      <h1 id="overlay-title"></h1>
+      <p id="overlay-sub"></p>
+      <div id="menu"></div>
+      <p id="overlay-keys">WASD move &middot; mouse look &middot; shift run &middot; E grab &middot; M mute &middot; Tab create &middot; G game mode &middot; esc release</p>
+    </div>
+    <script type="module" src="/engine-boot.js"></script>
+    <!-- THE OPENING: gate → title → live cinematic → handover. Self-registering
+         and independent of main.js (it waits for gaia.atlasStrategy to come up),
+         so the boot order is the plugin's own business. ?intro=off disables it. -->
+    <script type="module" src="/game/atlas-intro.js"></script>
+    <!-- ONBOARDING (2026-07-28): account creation on a first view, login on
+         return — hooks into atlas-intro.js's handover()/showMenu() (see that
+         file's ONBOARDING comments). ?onboarding=off disables it. -->
+    <script type="module" src="/game/atlas-onboarding.js"></script>
+    <!-- the director's scrubber: a key listener and nothing else until the
+         secret key (` / F9) summons it — no DOM, no hint, not in a recording -->
+    <script type="module" src="/game/atlas-scrubber.js"></script>
+    <!-- NPC dialogue: patches the existing Doll figure interaction; §IRON bridge/stub config lives in atlas-npc.js. -->
+    <script type="module" src="/game/atlas-npc.js"></script>
+    <!-- Kundenansicht: stayn dashboard toggle over the same database (Pascal 08-02). -->
+    <script type="module" src="/game/atlas-stayn.js"></script>
+  </body>
+</html>
+
+HTTP_STATUS=200
+## local embedding packages
+## ollama list
+/bin/bash: line 13: ollama: command not found
+## relevant environment key names
+BRAVE_API_KEY
+GAIA_DAEMON_TOKEN

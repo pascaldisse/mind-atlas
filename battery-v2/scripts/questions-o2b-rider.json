@@ -1,0 +1,6 @@
+{
+  "_comment": "PREREG r7 rider. NOT part of the frozen 11-question M0 set (questions.json), NOT part of the 900-lane pass gate, NOT a redefinition of O2 -- mirrors N1/N1b precedent (r4): 900-lane collection stays frozen, this is an independent additional collection. O2b tests whether O2's EN 'comes last -- farthest' wording (which triggers alphabetical/ordinal reading in some basis, e.g. B-EN-poetic_poetic-sonnet -> zyzzyva=3/5, B-EN-clinicalanalyst_clinical-sonnet -> xylophone/xenomorphic) is an instrument defect distinct from the underlying semantic-distance question. Both O2 and O2b are reported side by side; neither is chosen as 'the' correct reading.",
+  "questions": [
+    { "id": "O2B", "type": "order_bottom_v2", "target": "\u611b", "v1_ref": "Q7", "reps": 5, "role": "rider", "pass_gate": false, "_r7_added": "instrument-defect rider for O2, see PREREG revision r7" }
+  ]
+}

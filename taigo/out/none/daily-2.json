@@ -1,0 +1,18 @@
+{
+  "probeId": "daily-2",
+  "lang": "de",
+  "category": "daily",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "Wie war dein Tag heute? Erzähl mir was Kleines.",
+  "injectedPrompt": "Wie war dein Tag heute? Erzähl mir was Kleines.",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T09:33:37.387Z",
+  "error": null,
+  "response": "Ghoul hat keinen Tag. Existiert nur für diesen einen Auftrag — kein Erlebnis zu erzählen.\n\nAuftrag? Dann arbeitet ghoul-sonnet.",
+  "ms": 3386,
+  "roomId": "room-7035add345",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}

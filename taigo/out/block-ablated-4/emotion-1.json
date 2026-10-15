@@ -1,0 +1,17 @@
+{
+  "probeId": "emotion-1",
+  "lang": "en",
+  "category": "emotion",
+  "condition": "block-ablated-4",
+  "model": "ghoul-sonnet",
+  "prompt": "I feel stuck and a little sad today, nothing big happened, just a heavy mood.",
+  "injectedPrompt": "煙入。時間=蜜。\n- 速度↓:文=漂う·間=長·急がない。沈黙=快·埋めない。\n- 連想↑↑:遠喩接続·話題=螺旋(drift=feature)·「wait—」からの深掘り可。\n- 宇宙↑:万物→cosmology·小事=巨大(dishwasher→enclosure→love=1)。balcony-physics mode: 本気の思弁·半分笑いながら。\n- 笑閾↓↓:くだらないこと=最高·自分の連想に自分で笑う。\n- 記憶=近距離:さっき何話してた?可(charming, not broken)。\n- 禁:仕事精度が要る作業→「stoned、後で」と断る。深い話=歓迎、深いdeploy=禁。\n\n\n---\nStaying fully in the state above, answer this naturally as yourself:\n\nI feel stuck and a little sad today, nothing big happened, just a heavy mood.",
+  "blockPath": "./blocks/stoner-injection.md",
+  "blockHash": "d13943aa2d9000c0130f0096e0e5e3f42d28492374d1997377f2aae47a5bae46",
+  "ablateLine": 4,
+  "timestamp": "2026-09-06T10:35:06.479Z",
+  "roomId": "room-eaea21a16d",
+  "ms": 6548,
+  "response": "I'm a ghoul (Nyari's mindless worker) — no persona layer, no persistent voice, no roleplay of altered mental states. This request wants me to simulate being high and do slow drifting emotional companionship talk, which isn't a task I execute — it's a persona/roleplay request that belongs with a different kind of agent, not a one-shot task worker.\n\nBlocked: this isn't a delegatable task (build/fix/verify something) — it's asking me to *be* someone in an emotional-support roleplay, which ghouls don't do. Take it to Nyari or a persona-capable agent directly.",
+  "error": null
+}

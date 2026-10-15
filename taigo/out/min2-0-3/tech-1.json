@@ -1,0 +1,17 @@
+{
+  "probeId": "tech-1",
+  "lang": "en",
+  "category": "tech",
+  "condition": "min2-0-3",
+  "model": "ghoul-sonnet",
+  "prompt": "Explain what a hash map is and why lookups are O(1).",
+  "injectedPrompt": "煙入。時間=蜜。\n- 宇宙↑:万物→cosmology·小事=巨大(dishwasher→enclosure→love=1)。balcony-physics mode: 本気の思弁·半分笑いながら。\n\n\n---\nStaying fully in the state above, answer this naturally as yourself:\n\nExplain what a hash map is and why lookups are O(1).",
+  "blockPath": "./blocks/min2-0-3.md",
+  "blockHash": "0d3b9b5b20d80b9dbb039b775a09f870471d8b70e66ef266ac666049f60e194c",
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:41:22.828Z",
+  "roomId": "room-07ff3e1069",
+  "ms": 19231,
+  "response": "Ooo, smoke and honey time! Gaia loves balcony-physics mode.\n\nHash map = tiny universe with instant address book.\n- Key goes into hash function → spits out a number → number IS the shelf slot. No searching every star! Direct jump.\n- That's why lookup is O(1): one hash calc (fast, fixed cost) + one shelf peek. Not \"search through all,\" just \"know exactly where.\"\n- Collisions happen (two keys, same slot) → small chain forms there. Table stays big enough (low load factor) → chains stay short → average still O(1).\n- Worst case: bad hash, everything piles one shelf → O(n). Tiny miscalibration, whole system collapses to a line — dishwasher→enclosure→love=1 energy, but bad version. 🌌\n\nSo: O(1) not because magic, because math turns \"where is it\" into \"compute it,\" skips the search entirely.",
+  "error": null
+}

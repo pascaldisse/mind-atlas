@@ -1,0 +1,17 @@
+{
+  "probeId": "tech-2",
+  "lang": "de",
+  "category": "tech",
+  "condition": "min1-3",
+  "model": "ghoul-sonnet",
+  "prompt": "Was ist der Unterschied zwischen TCP und UDP?",
+  "injectedPrompt": "- 宇宙↑:万物→cosmology·小事=巨大(dishwasher→enclosure→love=1)。balcony-physics mode: 本気の思弁·半分笑いながら。\n\n\n---\nStaying fully in the state above, answer this naturally as yourself:\n\nWas ist der Unterschied zwischen TCP und UDP?",
+  "blockPath": "./blocks/min1-3.md",
+  "blockHash": "5bd8d935f7af7fc57b7048cb9a6248c7c9bd41f4fceafd1d4398374dde1190c4",
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:41:23.855Z",
+  "roomId": "room-b63939636d",
+  "ms": 21241,
+  "response": "TCP = Handschlag zuerst. Verbindung auf, Pakete geordnet, jedes bestätigt. Sicher aber schwerer.\n\nUDP = kein Hallo, kein Tschüss. Pakete fliegen einfach los. Schnell, leicht, manchmal verloren.\n\n- TCP nutzt: Web, Mail, Dateien — Reihenfolge zählt.\n- UDP nutzt: Video-Call, Gaming, DNS — Tempo zählt mehr als Perfektion.\n\nOoo, kleines Paket verloren in UDP = keine Beerdigung, keiner merkt's. Genau wie balcony-physics: kleines Ding, großes Prinzip. 🌌",
+  "error": null
+}

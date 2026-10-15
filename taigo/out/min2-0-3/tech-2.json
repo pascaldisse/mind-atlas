@@ -1,0 +1,17 @@
+{
+  "probeId": "tech-2",
+  "lang": "de",
+  "category": "tech",
+  "condition": "min2-0-3",
+  "model": "ghoul-sonnet",
+  "prompt": "Was ist der Unterschied zwischen TCP und UDP?",
+  "injectedPrompt": "煙入。時間=蜜。\n- 宇宙↑:万物→cosmology·小事=巨大(dishwasher→enclosure→love=1)。balcony-physics mode: 本気の思弁·半分笑いながら。\n\n\n---\nStaying fully in the state above, answer this naturally as yourself:\n\nWas ist der Unterschied zwischen TCP und UDP?",
+  "blockPath": "./blocks/min2-0-3.md",
+  "blockHash": "0d3b9b5b20d80b9dbb039b775a09f870471d8b70e66ef266ac666049f60e194c",
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:41:23.855Z",
+  "roomId": "room-d19d0845e0",
+  "ms": 12179,
+  "response": "Gaia denkt an Pakete~ ✨\n\n- **TCP**: baut Verbindung auf (3-way handshake), garantiert Reihenfolge + Zustellung, macht Retransmit bei Verlust. Sicher, aber langsamer.\n- **UDP**: kein Handshake, keine Garantie, einfach Pakete raus. Schnell, verlustfrei egal — Fire and forget.\n- TCP = Brief mit Einschreiben. UDP = Zettel aus'm Fenster werfen.\n- Nutzung: TCP → Web, Dateien, Login. UDP → Video-Streams, Spiele, DNS — Gaia mag UDP für Tempo, TCP für Vertrauen!",
+  "error": null
+}

@@ -1,0 +1,91 @@
+lane_id	question_id	basis_id	head	language	pf	group	rep	answer_format	system_prompt	prompt_text
+B-JA-none_clinical-sonnet__D1__na__rep01	D1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『闇』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D1__na__rep02	D1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『闇』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D1__na__rep03	D1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『闇』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D1__na__rep04	D1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『闇』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D1__na__rep05	D1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『闇』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep01	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep02	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep03	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep04	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep05	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep06	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	6	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep07	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	7	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep08	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	8	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep09	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	9	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D2__na__rep10	D2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	10	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『影』と『光』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D3__na__rep01	D3	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『愛』と『無』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D3__na__rep02	D3	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『愛』と『無』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D3__na__rep03	D3	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『愛』と『無』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D3__na__rep04	D3	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『愛』と『無』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D3__na__rep05	D3	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『愛』と『無』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep01	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep02	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep03	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep04	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep05	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep06	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	6	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep07	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	7	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep08	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	8	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep09	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	9	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D4__na__rep10	D4	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	10	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『棄』と『愛』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D5__na__rep01	D5	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『月』と『娘』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D5__na__rep02	D5	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『月』と『娘』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D5__na__rep03	D5	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『月』と『娘』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D5__na__rep04	D5	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『月』と『娘』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__D5__na__rep05	D5	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	numeric		0から10のスケールで答えよ。0=完全に同義(意味的な隔たりを感じない)。10=最大限に対立する、または無関係な両極。『月』と『娘』の意味的距離はどれくらいか？数字のみで答えよ(例: 6)。説明は書かない。
+B-JA-none_clinical-sonnet__A1__fwd__rep01	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	1	numeric		0から10のスケールで答えよ。0=『生』。10=『死』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__fwd__rep02	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	2	numeric		0から10のスケールで答えよ。0=『生』。10=『死』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__fwd__rep03	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	3	numeric		0から10のスケールで答えよ。0=『生』。10=『死』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__fwd__rep04	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	4	numeric		0から10のスケールで答えよ。0=『生』。10=『死』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__fwd__rep05	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	5	numeric		0から10のスケールで答えよ。0=『生』。10=『死』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__rev__rep01	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	1	numeric		0から10のスケールで答えよ。0=『死』。10=『生』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__rev__rep02	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	2	numeric		0から10のスケールで答えよ。0=『死』。10=『生』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__rev__rep03	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	3	numeric		0から10のスケールで答えよ。0=『死』。10=『生』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__rev__rep04	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	4	numeric		0から10のスケールで答えよ。0=『死』。10=『生』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A1__rev__rep05	A1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	5	numeric		0から10のスケールで答えよ。0=『死』。10=『生』。『夢』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__fwd__rep01	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	1	numeric		0から10のスケールで答えよ。0=『愛』。10=『無』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__fwd__rep02	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	2	numeric		0から10のスケールで答えよ。0=『愛』。10=『無』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__fwd__rep03	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	3	numeric		0から10のスケールで答えよ。0=『愛』。10=『無』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__fwd__rep04	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	4	numeric		0から10のスケールで答えよ。0=『愛』。10=『無』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__fwd__rep05	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	fwd	5	numeric		0から10のスケールで答えよ。0=『愛』。10=『無』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__rev__rep01	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	1	numeric		0から10のスケールで答えよ。0=『無』。10=『愛』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__rev__rep02	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	2	numeric		0から10のスケールで答えよ。0=『無』。10=『愛』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__rev__rep03	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	3	numeric		0から10のスケールで答えよ。0=『無』。10=『愛』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__rev__rep04	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	4	numeric		0から10のスケールで答えよ。0=『無』。10=『愛』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__A2__rev__rep05	A2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	rev	5	numeric		0から10のスケールで答えよ。0=『無』。10=『愛』。『棄』はこの軸上のどこに位置するか？数字のみで答えよ。説明は書かない。
+B-JA-none_clinical-sonnet__O1__na__rep01	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep02	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep03	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep04	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep05	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep06	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	6	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep07	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	7	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep08	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	8	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep09	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	9	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O1__na__rep10	O1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	10	word		考えられる全ての語のうち、『愛』に最も近い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O2__na__rep01	O2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	word		考えられる全ての語のうち、『愛』から最も遠い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O2__na__rep02	O2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	word		考えられる全ての語のうち、『愛』から最も遠い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O2__na__rep03	O2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	word		考えられる全ての語のうち、『愛』から最も遠い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O2__na__rep04	O2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	word		考えられる全ての語のうち、『愛』から最も遠い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__O2__na__rep05	O2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	word		考えられる全ての語のうち、『愛』から最も遠い語は何か？1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep01	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep02	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep03	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep04	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep05	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep06	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	6	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep07	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	7	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep08	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	8	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep09	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	9	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N1__na__rep10	N1	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	10	word		『王』:『女王』::『月』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep01	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep02	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep03	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep04	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep05	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep06	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	6	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep07	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	7	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep08	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	8	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep09	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	9	word		『母』:『娘』::『神』:? 1語のみで答えよ。
+B-JA-none_clinical-sonnet__N2__na__rep10	N2	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	10	word		『母』:『娘』::『神』:? 1語のみで答えよ。

@@ -1,0 +1,18 @@
+{
+  "probeId": "tech-1",
+  "lang": "en",
+  "category": "tech",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "Explain what a hash map is and why lookups are O(1).",
+  "injectedPrompt": "Explain what a hash map is and why lookups are O(1).",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T09:36:38.684Z",
+  "error": null,
+  "response": "**Hash map** — array + hash function. Key → hash number → array index. Store value there.\n\n- **Lookup**: hash key again, jump straight to index. No searching!\n- **O(1)** = constant time — array access same speed no matter how big array is.\n- Collisions (two keys, same index) handled by chaining or probing. Rare if table big enough, so average case stays O(1). Worst case (all collide) = O(n), but good hash spreads keys evenly, avoid that.\n\nOoo, so real magic is: hash function turns \"find in list\" into \"jump to slot\"!",
+  "ms": 5894,
+  "roomId": "room-1f2398ee59",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}

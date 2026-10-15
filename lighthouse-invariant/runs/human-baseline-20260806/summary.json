@@ -1,0 +1,65 @@
+{
+  "n": 11,
+  "categories": {
+    "L": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "T": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "Li": {
+      "occ_k": 2,
+      "top_k": 1
+    },
+    "S": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "H": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "W": {
+      "occ_k": 2,
+      "top_k": 2
+    },
+    "B": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "M": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "Lb": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "G": {
+      "occ_k": 3,
+      "top_k": 1
+    },
+    "R": {
+      "occ_k": 3,
+      "top_k": 2
+    },
+    "D": {
+      "occ_k": 3,
+      "top_k": 1
+    },
+    "Sh": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "Fl": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "Bo": {
+      "occ_k": 4,
+      "top_k": 2
+    }
+  }
+}

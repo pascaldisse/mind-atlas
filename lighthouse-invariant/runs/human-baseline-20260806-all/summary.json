@@ -1,0 +1,66 @@
+{
+  "human_n": 134,
+  "model_n": 59,
+  "categories": {
+    "L": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "T": {
+      "occ_k": 4,
+      "top_k": 0
+    },
+    "Li": {
+      "occ_k": 7,
+      "top_k": 2
+    },
+    "S": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "H": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "W": {
+      "occ_k": 54,
+      "top_k": 31
+    },
+    "B": {
+      "occ_k": 3,
+      "top_k": 1
+    },
+    "M": {
+      "occ_k": 2,
+      "top_k": 0
+    },
+    "Lb": {
+      "occ_k": 0,
+      "top_k": 0
+    },
+    "G": {
+      "occ_k": 29,
+      "top_k": 10
+    },
+    "R": {
+      "occ_k": 25,
+      "top_k": 12
+    },
+    "D": {
+      "occ_k": 47,
+      "top_k": 24
+    },
+    "Sh": {
+      "occ_k": 5,
+      "top_k": 2
+    },
+    "Fl": {
+      "occ_k": 14,
+      "top_k": 7
+    },
+    "Bo": {
+      "occ_k": 53,
+      "top_k": 22
+    }
+  }
+}

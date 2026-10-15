@@ -1,0 +1,95 @@
+{
+  "_comment": "battery-v2 machine-readable verification record. Facts measured by opus5 (user), re-verified by ghoul-sonnet on the commands/timestamps below. No prose downstream consumer relies on this file's ordering; keys are stable.",
+  "verifier": "opus5",
+  "reverified_by": "ghoul-sonnet",
+  "reverified_at": "2026-08-07T05:00:40Z",
+  "lane_head_at_verification": "20f70ce90dd6e79c4100e147a094de7e9197e402",
+  "worktree": "~/.gaia/worktrees/sm-batteryv2",
+  "branch": "lane/battery-v2",
+  "items": [
+    {
+      "id": "V1",
+      "claim": "test suite entry point is python3 tests/test_fixture.py; unittest discover collects 0 tests and exits 0 (false green)",
+      "command": "python3 tests/test_fixture.py",
+      "result": "OK",
+      "tests_run": 20,
+      "tests_passed": 20,
+      "raw_tail": "Ran 20 tests in 0.109s\n\nOK",
+      "false_green_command": "python3 -m unittest discover -s . -p 'test_*.py'",
+      "false_green_note": "0 tests collected, exit 0 -- do not use this invocation"
+    },
+    {
+      "id": "V2",
+      "claim": "DEFECT2 (raw tracking), DEFECT3 (_basis_id_set_sha256 + PREREG literal + double assert), DEFECT4 (load_dispatch_map/validate_dispatch_map), and unlock condition (a) (canonical consumption) are all implemented and green",
+      "verification_method": "inspection of PREREG.md r3 section + scripts/code_outputs.py + scripts/basis.json + tests/test_fixture.py, confirmed passing under V1's test run (20/20 includes TestBasisIdentity and dispatch-map validation tests)",
+      "result": "CONFIRMED",
+      "evidence": {
+        "defect2_raw_tracked": "battery-v2/.gitignore no longer excludes runs/*/raw/ (removed in commit 20f70ce); pilot raw/*.txt files are tracked in git",
+        "defect3_basis_hash": "scripts/basis.json contains _basis_id_set_sha256; test_fixture.py::TestBasisIdentity asserts self-declared value matches recomputed value AND matches PREREG-parsed literal (double assert)",
+        "defect4_dispatch_map": "scripts/code_outputs.py requires --dispatch-map, calls validate_dispatch_map() which FAILs (exit 1, no coded.tsv write) on missing lane<->room binding or duplicate room_id",
+        "unlock_condition_a": "scripts/sync_vocab_from_canonical.py consumes main's canonical vocab.json; scripts/vocab.json._canonical_source records git_sha/file_sha256/concept_count_in_canonical"
+      }
+    },
+    {
+      "id": "V3",
+      "claim": "battery-v2's 15 stimulus words checked against canonical vocab.json token_collision: exactly 1 collision (moon, ja: month/moon), other 14 words have no collision and all exist in canonical",
+      "command": "python3 -c \"import json,subprocess; raw=subprocess.check_output(['git','show','610c8f5:vocab.json']); d=json.loads(raw); ids={'shadow','darkness','light','love','nothingness','abandonment','moon','daughter','dream','life','death','king','queen','mother','god'}; by_id={e['id']:e for e in d}; [print(cid, e.get('token_collision')) for cid in sorted(ids) for e in [by_id.get(cid)] if e and e.get('token_collision')]\"",
+      "result": "CONFIRMED",
+      "collisions_found": 1,
+      "collision_detail": {
+        "canonical_id": "moon",
+        "ja_stimulus": "月",
+        "token_collision": {"ja": ["month", "moon"]}
+      },
+      "non_colliding_words_checked": 14,
+      "non_colliding_words_ja": ["影", "闇", "光", "愛", "無", "棄", "娘", "夢", "生", "死", "王", "女王", "母", "神"],
+      "missing_in_canonical": 0
+    },
+    {
+      "id": "V4",
+      "claim": "canonical vocab.json snapshot in scripts/vocab.json was STALE (declared concept_count_in_canonical=1750, git_sha=fb64074) vs current canonical (n=1748 @ 610c8f5, phantom concepts fish_food/pet_daily dropped); the 15 anchors themselves are unaffected",
+      "pre_sync_state": {
+        "declared_git_sha": "fb640746aabfca1e064d40509ddee7a952d13e77",
+        "declared_file_sha256": "383d89ecefb4db4426e57eb62e687422e872935dd59d2af6417a0189662b2971",
+        "declared_concept_count_in_canonical": 1750
+      },
+      "post_sync_state": {
+        "declared_git_sha": "610c8f57cce0f200fc5332041bffecde194f2c0c",
+        "declared_file_sha256": "5e0759ccdff52b776be2f5b4ce5fb4c9c9d489bd82ac0ac9c053c6e297ff7ee3",
+        "declared_concept_count_in_canonical": 1748
+      },
+      "result": "CONFIRMED_AND_RESYNCED"
+    }
+  ],
+  "resync": {
+    "action": "ran scripts/sync_vocab_from_canonical.py against main HEAD's canonical vocab.json",
+    "command": "python3 scripts/sync_vocab_from_canonical.py --canonical <(git -C ~/projects/semantic-map show 610c8f5:vocab.json) --canonical-sha 610c8f57cce0f200fc5332041bffecde194f2c0c --out scripts/vocab.json",
+    "stderr": "wrote scripts/vocab.json: 15 concepts, 2 diffs vs old gloss, 0 dropped",
+    "canonical_commit": {
+      "sha": "610c8f57cce0f200fc5332041bffecde194f2c0c",
+      "note": "merge commit, ancestor of main HEAD (verified via git merge-base --is-ancestor); main HEAD's vocab.json is byte-identical to 610c8f5's (git diff 610c8f5 HEAD -- vocab.json returns no output)",
+      "main_head_at_check": "0fd5977ee13077c960b3ff577b4249fc77fa82c3"
+    },
+    "canonical_file_stats": {
+      "concept_count": 1748,
+      "sha256": "5e0759ccdff52b776be2f5b4ce5fb4c9c9d489bd82ac0ac9c053c6e297ff7ee3",
+      "byte_size": 488953
+    },
+    "diff_vs_15_anchors": {
+      "words_written": 15,
+      "diffs_vs_old_gloss": 2,
+      "dropped": 0,
+      "diff_detail": [
+        {"ja": "影", "language": "ZH", "old_gloss": "影", "canonical": "影子"},
+        {"ja": "棄", "language": "ZH", "old_gloss": "抛弃", "canonical": "舍弃"}
+      ],
+      "note": "these 2 diffs are unchanged from before resync (pre-existing, first recorded PREREG r3 2026-08-06); resync only updated the 3 provenance fields (git_sha, file_sha256, concept_count_in_canonical). No new diffs, no new drops introduced by moving from n=1750@fb64074 to n=1748@610c8f5. Confirmed via git diff on scripts/vocab.json (3 lines changed, all inside _canonical_source)."
+    },
+    "post_resync_test_run": {
+      "command": "python3 tests/test_fixture.py",
+      "result": "OK",
+      "tests_run": 20,
+      "tests_passed": 20
+    }
+  }
+}

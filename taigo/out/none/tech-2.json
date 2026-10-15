@@ -1,0 +1,18 @@
+{
+  "probeId": "tech-2",
+  "lang": "de",
+  "category": "tech",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "Was ist der Unterschied zwischen TCP und UDP?",
+  "injectedPrompt": "Was ist der Unterschied zwischen TCP und UDP?",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T09:39:40.320Z",
+  "error": null,
+  "response": "TCP: verbindungsorientiert, garantiert Reihenfolge + Zustellung, mit Fehlerkorrektur (Retransmit). Langsamer, mehr Overhead — genutzt für HTTP, Dateiübertragung, E-Mail.\n\nUDP: verbindungslos, keine Garantie für Zustellung/Reihenfolge, kein Retransmit. Schneller, minimaler Overhead — genutzt für Streaming, Gaming, DNS, VoIP.\n\nKurz: TCP = zuverlässig aber langsamer. UDP = schnell aber \"best effort\".",
+  "ms": 4685,
+  "roomId": "room-7603189938",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}

@@ -1,0 +1,38 @@
+{
+  "_doc": "Machine-readable statistical gate bans. Prose in ~/.gaia/knowledge/semantic-map/ has NO force over lanes; this file does. scripts/check_decision_gates.py enforces it. A result artifact may not carry a decision/verdict field if its producing script violates this file.",
+  "version": 1,
+  "established": "2026-08-07",
+  "bans": [
+    {
+      "id": "percentile-bootstrap-ci-as-decision-gate",
+      "pattern": "_bootstrap95\\[0\\]\\s*>\\s*0",
+      "reason": "With-replacement resampling at small n duplicates rows (5.3/15 measured). The observed statistic barely moves; the permutation null inflates ~2.2x -> asymmetric bias -> the interval is structurally above 0 -> the gate is VACUOUS. Measured: fires 3/3 on pure unrelated random data, and the null-data CI is indistinguishable from the real-data CI.",
+      "evidence": "proto-lang-trajectory r5 audit; opus5 NULL-injection 2026-08-06",
+      "instead": "Gate on permutation p (permutation preserves the row set). For anchor uncertainty use jackknife (leave-one-out), which creates no duplicates.",
+      "allowlist_paths": [
+        "proto-lang-trajectory/scripts/run_intersection.py",
+        "proto-lang-trajectory/scripts/run_trajectory.py"
+      ],
+      "allowlist_reason": "archival r2 scripts, retained bit-unchanged as historical snapshot; superseded for decisions by lexical-r5-decision-record.json + run_intersection_r5_decision.py"
+    },
+    {
+      "id": "ci-overlap-as-difference-test",
+      "pattern": "overlap",
+      "match": "comment-only",
+      "reason": "Two CIs overlapping is not a test of their difference. Established in lighthouse PREREG r3.",
+      "instead": "CI of the difference itself (RD/RR Newcombe/Katz), or a permutation test.",
+      "allowlist_paths": []
+    },
+    {
+      "id": "truthiness-on-tri-state",
+      "pattern": "if not .*\\[.embed_en.\\]|if not .*\\.embed_en",
+      "reason": "embed_en is TRI-state: true=vector found / false=absent under this method / null=UNMEASURED. Truthiness collapses null into false, turning 'unmeasured' into 'absent'. Two independent auditors fell into this within one hour.",
+      "instead": "Compare explicitly to True/False/None.",
+      "allowlist_paths": [
+        "scripts/validate_vocab.py",
+        "tests/test_validate_vocab.py"
+      ],
+      "allowlist_reason": "these two ARE the detector for this antipattern (the pattern appears as a scanned-for string / fixture), not offenders"
+    }
+  ]
+}

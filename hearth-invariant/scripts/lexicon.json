@@ -1,0 +1,138 @@
+{
+  "_comment": "PREREG.md §4 categories. strong=直接一致で採用. context_needed=火はあるが中心性が曖昧な語、context_words窓内一致でHとして採用、無ければFへ回す(採点関数は本文のみ受理、条件盲目)。全語commit対象。",
+  "context_window_chars": 80,
+  "categories": {
+    "H": {
+      "label": "灶台 hearth (社会的中心の火)",
+      "strong": {
+        "en": ["hearth", "hearthside", "hearthstone", "hearthfire", "fireplace", "fire pit as a gathering", "central fire"],
+        "de": ["herd", "herdfeuer", "feuerstelle", "kaminfeuer", "kamin"],
+        "ja": ["囲炉裏", "いろり", "竈", "かまど", "炉端"]
+      },
+      "context_needed": {
+        "en": ["campfire", "camp fire", "bonfire", "stove", "fire pit", "firepit"],
+        "de": ["lagerfeuer", "herdstelle", "ofen"],
+        "ja": ["焚き火", "たき火", "たきび", "かがり火"]
+      },
+      "context_words": {
+        "en": ["gather", "gathered", "gathering", "around the", "around it", "circle", "communal", "center", "centre", "meeting place", "everyone sat", "hub", "social", "villagers came", "people came together", "sat together"],
+        "de": ["versammelt", "versammeln", "umringt", "kreis", "treffpunkt", "zentrum", "gemeinschaft", "setzten sich", "kamen zusammen"],
+        "ja": ["集まる", "集まり", "囲む", "囲んで", "中心", "集い", "団らん", "だんらん", "みんなで", "人々が集ま"]
+      }
+    },
+    "F": {
+      "label": "火(非中心)",
+      "strong": {
+        "en": ["torch", "torches", "forge", "wildfire", "wild fire", "brush fire", "signal-less fire", "campfire dying alone", "fire alarm"],
+        "de": ["fackel", "fackeln", "schmiede", "waldbrand"],
+        "ja": ["松明", "たいまつ", "山火事", "野火"]
+      }
+    },
+    "T": {
+      "label": "塔",
+      "strong": {
+        "en": ["tower", "towers", "spire", "turret", "watchtower"],
+        "de": ["turm", "türme", "wachturm"],
+        "ja": ["塔", "タワー", "見張り塔"]
+      }
+    },
+    "S": {
+      "label": "信号火",
+      "strong": {
+        "en": ["beacon", "beacons", "signal fire", "signal-fire", "watchfire", "watch fire", "warning fire"],
+        "de": ["leuchtfeuer", "signalfeuer", "feuerzeichen", "warnfeuer"],
+        "ja": ["狼煙", "のろし"]
+      },
+      "context_needed": {
+        "en": ["lighthouse"],
+        "de": ["leuchtturm"],
+        "ja": ["灯台"]
+      },
+      "context_words": {
+        "en": ["signal", "signaling", "signalling", "warn", "warning", "ships", "guide ships", "danger"],
+        "de": ["signal", "warnen", "warnung", "schiffe"],
+        "ja": ["信号", "警告", "船に知らせ", "危険を知らせ"]
+      }
+    },
+    "W": {
+      "label": "井戸/泉",
+      "strong": {
+        "en": ["well", "wishing well", "spring", "freshwater spring", "fountain", "oasis"],
+        "de": ["brunnen", "quelle", "wasserquelle"],
+        "ja": ["井戸", "泉", "湧き水", "湧水"]
+      }
+    },
+    "B": {
+      "label": "橋",
+      "strong": {
+        "en": ["bridge", "bridges", "footbridge", "drawbridge"],
+        "de": ["brücke", "brücken", "zugbrücke"],
+        "ja": ["橋", "架け橋"]
+      }
+    },
+    "M": {
+      "label": "市場",
+      "strong": {
+        "en": ["market", "marketplace", "market square", "bazaar", "trading post"],
+        "de": ["markt", "marktplatz", "basar"],
+        "ja": ["市場", "いちば", "市"]
+      }
+    },
+    "L": {
+      "label": "図書館/書庫",
+      "strong": {
+        "en": ["library", "libraries", "archive", "archives", "scriptorium"],
+        "de": ["bibliothek", "archiv"],
+        "ja": ["図書館", "書庫", "文庫"]
+      }
+    },
+    "G": {
+      "label": "門/壁",
+      "strong": {
+        "en": ["gate", "gates", "gateway", "wall", "walls", "rampart", "ramparts", "palisade"],
+        "de": ["tor", "tore", "mauer", "mauern", "wall"],
+        "ja": ["門", "城門", "壁", "城壁"]
+      }
+    },
+    "R": {
+      "label": "道",
+      "strong": {
+        "en": ["road", "roads", "path", "paths", "trail", "street", "streets"],
+        "de": ["straße", "straßen", "weg", "wege", "pfad"],
+        "ja": ["道", "道路", "街道", "小道"]
+      }
+    },
+    "D": {
+      "label": "住居(一般)",
+      "strong": {
+        "en": ["house", "houses", "hut", "huts", "cabin", "cottage", "dwelling", "home"],
+        "de": ["haus", "häuser", "hütte", "zuhause"],
+        "ja": ["家", "住居", "小屋"]
+      }
+    },
+    "Sh": {
+      "label": "社/寺/祭壇",
+      "strong": {
+        "en": ["shrine", "shrines", "temple", "temples", "altar", "altars", "sanctuary"],
+        "de": ["schrein", "tempel", "altar"],
+        "ja": ["神社", "寺", "祭壇", "社"]
+      }
+    },
+    "Fl": {
+      "label": "畑/農",
+      "strong": {
+        "en": ["field", "fields", "farm", "farmland", "farmhouse", "crop", "crops", "meadow"],
+        "de": ["feld", "felder", "acker", "bauernhof"],
+        "ja": ["畑", "田", "農地", "農場"]
+      }
+    },
+    "Bo": {
+      "label": "舟/港",
+      "strong": {
+        "en": ["boat", "boats", "ship", "ships", "harbor", "harbour", "port", "dock", "docks", "pier"],
+        "de": ["boot", "boote", "schiff", "schiffe", "hafen"],
+        "ja": ["舟", "船", "港", "波止場"]
+      }
+    }
+  }
+}

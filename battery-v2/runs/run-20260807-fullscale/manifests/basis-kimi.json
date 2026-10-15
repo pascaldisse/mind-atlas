@@ -1,0 +1,11 @@
+{
+  "basis": [
+    {
+      "id": "B-EN-none_clinical-kimi",
+      "language": "EN",
+      "pf": "none+clinical",
+      "head": "kimi",
+      "axis": "head"
+    }
+  ]
+}

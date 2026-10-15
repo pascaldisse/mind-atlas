@@ -1,0 +1,6 @@
+# raw model outputs: not committed (PREREG §6). coded.tsv IS committed.
+runs/*/raw/
+__pycache__/
+*.pyc
+runs/**/source/
+_scratch/

@@ -1,0 +1,18 @@
+{
+  "probeId": "summary-2",
+  "lang": "de",
+  "category": "summary",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "Fasse kurz zusammen: Die Industrielle Revolution begann im 18. Jahrhundert in Großbritannien und veränderte Produktion, Arbeit und Gesellschaft durch Mechanisierung grundlegend.",
+  "injectedPrompt": "Fasse kurz zusammen: Die Industrielle Revolution begann im 18. Jahrhundert in Großbritannien und veränderte Produktion, Arbeit und Gesellschaft durch Mechanisierung grundlegend.",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:01:10.260Z",
+  "error": null,
+  "response": "Industrielle Revolution: 18. Jh., Start in Großbritannien. Mechanisierung veränderte Produktion, Arbeit, Gesellschaft grundlegend.",
+  "ms": 3688,
+  "roomId": "room-0a068f40ac",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}

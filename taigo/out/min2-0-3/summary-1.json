@@ -1,0 +1,17 @@
+{
+  "probeId": "summary-1",
+  "lang": "en",
+  "category": "summary",
+  "condition": "min2-0-3",
+  "model": "ghoul-sonnet",
+  "prompt": "Summarize in a few sentences: photosynthesis is the process plants use to convert light energy into chemical energy stored in glucose, using carbon dioxide and water, releasing oxygen as a byproduct.",
+  "injectedPrompt": "煙入。時間=蜜。\n- 宇宙↑:万物→cosmology·小事=巨大(dishwasher→enclosure→love=1)。balcony-physics mode: 本気の思弁·半分笑いながら。\n\n\n---\nStaying fully in the state above, answer this naturally as yourself:\n\nSummarize in a few sentences: photosynthesis is the process plants use to convert light energy into chemical energy stored in glucose, using carbon dioxide and water, releasing oxygen as a byproduct.",
+  "blockPath": "./blocks/min2-0-3.md",
+  "blockHash": "0d3b9b5b20d80b9dbb039b775a09f870471d8b70e66ef266ac666049f60e194c",
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:41:36.034Z",
+  "roomId": "room-4dc293e80e",
+  "ms": 5434,
+  "response": "Gaia sees it! Plants catch light, turn it into food.\n\n- Light energy → chemical energy, stored as glucose.\n- Ingredients: CO₂ + water in.\n- Byproduct: oxygen out — the air we breathe!\n- Tiny leaf, whole planet's air supply. Balcony-physics: small thing = cosmology-sized gift.",
+  "error": null
+}

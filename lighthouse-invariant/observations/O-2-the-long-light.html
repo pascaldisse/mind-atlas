@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>The Long Light</title>
+<style>
+:root{
+  --ink:#0a0e1a;
+  --bone:#e8e4d8;
+  --amber:#ffca7a;
+  --dim:#7a86a0;
+  --sea:#16223a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ink);color:var(--bone);overflow:hidden;
+  font-family:"Palatino Linotype","Book Antiqua",Palatino,Georgia,serif;
+  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none}
+canvas{display:block;width:100%;height:100%}
+#sea{position:fixed;inset:0}
+
+#hud{position:fixed;inset:0;pointer-events:none;opacity:0;transition:opacity .6s}
+#hud.on{opacity:1}
+.plq{background:linear-gradient(#141c30e0,#0a101fe0);border:1px solid #2a3654;border-radius:4px;
+  padding:6px 12px;box-shadow:0 3px 14px #0009}
+#topL{position:absolute;top:12px;left:12px;display:flex;gap:10px;align-items:center}
+#phase{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+#nightno{font-size:15px;letter-spacing:.08em}
+#saved{font-size:13px;color:var(--amber);letter-spacing:.06em}
+#voice{position:absolute;left:50%;top:12%;transform:translateX(-50%);
+  font-style:italic;font-size:16.5px;letter-spacing:.04em;color:#d8dce8;
+  text-shadow:0 2px 10px #000,0 0 30px #000;opacity:0;transition:opacity .8s;
+  text-align:center;max-width:80vw;line-height:1.5}
+#voice.on{opacity:1}
+#btns{position:absolute;right:14px;bottom:14px;display:flex;flex-direction:column;gap:10px;pointer-events:auto}
+.bigbtn{cursor:pointer;width:76px;height:76px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#233152,#0d1426);
+  border:1px solid #3a4a70;color:#c8d0e4;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font:inherit;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;box-shadow:0 4px 16px #000a}
+.bigbtn:active{transform:scale(.93)}
+.bigbtn.cool{opacity:.45}
+#windring{position:absolute;inset:-1px;border-radius:50%;pointer-events:none}
+#windbtn{position:relative}
+
+.screen{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:28px;z-index:20;
+  background:radial-gradient(ellipse at 50% 30%,#101a30 0%,#06090f 75%)}
+.screen.on{display:flex}
+h1{font-size:clamp(34px,7.5vw,64px);letter-spacing:.16em;font-weight:400;line-height:1.05;
+  color:var(--bone);text-shadow:0 0 50px #7a9ac030;margin:18px 0 6px}
+h1 .sm{display:block;font-size:.3em;letter-spacing:.55em;color:var(--amber);margin-bottom:16px}
+.rule{width:min(480px,80vw);height:1px;background:linear-gradient(90deg,transparent,#4a5a80,transparent)}
+p.body{max-width:52ch;font-size:15.5px;line-height:1.8;color:#aab4c8;margin:14px 0}
+.btn{pointer-events:auto;cursor:pointer;margin-top:18px;
+  background:linear-gradient(#243356,#10182c);color:var(--bone);
+  border:1px solid #3a4a70;padding:13px 34px;font:inherit;font-size:15px;
+  letter-spacing:.26em;text-transform:uppercase;transition:.15s;border-radius:3px}
+.btn:hover{border-color:var(--amber);color:#fff}
+.btn.ghost{border-color:#2a3654;color:#8a96b0;font-size:12px;padding:10px 22px}
+.keys{margin-top:22px;font-size:12.5px;line-height:2.1;letter-spacing:.1em;color:#6a7690}
+.keys b{color:#b8c2d8;font-weight:400}
+#logbox{max-width:min(560px,88vw);max-height:44vh;overflow-y:auto;text-align:left;
+  font-size:14.5px;line-height:1.9;color:#b8c2d8;padding:14px 20px;margin-top:10px;
+  background:#0a101fa0;border:1px solid #223050;border-radius:4px}
+#logbox div{margin:2px 0}
+#logbox .good{color:#d8e2c8}
+#logbox .sad{color:#c0a8a0}
+#logbox .odd{color:#a8b8d8;font-style:italic}
+#tally{font-size:15px;letter-spacing:.12em;color:var(--amber);margin-top:10px}
+</style>
+</head>
+<body>
+<canvas id="sea"></canvas>
+
+<div id="hud">
+  <div id="topL">
+    <div class="plq"><div id="nightno">Night 1</div><div id="phase">Dusk</div></div>
+    <div class="plq"><div id="saved">0 brought home</div></div>
+  </div>
+  <div id="voice"></div>
+  <div id="btns">
+    <div class="bigbtn" id="hornbtn"><span style="font-size:20px">&#9836;</span>Horn</div>
+    <div class="bigbtn" id="windbtn"><canvas id="windring" width="80" height="80"></canvas><span style="font-size:18px">&#8635;</span>Wind</div>
+  </div>
+</div>
+
+<!-- TITLE -->
+<div class="screen on" id="scTitle">
+  <div class="rule"></div>
+  <h1><span class="sm">a vigil</span>The Long Light</h1>
+  <div class="rule"></div>
+  <p class="body">The coast is yours tonight. Ships cross the dark toward the harbor,
+  and where your beam rests, they hold their heading. Where it does not, the sea
+  decides. No one will drown on your watch &mdash; but what they carry might not make it home.</p>
+  <div class="btn" id="bStart">Light the lamp</div>
+  <div class="keys" style="opacity:.55;font-size:10px;letter-spacing:.3em;margin-top:14px">BUILD 1.2</div>
+  <div class="keys">
+    <b>move</b> &mdash; aim the beam &nbsp;&middot;&nbsp; <b>hold</b> &mdash; focus it narrow and bright<br>
+    <b>Space</b> or Horn &mdash; sound the fog signal &nbsp;&middot;&nbsp; <b>W</b> or Wind &mdash; crank the clockwork<br>
+    the lamp runs down; a wound lamp reaches farther
+  </div>
+</div>
+
+<!-- DAWN -->
+<div class="screen" id="scDawn">
+  <div class="rule"></div>
+  <h1 style="font-size:clamp(26px,5vw,44px)"><span class="sm" id="dawnSub">night one</span>The Keeper's Log</h1>
+  <div class="rule"></div>
+  <div id="logbox"></div>
+  <div id="tally"></div>
+  <div style="display:flex;gap:12px">
+    <div class="btn" id="bNext">Keep the light another night</div>
+    <div class="btn ghost" id="bRest">Rest</div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ============================================================
+   THE LONG LIGHT — a game about where you choose to look.
+   The beam is attention. Being seen, here, is being kept.
+   one file, no dependencies
+   ============================================================ */
+const $=id=>document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:(v>b?b:v);
+const lerp=(a,b,t)=>a+(b-a)*t;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const TAU=Math.PI*2;
+const smooth=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
+function angDiff(a,b){let d=(b-a)%TAU;if(d>Math.PI)d-=TAU;if(d<-Math.PI)d+=TAU;return d;}
+function approach(a,b,r){const d=angDiff(a,b);return a+clamp(d,-r,r);}
+
+/* ---------- the sea and its stories ---------- */
+const SHIPNAMES=["Marigold","Tern","Provident","Alma","Sea Wren","Cormorant","Verity","Northern Star",
+ "Beatrice","Lark","Halcyon","Petrel","Good Intent","Rosamund","Grey Gull","Amity","Winter Rose",
+ "Speedwell","Curlew","Constance","Meridian","Pelagia","Odessa","Firefly"];
+const CARGO=["herring","timber","oranges","the winter mail","wool","a piano","telescope lenses",
+ "saffron","hymnals","copper wire","apples in straw","a wedding dress","charts of other coasts",
+ "lamp oil","salt","two hundred letters","a crated clock","cider","glass beads","seed potatoes",
+ "a doctor and her books","sheet music"];
+const DETAILS=["the captain hums to the compass","a dog aboard answers the horn","bound home after nine years",
+ "the cook is the captain's mother","nobody aboard can swim, and nobody minds","running late for a christening",
+ "the first mate is fourteen","they left port in a hurry","the hold smells of cinnamon",
+ "her figurehead has no face","the crew sings badly, together","carrying somebody's whole life",
+ "the helmsman is asleep on his feet","they've never seen this coast","promised home by morning",
+ "the captain's last crossing before the farm"];
+const PHASES=[
+ {name:"Dusk",       until:60,  cap:1, spawn:[14,22], fog:0.0, storm:0, drowse:false},
+ {name:"First Watch",until:180, cap:3, spawn:[10,18], fog:0.15,storm:0, drowse:false},
+ {name:"The Deep Hours",until:300,cap:3,spawn:[10,17],fog:0.55,storm:0, drowse:true},
+ {name:"Storm Watch",until:420, cap:4, spawn:[8,14],  fog:0.3, storm:1, drowse:true},
+ {name:"False Dawn", until:465, cap:2, spawn:[16,24], fog:0.2, storm:0, drowse:false},
+ {name:"Dawn",       until:480, cap:0, spawn:[99,99], fog:0.0, storm:0, drowse:false}
+];
+const NIGHT_LEN=480;
+
+/* ---------- state ---------- */
+const S={
+  night:1, t:0, running:false,
+  ships:[], flares:[], parts:[], lanterns:[],
+  beamA:0, beamTarget:0, focus:false,
+  windM:100, winding:false, hornCd:0, hornT:-9,
+  fog:[], gustA:0, gustM:0,
+  saved:0, ashore:0, totalSaved:0,
+  log:[], voiceQ:[],
+  whale:null, whaleDone:false, ghost:null, ghostDone:false,
+  spawnT:8, pointerDown:false
+};
+const store={
+  get(k){try{return window.localStorage?localStorage.getItem(k):null}catch(e){return null}},
+  set(k,v){try{if(window.localStorage)localStorage.setItem(k,v)}catch(e){}}
+};
+function phase(){
+  for(let i=0;i<PHASES.length;i++)if(S.t<PHASES[i].until)return PHASES[i];
+  return PHASES[PHASES.length-1];
+}
+function phaseT(){ /* 0..1 through the whole night */ return clamp(S.t/NIGHT_LEN,0,1); }
+
+/* ---------- screen geometry ---------- */
+const W={w:0,h:0,dpr:1,t:0};
+const cv=$("sea"), ctx=cv.getContext("2d");
+function layout(){
+  W.dpr=Math.min(2,window.devicePixelRatio||1);
+  cv.width=Math.round(window.innerWidth*W.dpr);
+  cv.height=Math.round(window.innerHeight*W.dpr);
+  W.w=cv.width; W.h=cv.height;
+}
+const HORIZON=0.30, SHORE=0.97;
+function seaToScreen(u,v){
+  const y=lerp(HORIZON,SHORE,Math.pow(v,1.12));
+  return [u*W.w, y*W.h, lerp(0.34,1.25,v)];
+}
+function lampPos(){return [W.w*0.72, W.h*0.375];}
+const HARBOR={u:0.115,v:0.80};
+const REEFS=[{u:0.335,v:0.52,r:0.075},{u:0.60,v:0.38,r:0.065},{u:0.82,v:0.72,r:0.07},{u:0.44,v:0.80,r:0.06}];
+
+/* ---------- ships ---------- */
+function makeShip(){
+  const fromRight=Math.random()<0.55;
+  const type=Math.random()<0.3?"steamer":(Math.random()<0.5?"schooner":"sloop");
+  const s={
+    name:SHIPNAMES[(Math.random()*SHIPNAMES.length)|0],
+    cargo:CARGO[(Math.random()*CARGO.length)|0],
+    detail:DETAILS[(Math.random()*DETAILS.length)|0],
+    type,
+    u:fromRight?1.04:rnd(0.3,0.95), v:fromRight?rnd(0.22,0.62):0.045,
+    h:0, sp:(type==="steamer"?0.0125:0.0095)*rnd(0.9,1.15),
+    steady:0.25, lit:0, litT:0, unlitT:0,
+    peril:0, perilReef:null, flareT:0,
+    drowse:false, state:"sailing", stateT:0,
+    wobble:Math.random()*9, told:false
+  };
+  s.h=Math.atan2(HARBOR.v-s.v,HARBOR.u-s.u);
+  return s;
+}
+function shipLine(s,kind){
+  if(kind==="saved"){
+    const forms=[
+      "The "+s.name+" makes harbor — "+s.cargo+", and "+s.detail+".",
+      "Safe in: the "+s.name+", carrying "+s.cargo+". They say "+s.detail+".",
+      "The "+s.name+" slips past the pier light with "+s.cargo+" aboard; "+s.detail+"."
+    ];
+    return {t:forms[(Math.random()*forms.length)|0],c:"good"};
+  }
+  if(kind==="ashore"){
+    const forms=[
+      "The "+s.name+" grounds on the shoal. All hands walk ashore, wet and alive; the "+s.cargo+" belong to the tide now.",
+      "Lost the "+s.name+" to the rocks — every soul waded in singing, but the "+s.cargo+" did not.",
+      "The "+s.name+" is done sailing. Her crew is safe by the fire; her "+s.cargo+" feed the sea."
+    ];
+    return {t:forms[(Math.random()*forms.length)|0],c:"sad"};
+  }
+  if(kind==="passed")return {t:"The "+s.name+" held to the deep water and passed the point, bound elsewhere.",c:""};
+}
+
+/* ---------- fog field ---------- */
+function initFog(){
+  S.fog=[];
+  for(let i=0;i<5;i++)
+    S.fog.push({u:rnd(0,1),v:rnd(0.15,0.75),ru:rnd(0.14,0.26),rv:rnd(0.08,0.16),
+      drift:rnd(0.004,0.012)*(Math.random()<0.5?-1:1),seed:Math.random()*9});
+}
+function fogAt(u,v){
+  const base=phase().fog*(1-clamp((S.t-(S.hornT||-99))/6,0,1)*0.35);
+  if(base<=0.01)return 0;
+  let f=0;
+  for(const b of S.fog){
+    const du=(u-b.u)/b.ru, dv=(v-b.v)/b.rv;
+    f+=Math.exp(-(du*du+dv*dv));
+  }
+  return clamp(f*base,0,1);
+}
+
+/* ---------- the beam: attention, made of light ---------- */
+function beamHalf(){return S.focus?0.155:0.26;}
+function beamReach(){return (0.52+0.48*S.windM/100)*Math.hypot(W.w,W.h)*0.62;}
+function lampBright(){return 0.55+0.45*S.windM/100;}
+function litPower(u,v){
+  const [sx,sy]=seaToScreen(u,v), [lx,ly]=lampPos();
+  const a=Math.atan2(sx-lx,sy-ly);      /* 0 = straight down the water */
+  const d=Math.hypot(sx-lx,sy-ly);
+  const hw=beamHalf();
+  const edge=1-smooth(hw*0.55,hw*1.25,Math.abs(angDiff(S.beamA,a)));
+  if(edge<=0)return 0;
+  const range=d<beamReach()?1-0.4*(d/beamReach()):0;
+  if(range<=0)return 0;
+  return edge*range*(1-fogAt(u,v)*0.78)*lampBright();
+}
+
+/* ---------- keeper's voice ---------- */
+let voiceTimer=null;
+function voice(t,long){
+  const el=$("voice"); el.textContent=t; el.classList.add("on");
+  clearTimeout(voiceTimer);
+  voiceTimer=setTimeout(()=>el.classList.remove("on"),long?5200:3400);
+}
+function logAdd(entry){S.log.push(entry);}
+
+/* ---------- simulation ---------- */
+function startNight(){
+  S.t=0; S.ships=[]; S.flares=[]; S.parts=[]; S.lanterns=[];
+  S.saved=0; S.ashore=0; S.log=[];
+  S.windM=100; S.hornCd=0; S.hornT=-9;
+  S.whale=null; S.whaleDone=false; S.ghost=null; S.ghostDone=false;
+  S.spawnT=rnd(6,10); S.running=true;
+  S.gustA=rnd(0,TAU); S.gustM=0;
+  initFog();
+  $("nightno").textContent="Night "+S.night;
+  $("saved").textContent="0 brought home";
+  $("hud").classList.add("on");
+  if(S.night===1)voice("Dusk. The lamp is lit. Hold them in the light and they will hold their course.",true);
+  else voice("Night "+S.night+". The lamp remembers your hands.",true);
+}
+function endNight(){
+  S.running=false;
+  $("hud").classList.remove("on");
+  const lb=$("logbox"); lb.innerHTML="";
+  if(!S.log.length)logAdd({t:"A quiet night. The sea kept its own counsel.",c:""});
+  for(const e of S.log){
+    const d=document.createElement("div");
+    d.className=e.c||""; d.textContent="— "+e.t;
+    lb.appendChild(d);
+  }
+  const tot=S.saved+S.ashore;
+  $("tally").textContent=S.saved+" brought home"+(S.ashore?" · "+S.ashore+" ashore on the rocks":"")+
+    (tot?" · every soul alive":"");
+  $("dawnSub").textContent="night "+["one","two","three","four","five","six","seven","eight","nine","ten"][Math.min(9,S.night-1)]+
+    (S.totalSaved?" · "+S.totalSaved+" home in all":"");
+  document.querySelector("#scDawn").classList.add("on");
+  store.set("longlight",JSON.stringify({night:S.night,totalSaved:S.totalSaved}));
+}
+
+function tick(dt){
+  if(!S.running)return;
+  W.t+=dt; S.t+=dt;
+  const PH=phase();
+  $("phase").textContent=PH.name;
+  if(S.t>=NIGHT_LEN){endNight();return;}
+
+  /* lamp clockwork runs down */
+  if(S.winding){S.windM=clamp(S.windM+34*dt,0,100);}
+  else S.windM=clamp(S.windM-100/170*dt,8,100);
+  S.hornCd=Math.max(0,S.hornCd-dt);
+
+  /* beam eases toward the pointer — the lamp has mass */
+  const slew=(S.focus?1.05:1.7)*dt;
+  S.beamA=approach(S.beamA,S.beamTarget,slew);
+
+  /* storm */
+  const stormy=PH.storm>0;
+  S.gustM=lerp(S.gustM,stormy?1:0,dt*0.4);
+  S.gustA+=dt*0.13;
+
+  /* fog banks drift */
+  for(const b of S.fog){b.u+=b.drift*dt;if(b.u>1.25)b.u=-0.25;if(b.u<-0.25)b.u=1.25;}
+
+  /* spawning */
+  S.spawnT-=dt;
+  const cap=Math.min(PH.cap+Math.floor((S.night-1)/2),6);
+  const active=S.ships.filter(s=>s.state==="sailing").length;
+  if(S.spawnT<=0&&active<cap){
+    S.spawnT=rnd(PH.spawn[0],PH.spawn[1])*Math.pow(0.92,S.night-1);
+    const sh=makeShip(); S.ships.push(sh);
+  }
+
+  /* events */
+  if(!S.whaleDone&&!S.whale&&((S.t>90&&S.t<170)||(S.t>425&&S.t<455))&&Math.random()<dt*0.02){
+    S.whale={u:rnd(0.25,0.85),v:rnd(0.3,0.6),t:0,litT:0,blown:false};
+  }
+  if(S.whale){
+    const w=S.whale; w.t+=dt;
+    if(litPower(w.u,w.v)>0.4)w.litT+=dt;
+    if(w.litT>1.8&&!w.blown){
+      w.blown=true;
+      logAdd({t:"The whale rose into the beam and breathed a tower of silver, and was gone.",c:"odd"});
+      voice("The whale, in the light.");
+      sfx("whale");
+      for(let i=0;i<16;i++){
+        const [sx,sy,sc]=seaToScreen(w.u,w.v);
+        S.parts.push({x:sx,y:sy-10*W.dpr,vx:rnd(-8,8)*W.dpr,vy:rnd(-60,-90)*W.dpr*sc,g:60*W.dpr,t:0,life:rnd(1,1.7),kind:"spray"});
+      }
+    }
+    if(w.t>11)S.whale=null;
+  }
+  if(!S.ghostDone&&!S.ghost&&PH.name==="The Deep Hours"&&Math.random()<dt*0.012){
+    S.ghost={u:-0.05,v:rnd(0.2,0.45),seen:false};
+  }
+  if(S.ghost){
+    const g=S.ghost;
+    g.u+=0.016*dt;
+    if(!g.seen&&litPower(g.u,g.v)>0.3){
+      g.seen=true; S.ghostDone=true;
+      logAdd({t:"A ship with no lantern crossed west to east. The light passed through her, and she did not mind.",c:"odd"});
+      voice("…that one carries no lantern.");
+      sfx("ghost");
+    }
+    if(g.u>1.1)S.ghost=null;
+  }
+  /* sky lanterns on false dawn */
+  if(PH.name==="False Dawn"&&Math.random()<dt*0.25&&S.lanterns.length<7)
+    S.lanterns.push({x:rnd(0.1,0.9),y:1.02,vy:-rnd(0.008,0.014),vx:rnd(-0.004,0.004),seed:Math.random()*9});
+  for(let i=S.lanterns.length-1;i>=0;i--){
+    const l=S.lanterns[i]; l.y+=l.vy*dt*3; l.x+=l.vx*dt*3;
+    if(l.y<0.02)S.lanterns.splice(i,1);
+  }
+
+  /* ships */
+  for(const s of S.ships){
+    if(s.state!=="sailing"){s.stateT+=dt;continue;}
+    const lp=litPower(s.u,s.v);
+    s.lit=lp;
+    if(lp>0.35){s.litT+=dt;s.unlitT=0;
+      s.steady=clamp(s.steady+lp*dt*(S.focus&&lp>0.5?0.5:0.32),0,1);
+      if(s.drowse){s.drowse=false;}
+    }else{s.unlitT+=dt;s.litT=0;
+      s.steady=clamp(s.steady-dt*0.09,0,1);
+      if(PH.drowse&&s.unlitT>19&&!s.drowse&&s.type!=="steamer"){s.drowse=true;sfx("drowse");}
+    }
+    /* heading: wander in the dark, correct in the light */
+    const wander=(s.drowse?0.95:0.55)*(1-lp*0.85)*(stormy?1.9:1);
+    s.h+=rnd(-1,1)*wander*dt;
+    if(S.gustM>0.05)s.h=approach(s.h,S.gustA,S.gustM*dt*0.25);
+    /* the set of the current: darkness leans every hull toward the shoals */
+    for(const r of REEFS){
+      const dr=Math.hypot(s.u-r.u,(s.v-r.v)*1.2);
+      if(dr<r.r*2.6&&dr>0.001){
+        const toward=Math.atan2(r.v-s.v,r.u-s.u);
+        s.h=approach(s.h,toward,(1-lp)*(1-dr/(r.r*2.6))*dt*0.65);
+      }
+    }
+    const want=Math.atan2(HARBOR.v-s.v,HARBOR.u-s.u);
+    s.h=approach(s.h,want,(0.045+s.steady*0.5+lp*1.15)*dt);
+    const spd=s.sp*(s.drowse?0.25:1)*(0.75+s.steady*0.45);
+    s.u+=Math.cos(s.h)*spd*dt*(1/0.9);
+    s.v+=Math.sin(s.h)*spd*dt;
+    s.v=clamp(s.v,0.03,0.96);
+
+    /* peril at the reefs */
+    let inReef=null;
+    for(const r of REEFS){
+      if(Math.hypot(s.u-r.u,(s.v-r.v)*1.2)<r.r){inReef=r;break;}
+    }
+    if(inReef){
+      s.perilReef=inReef;
+      if(lp>0.5){
+        s.peril=Math.max(0,s.peril-dt*2.4);
+        const away=Math.atan2(s.v-inReef.v,s.u-inReef.u);
+        s.h=approach(s.h,away,dt*2.2);
+        s.steady=clamp(s.steady+dt*0.25,0,1);
+      }else{
+        s.peril+=dt;
+        s.flareT-=dt;
+        if(s.peril>1&&s.flareT<=0){
+          s.flareT=2.6;
+          const [sx,sy,sc]=seaToScreen(s.u,s.v);
+          S.flares.push({x:sx,y:sy,vy:-130*W.dpr*sc,t:0});
+          sfx("flare");
+          if(!s.told){s.told=true;voice("A flare — the "+s.name+" is on the shoal.");}
+        }
+      }
+      if(s.peril>8.5){
+        s.state="aground"; s.stateT=0; S.ashore++;
+        logAdd(shipLine(s,"ashore")); sfx("aground");
+        voice("The "+s.name+" is aground. Boats are away; every soul will walk ashore.");
+      }
+    }else{s.peril=Math.max(0,s.peril-dt*1.4);s.perilReef=null;s.told=false;}
+
+    /* harbor */
+    if(Math.hypot(s.u-HARBOR.u,s.v-HARBOR.v)<0.052){
+      s.state="saved"; s.stateT=0; S.saved++; S.totalSaved++;
+      logAdd(shipLine(s,"saved")); sfx("bell");
+      $("saved").textContent=S.saved+" brought home";
+    }
+    /* slipped past */
+    if(s.u<-0.07||s.u>1.12){
+      s.state="gone"; logAdd(shipLine(s,"passed"));
+    }
+  }
+  for(let i=S.ships.length-1;i>=0;i--){
+    const s=S.ships[i];
+    if((s.state==="saved"&&s.stateT>3)||(s.state==="aground"&&s.stateT>22)||s.state==="gone")S.ships.splice(i,1);
+  }
+
+  /* flares + particles */
+  for(let i=S.flares.length-1;i>=0;i--){
+    const f=S.flares[i]; f.t+=dt; f.y+=f.vy*dt; f.vy+=90*W.dpr*dt;
+    if(f.t>2.4)S.flares.splice(i,1);
+  }
+  for(let i=S.parts.length-1;i>=0;i--){
+    const q=S.parts[i]; q.t+=dt; q.x+=q.vx*dt; q.y+=q.vy*dt; q.vy+=(q.g||0)*dt;
+    if(q.t>q.life)S.parts.splice(i,1);
+  }
+}
+
+/* ---------- horn + winding ---------- */
+function soundHorn(){
+  if(S.hornCd>0||!S.running)return;
+  S.hornCd=5; S.hornT=S.t;
+  sfx("horn");
+  for(const s of S.ships){
+    if(s.state!=="sailing")continue;
+    if(s.drowse){s.drowse=false;s.steady=clamp(s.steady+0.12,0,1);}
+    if(s.peril>0)s.steady=clamp(s.steady+0.05,0,1);
+  }
+}
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function hx(c){
+  if(c[0]==="#")return [parseInt(c.slice(1,3),16),parseInt(c.slice(3,5),16),parseInt(c.slice(5,7),16)];
+  const m=c.match(/(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+  return m?[+m[1],+m[2],+m[3]]:[0,0,0];
+}
+function mix(c1,c2,t){
+  const a=hx(c1),b=hx(c2);
+  const ch=i=>{const v=Math.round(lerp(a[i],b[i],t));return isFinite(v)?clamp(v,0,255):0;};
+  return "rgb("+ch(0)+","+ch(1)+","+ch(2)+")";
+}
+const SKY=[[0,"#2b2f5e","#10152c"],[0.14,"#161d3c","#0a0e20"],[0.62,"#10152e","#070a16"],
+ [0.9,"#1a2340","#0c1224"],[0.965,"#54405c","#1c2338"],[1,"#8a5f6a","#31405c"]];
+function skyCols(){
+  const p=phaseT();
+  for(let i=1;i<SKY.length;i++){
+    if(p<=SKY[i][0]){
+      const t=(p-SKY[i-1][0])/(SKY[i][0]-SKY[i-1][0]);
+      return [mix(SKY[i-1][1],SKY[i][1],t),mix(SKY[i-1][2],SKY[i][2],t)];
+    }
+  }
+  return [SKY[5][1],SKY[5][2]];
+}
+let stars=null;
+function drawSky(){
+  const [top,mid]=skyCols();
+  const g=ctx.createLinearGradient(0,0,0,W.h*HORIZON*1.4);
+  g.addColorStop(0,top); g.addColorStop(1,mid);
+  ctx.fillStyle=g; ctx.fillRect(0,0,W.w,W.h*HORIZON+2);
+  if(!stars){stars=[];for(let i=0;i<110;i++)stars.push({x:Math.random(),y:Math.random()*HORIZON*0.96,r:rnd(0.5,1.7),tw:Math.random()*9});}
+  const starA=(1-smooth(0.9,1,phaseT()))*(1-S.gustM*0.6);
+  for(const s of stars){
+    ctx.globalAlpha=starA*(0.35+0.65*(0.5+0.5*Math.sin(W.t*0.8+s.tw)));
+    ctx.fillStyle="#dfe4f4";
+    ctx.beginPath(); ctx.arc(s.x*W.w,s.y*W.h,s.r*W.dpr,0,TAU); ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  /* moon */
+  const mx=W.w*lerp(0.16,0.86,phaseT()), my=W.h*(0.10+Math.sin(phaseT()*Math.PI)*-0.03+0.03);
+  ctx.save(); ctx.globalCompositeOperation="lighter";
+  const mg=ctx.createRadialGradient(mx,my,0,mx,my,60*W.dpr);
+  mg.addColorStop(0,"rgba(230,235,255,.5)"); mg.addColorStop(1,"rgba(230,235,255,0)");
+  ctx.fillStyle=mg; ctx.fillRect(mx-70*W.dpr,my-70*W.dpr,140*W.dpr,140*W.dpr);
+  ctx.restore();
+  ctx.fillStyle="#e0e6f8";
+  ctx.beginPath(); ctx.arc(mx,my,13*W.dpr,0,TAU); ctx.fill();
+  ctx.fillStyle=mix("#e0e6f8","#10152e",0.85);
+  ctx.beginPath(); ctx.arc(mx-5*W.dpr,my-3*W.dpr,11*W.dpr,0,TAU); ctx.fill();
+  W.moonX=mx;
+}
+function drawSea(){
+  const [top,mid]=skyCols();
+  const g=ctx.createLinearGradient(0,W.h*HORIZON,0,W.h);
+  g.addColorStop(0,mix(mid,"#1c2c48",0.5));
+  g.addColorStop(0.5,"#101c33");
+  g.addColorStop(1,"#0a1322");
+  ctx.fillStyle=g; ctx.fillRect(0,W.h*HORIZON,W.w,W.h);
+  /* moving swell bands */
+  ctx.save();
+  for(let k=0;k<5;k++){
+    const v=0.06+k*0.21, [,,sc]=seaToScreen(0.5,v);
+    const y=lerp(HORIZON,SHORE,Math.pow(v,1.12))*W.h;
+    const amp=(2+k*2.4)*W.dpr*(1+S.gustM*1.6);
+    ctx.strokeStyle="rgba(150,180,220,"+(0.05+k*0.012)+")";
+    ctx.lineWidth=1.2*W.dpr;
+    ctx.beginPath();
+    for(let x=0;x<=W.w;x+=W.w/60){
+      const yy=y+Math.sin(x/W.w*(8+k*3)+W.t*(0.5+k*0.22)*(1+S.gustM))*amp;
+      x===0?ctx.moveTo(x,yy):ctx.lineTo(x,yy);
+    }
+    ctx.stroke();
+  }
+  /* moon path glitter */
+  if(W.moonX!==undefined&&phaseT()<0.95){
+    ctx.globalAlpha=0.5;
+    for(let i=0;i<26;i++){
+      const v=0.06+((i*137)%100)/100*0.85;
+      const y=lerp(HORIZON,SHORE,Math.pow(v,1.12))*W.h;
+      const x=W.moonX+Math.sin(W.t*1.3+i*2.4)*((6+v*30)*W.dpr)+((i*89)%40-20)*W.dpr*v*2;
+      ctx.fillStyle="rgba(220,228,250,"+(0.14*(1-v*0.5))+")";
+      ctx.fillRect(x,y,(3+v*7)*W.dpr,1.2*W.dpr);
+    }
+    ctx.globalAlpha=1;
+  }
+  ctx.restore();
+  /* reefs: breakers */
+  for(const r of REEFS){
+    const [sx,sy,sc]=seaToScreen(r.u,r.v);
+    ctx.save(); ctx.translate(sx,sy);
+    for(let k=0;k<3;k++){
+      const ph2=(W.t*0.7+k*0.33+r.u*5)%1;
+      ctx.globalAlpha=0.35*(1-ph2);
+      ctx.strokeStyle="#cfe0ea"; ctx.lineWidth=2*W.dpr*sc;
+      ctx.beginPath();
+      ctx.arc(0,0,(r.r*W.w*0.5)*(0.4+ph2*0.8)*sc,Math.PI*1.05,Math.PI*1.95);
+      ctx.stroke();
+    }
+    ctx.globalAlpha=0.22; ctx.fillStyle="#31435c";
+    ctx.beginPath(); ctx.ellipse(0,2*W.dpr,r.r*W.w*0.42*sc,r.r*W.w*0.13*sc,0,0,TAU); ctx.fill();
+    ctx.restore();
+  }
+  ctx.globalAlpha=1;
+  /* harbor: pier and channel lights */
+  const [hx2,hy,hsc]=seaToScreen(HARBOR.u,HARBOR.v);
+  ctx.fillStyle="#151b28";
+  ctx.fillRect(0,hy-6*W.dpr,hx2-18*W.dpr*hsc,12*W.dpr);
+  for(const [ox,col] of [[-14,"#ff5c5c"],[16,"#5cff8a"]]){
+    const bx=hx2+ox*W.dpr*hsc;
+    ctx.fillStyle="#1c2432"; ctx.fillRect(bx-2*W.dpr,hy-20*W.dpr*hsc,4*W.dpr,20*W.dpr*hsc);
+    const blink=Math.sin(W.t*2+(ox>0?2:0))>0?1:0.25;
+    ctx.save(); ctx.globalCompositeOperation="lighter"; ctx.globalAlpha=blink;
+    const lg=ctx.createRadialGradient(bx,hy-22*W.dpr*hsc,0,bx,hy-22*W.dpr*hsc,10*W.dpr);
+    lg.addColorStop(0,col); lg.addColorStop(1,"rgba(0,0,0,0)");
+    ctx.fillStyle=lg; ctx.fillRect(bx-12*W.dpr,hy-34*W.dpr,24*W.dpr,24*W.dpr);
+    ctx.restore();
+  }
+}
+function drawBeam(){
+  const [lx,ly]=lampPos();
+  const R=beamReach(), hw=beamHalf(), br=lampBright();
+  ctx.save(); ctx.translate(lx,ly); ctx.rotate(-S.beamA);
+  ctx.globalCompositeOperation="lighter";
+  const g=ctx.createLinearGradient(0,0,0,R);
+  g.addColorStop(0,"rgba(255,214,140,"+(0.30*br)+")");
+  g.addColorStop(0.5,"rgba(255,206,130,"+(0.13*br)+")");
+  g.addColorStop(1,"rgba(255,200,120,0)");
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(-Math.tan(hw)*R,R);
+  ctx.lineTo(Math.tan(hw)*R,R);
+  ctx.closePath(); ctx.fill();
+  const g2=ctx.createLinearGradient(0,0,0,R);
+  g2.addColorStop(0,"rgba(255,240,200,"+(0.22*br)+")");
+  g2.addColorStop(1,"rgba(255,240,200,0)");
+  ctx.fillStyle=g2;
+  ctx.beginPath();
+  ctx.moveTo(0,0);
+  ctx.lineTo(-Math.tan(hw*0.4)*R,R);
+  ctx.lineTo(Math.tan(hw*0.4)*R,R);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+function drawShip(s){
+  const [sx,sy,sc]=seaToScreen(s.u,s.v);
+  const bob=Math.sin(W.t*1.7+s.wobble)*2.2*W.dpr*sc*(1+S.gustM);
+  const roll=Math.sin(W.t*1.1+s.wobble)*0.05*(1+S.gustM)+(s.state==="aground"?Math.min(0.35,s.stateT*0.05):0);
+  const u=W.dpr*sc, lit=s.lit||0;
+  ctx.save(); ctx.translate(sx,sy+bob); ctx.rotate(roll);
+  const facing=Math.cos(s.h)>=0?1:-1; ctx.scale(facing,1);
+  const alpha=s.state==="aground"?clamp(1-(s.stateT-14)/8,0,1):1;
+  ctx.globalAlpha=alpha;
+  /* hull */
+  const hullC=mix("#0c1220","#3a4a66",lit*0.7);
+  ctx.fillStyle=hullC;
+  ctx.beginPath();
+  ctx.moveTo(-20*u,0); ctx.quadraticCurveTo(-23*u,7*u,-14*u,9*u);
+  ctx.lineTo(14*u,9*u); ctx.quadraticCurveTo(24*u,6*u,21*u,-1*u);
+  ctx.closePath(); ctx.fill();
+  if(s.type==="steamer"){
+    ctx.fillStyle=hullC; ctx.fillRect(-6*u,-12*u,9*u,12*u);
+    ctx.fillRect(2*u,-19*u,5*u,10*u);
+    if(s.state==="sailing"&&Math.random()<0.25)
+      S.parts.push({x:sx+4*u*facing,y:sy-20*u+bob,vx:rnd(-4,10)*W.dpr,vy:-rnd(8,16)*W.dpr,g:-4*W.dpr,t:0,life:rnd(1.5,2.6),kind:"smoke",r:u*2.4});
+  }else{
+    ctx.strokeStyle=hullC; ctx.lineWidth=1.6*u;
+    const masts=s.type==="schooner"?[-8,6]:[0];
+    for(const m of masts){
+      ctx.beginPath(); ctx.moveTo(m*u,0); ctx.lineTo(m*u,-26*u); ctx.stroke();
+      ctx.fillStyle=mix("#151d30","#8a96b0",lit*0.6);
+      ctx.beginPath();
+      ctx.moveTo(m*u+1.5*u,-24*u);
+      ctx.quadraticCurveTo((m+13)*u,-14*u,m*u+1.5*u,-3*u);
+      ctx.closePath(); ctx.fill();
+    }
+  }
+  /* lantern */
+  const flick=s.drowse?(Math.sin(W.t*9)>0.3?1:0.15):1;
+  ctx.save(); ctx.globalCompositeOperation="lighter"; ctx.globalAlpha=alpha*flick;
+  const lg=ctx.createRadialGradient(17*u,-4*u,0,17*u,-4*u,9*u);
+  lg.addColorStop(0,"rgba(255,200,110,.95)"); lg.addColorStop(1,"rgba(255,200,110,0)");
+  ctx.fillStyle=lg; ctx.fillRect(6*u,-14*u,22*u,20*u);
+  ctx.restore();
+  /* steady glow when held in the light */
+  if(lit>0.35&&s.state==="sailing"){
+    ctx.save(); ctx.globalCompositeOperation="lighter";
+    ctx.globalAlpha=lit*0.35;
+    const gg=ctx.createRadialGradient(0,0,0,0,0,30*u);
+    gg.addColorStop(0,"rgba(255,226,170,.6)"); gg.addColorStop(1,"rgba(255,226,170,0)");
+    ctx.fillStyle=gg; ctx.fillRect(-34*u,-34*u,68*u,68*u);
+    ctx.restore();
+  }
+  /* peril ring */
+  if(s.peril>1&&s.state==="sailing"){
+    ctx.strokeStyle="rgba(255,110,90,"+(0.4+0.3*Math.sin(W.t*6))+")";
+    ctx.lineWidth=1.6*u;
+    ctx.beginPath(); ctx.arc(0,0,26*u,0,TAU); ctx.stroke();
+  }
+  ctx.restore();
+  ctx.globalAlpha=1;
+  /* wake */
+  if(s.state==="sailing"&&!s.drowse){
+    ctx.strokeStyle="rgba(180,200,230,.14)"; ctx.lineWidth=1.4*W.dpr*sc;
+    ctx.beginPath();
+    ctx.moveTo(sx-Math.cos(s.h)*10*u*3,sy-Math.sin(s.h)*10*u*3+bob*0.4);
+    ctx.lineTo(sx-Math.cos(s.h)*26*u*3,sy-Math.sin(s.h)*26*u*3+bob*0.2);
+    ctx.stroke();
+  }
+}
+function drawGhostWhale(){
+  if(S.whale){
+    const w=S.whale, [sx,sy,sc]=seaToScreen(w.u,w.v), u=W.dpr*sc;
+    const rise=Math.sin(clamp(w.t/11,0,1)*Math.PI);
+    ctx.save(); ctx.globalAlpha=0.85*rise;
+    ctx.fillStyle=mix("#0d1626","#3a5068",(litPower(w.u,w.v))*0.8);
+    ctx.beginPath();
+    ctx.ellipse(sx,sy,34*u,9*u*rise,0,Math.PI,0);
+    ctx.fill();
+    ctx.beginPath(); ctx.ellipse(sx-30*u,sy-2*u,8*u,6*u*rise,0.5,Math.PI,0.2); ctx.fill();
+    ctx.restore();
+  }
+  if(S.ghost){
+    const g=S.ghost,[sx,sy,sc]=seaToScreen(g.u,g.v),u=W.dpr*sc;
+    const lp=litPower(g.u,g.v);
+    ctx.save(); ctx.globalAlpha=0.10+lp*0.5;
+    ctx.strokeStyle="#b8cade"; ctx.lineWidth=1.2*u;
+    ctx.beginPath();
+    ctx.moveTo(-20*u+sx,sy); ctx.quadraticCurveTo(sx,7*u+sy,20*u+sx,sy-2*u);
+    ctx.moveTo(sx-6*u,sy); ctx.lineTo(sx-6*u,sy-24*u);
+    ctx.moveTo(sx-5*u,sy-22*u); ctx.quadraticCurveTo(sx+8*u,sy-14*u,sx-5*u,sy-4*u);
+    ctx.stroke();
+    ctx.restore();
+  }
+  for(const l of S.lanterns){
+    const x=l.x*W.w, y=l.y*W.h;
+    ctx.save(); ctx.globalCompositeOperation="lighter";
+    const g=ctx.createRadialGradient(x,y,0,x,y,8*W.dpr);
+    g.addColorStop(0,"rgba(255,180,110,.8)"); g.addColorStop(1,"rgba(255,180,110,0)");
+    ctx.fillStyle=g; ctx.fillRect(x-10*W.dpr,y-10*W.dpr,20*W.dpr,20*W.dpr);
+    ctx.restore();
+    ctx.fillStyle="#ffb46e";
+    ctx.fillRect(x-2*W.dpr,y-3*W.dpr,4*W.dpr,5*W.dpr);
+  }
+}
+function drawFogRain(){
+  const PH=phase();
+  const base=PH.fog*(1-clamp((S.t-(S.hornT||-99))/6,0,1)*0.35);
+  if(base>0.02){
+    ctx.save();
+    for(const b of S.fog){
+      const [sx,sy,sc]=seaToScreen(b.u,b.v);
+      const g=ctx.createRadialGradient(sx,sy,0,sx,sy,b.ru*W.w);
+      g.addColorStop(0,"rgba(170,185,205,"+(0.16*base)+")");
+      g.addColorStop(1,"rgba(170,185,205,0)");
+      ctx.fillStyle=g;
+      ctx.fillRect(sx-b.ru*W.w,sy-b.rv*W.h*2,b.ru*W.w*2,b.rv*W.h*4);
+    }
+    ctx.restore();
+  }
+  if(S.gustM>0.08){
+    ctx.strokeStyle="rgba(190,205,230,"+(0.13*S.gustM)+")";
+    ctx.lineWidth=1*W.dpr;
+    const slant=Math.cos(S.gustA)*6;
+    for(let i=0;i<50*S.gustM;i++){
+      const x=((i*197+W.t*640)%(W.w+80))-40, y=((i*89)%W.h);
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x+slant*W.dpr,y+14*W.dpr); ctx.stroke();
+    }
+  }
+}
+function drawFlaresParts(){
+  for(const f of S.flares){
+    ctx.save(); ctx.globalCompositeOperation="lighter";
+    ctx.globalAlpha=clamp(1.4-f.t*0.55,0,1);
+    const g=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,9*W.dpr);
+    g.addColorStop(0,"rgba(255,120,90,1)"); g.addColorStop(1,"rgba(255,120,90,0)");
+    ctx.fillStyle=g; ctx.fillRect(f.x-10*W.dpr,f.y-10*W.dpr,20*W.dpr,20*W.dpr);
+    ctx.strokeStyle="rgba(255,140,100,.4)"; ctx.lineWidth=1.4*W.dpr;
+    ctx.beginPath(); ctx.moveTo(f.x,f.y); ctx.lineTo(f.x,f.y+26*W.dpr); ctx.stroke();
+    ctx.restore();
+  }
+  for(const q of S.parts){
+    const a=1-q.t/q.life;
+    if(q.kind==="smoke"){
+      ctx.fillStyle="rgba(160,170,190,"+(a*0.2)+")";
+      ctx.beginPath(); ctx.arc(q.x,q.y,(q.r||3)*(1+q.t),0,TAU); ctx.fill();
+    }else{
+      ctx.fillStyle="rgba(220,235,250,"+(a*0.8)+")";
+      ctx.beginPath(); ctx.arc(q.x,q.y,1.8*W.dpr,0,TAU); ctx.fill();
+    }
+  }
+}
+function drawLighthouse(){
+  const [lx,ly]=lampPos(), u=W.dpr;
+  const towerH=W.h*0.235;                 /* lamp down to the headland */
+  ctx.save(); ctx.translate(lx,ly);
+  /* headland rock behind the tower foot */
+  ctx.fillStyle="#101626";
+  ctx.beginPath();
+  ctx.moveTo(-46*u,towerH+40*u);
+  ctx.quadraticCurveTo(-26*u,towerH-6*u,-4*u,towerH-14*u);
+  ctx.lineTo(W.w-lx+4,towerH-24*u);
+  ctx.lineTo(W.w-lx+4,W.h-ly+4);
+  ctx.lineTo(-46*u,W.h-ly+4);
+  ctx.closePath(); ctx.fill();
+  /* tower, lamp at the top (origin) */
+  const g=ctx.createLinearGradient(-14*u,0,14*u,0);
+  g.addColorStop(0,"#1c2436"); g.addColorStop(0.5,"#3c4a66"); g.addColorStop(1,"#161d2e");
+  ctx.fillStyle=g;
+  ctx.beginPath();
+  ctx.moveTo(-9*u,10*u); ctx.lineTo(-15*u,towerH); ctx.lineTo(15*u,towerH); ctx.lineTo(9*u,10*u);
+  ctx.closePath(); ctx.fill();
+  ctx.fillStyle="#2a3450";
+  ctx.fillRect(-12*u,towerH*0.36,24*u,7*u);
+  ctx.fillRect(-13.5*u,towerH*0.68,27*u,7*u);
+  /* gallery + lamp room around the origin */
+  ctx.fillStyle="#0e1424"; ctx.fillRect(-13*u,8*u,26*u,5*u);
+  ctx.fillStyle="#1a2338"; ctx.fillRect(-9*u,-8*u,18*u,16*u);
+  ctx.save(); ctx.globalCompositeOperation="lighter";
+  const lampG=ctx.createRadialGradient(0,0,0,0,0,18*u);
+  lampG.addColorStop(0,"rgba(255,230,170,"+(0.9*lampBright())+")");
+  lampG.addColorStop(1,"rgba(255,230,170,0)");
+  ctx.fillStyle=lampG; ctx.fillRect(-20*u,-20*u,40*u,40*u);
+  ctx.restore();
+  ctx.fillStyle="#0e1424";
+  ctx.beginPath(); ctx.moveTo(-10*u,-8*u); ctx.lineTo(0,-19*u); ctx.lineTo(10*u,-8*u); ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+function drawWindRing(){
+  const rc=$("windring"), c=rc.getContext("2d");
+  c.clearRect(0,0,80,80);
+  c.strokeStyle="#2a3654"; c.lineWidth=3;
+  c.beginPath(); c.arc(40,40,36,0,TAU); c.stroke();
+  c.strokeStyle=S.windM>30?"#ffca7a":"#ff8a6a";
+  c.beginPath(); c.arc(40,40,36,-Math.PI/2,-Math.PI/2+TAU*S.windM/100); c.stroke();
+}
+function render(){
+  drawSky();
+  drawSea();
+  /* beam under the ships' glow but over the water */
+  drawBeam();
+  drawGhostWhale();
+  const sorted=S.ships.slice().sort((a,b)=>a.v-b.v);
+  for(const s of sorted)drawShip(s);
+  drawFogRain();
+  drawFlaresParts();
+  drawLighthouse();
+  /* dawn wash */
+  const p=phaseT();
+  if(p>0.93){
+    ctx.fillStyle="rgba(255,190,150,"+((p-0.93)/0.07*0.12)+")";
+    ctx.fillRect(0,0,W.w,W.h);
+  }
+  /* vignette */
+  const g=ctx.createRadialGradient(W.w/2,W.h/2,Math.min(W.w,W.h)*0.44,W.w/2,W.h/2,Math.max(W.w,W.h)*0.76);
+  g.addColorStop(0,"rgba(0,0,0,0)"); g.addColorStop(1,"rgba(2,4,10,.55)");
+  ctx.fillStyle=g; ctx.fillRect(0,0,W.w,W.h);
+  drawWindRing();
+}
+
+/* ============================================================
+   MUSIC — a nocturne that breathes with the water.
+   The foghorn is an instrument, and it plays in key.
+   ============================================================ */
+let AC=null,NB=null;
+function ac(){
+  if(!AC){const C=window.AudioContext||window.webkitAudioContext;if(!C)return null;AC=new C();}
+  if(AC.state==="suspended")AC.resume();
+  return AC;
+}
+const mfreq=m=>440*Math.pow(2,(m-69)/12);
+const MUS={started:false,g:null,bus:null,delay:null,pad:[],padG:null,
+  waveSrc:null,waveG:null,windG:null,tGain:null,tOsc:[],
+  bpm:50,root:50,step:0,next:0,chordI:-1};
+const CHORDS_NIGHT=[[0,7,14],[-2,5,12],[3,10,17],[-4,3,12]];
+const CHORDS_DAWN=[[0,7,16],[2,9,16],[5,12,19],[0,9,16]];
+const PHRASE_N=[[0,17],[3,14],[7,12],[10,15],[13,10]];
+function nb(a){
+  if(NB)return NB;
+  const n=a.sampleRate*2; NB=a.createBuffer(1,n,a.sampleRate);
+  const d=NB.getChannelData(0); for(let i=0;i<n;i++)d[i]=Math.random()*2-1;
+  return NB;
+}
+function startMusic(){
+  const a=ac(); if(!a||MUS.started)return;
+  MUS.started=true;
+  MUS.g=a.createGain(); MUS.g.gain.value=0; MUS.g.connect(a.destination);
+  MUS.delay=a.createDelay(2); MUS.delay.delayTime.value=0.58;
+  const fb=a.createGain(); fb.gain.value=0.4;
+  const wet=a.createGain(); wet.gain.value=0.55;
+  MUS.delay.connect(fb); fb.connect(MUS.delay);
+  MUS.delay.connect(wet); wet.connect(MUS.g);
+  MUS.bus=a.createGain(); MUS.bus.connect(MUS.g); MUS.bus.connect(MUS.delay);
+  /* pad */
+  const lp=a.createBiquadFilter(); lp.type="lowpass"; lp.frequency.value=520; lp.Q.value=0.5;
+  MUS.padG=a.createGain(); MUS.padG.gain.value=0.04;
+  lp.connect(MUS.padG); MUS.padG.connect(MUS.g);
+  for(let k=0;k<3;k++){
+    const o=a.createOscillator(); o.type="triangle";
+    o.frequency.value=mfreq(MUS.root); o.detune.value=(k-1)*4;
+    o.connect(lp); o.start(); MUS.pad.push(o);
+  }
+  /* the sea itself: filtered noise, swelling with the visual waves */
+  MUS.waveSrc=a.createBufferSource(); MUS.waveSrc.buffer=nb(a); MUS.waveSrc.loop=true;
+  const wlp=a.createBiquadFilter(); wlp.type="lowpass"; wlp.frequency.value=420;
+  MUS.waveG=a.createGain(); MUS.waveG.gain.value=0.012;
+  MUS.waveSrc.connect(wlp); wlp.connect(MUS.waveG); MUS.waveG.connect(MUS.g);
+  MUS.waveSrc.start();
+  /* storm wind layer */
+  const ws=a.createBufferSource(); ws.buffer=nb(a); ws.loop=true;
+  const wbp=a.createBiquadFilter(); wbp.type="bandpass"; wbp.frequency.value=800; wbp.Q.value=0.6;
+  MUS.windG=a.createGain(); MUS.windG.gain.value=0;
+  ws.connect(wbp); wbp.connect(MUS.windG); MUS.windG.connect(MUS.g);
+  ws.start();
+  MUS.next=a.currentTime+0.2; MUS.step=0;
+}
+function mbell(f,t,dur,vol){
+  const a=AC;
+  const o=a.createOscillator(),o2=a.createOscillator(),g=a.createGain(),g2=a.createGain();
+  o.type="sine"; o.frequency.value=f;
+  o2.type="sine"; o2.frequency.value=f*2.004;
+  g2.gain.value=0.3;
+  g.gain.setValueAtTime(0.0001,t);
+  g.gain.linearRampToValueAtTime(vol,t+0.03);
+  g.gain.exponentialRampToValueAtTime(0.0004,t+dur);
+  o.connect(g); o2.connect(g2); g2.connect(g); g.connect(MUS.bus);
+  o.start(t); o2.start(t); o.stop(t+dur+0.1); o2.stop(t+dur+0.1);
+}
+function musicTick(){
+  if(!MUS.started||!AC)return;
+  const now=AC.currentTime, spb=60/MUS.bpm;
+  const dawn=phaseT()>0.93;
+  const CH=dawn?CHORDS_DAWN:CHORDS_NIGHT;
+  while(MUS.next<now+0.45){
+    const beat=MUS.step%16, ci=Math.floor((MUS.step%64)/16);
+    if(ci!==MUS.chordI){
+      MUS.chordI=ci;
+      for(let k=0;k<3;k++)
+        MUS.pad[k].frequency.setTargetAtTime(mfreq(MUS.root+CH[ci][k]),MUS.next,1.1);
+      mbell(mfreq(MUS.root+CH[ci][0]-12),MUS.next,6,0.045);
+    }
+    for(const [bt,sm] of PHRASE_N)
+      if(bt===beat)mbell(mfreq(MUS.root+12+sm+(dawn?2:0)),MUS.next,3.8,0.036);
+    MUS.step++; MUS.next+=spb;
+  }
+  if(MUS.next<now)MUS.next=now+0.1;
+  /* the sea swells; the storm leans in */
+  MUS.waveG.gain.setTargetAtTime(0.012+0.02*(0.5+0.5*Math.sin(W.t*0.45))*(1+S.gustM*1.5),now,0.4);
+  MUS.windG.gain.setTargetAtTime(S.gustM*0.035,now,1.2);
+  MUS.g.gain.setTargetAtTime(S.running?0.9:0.35,now,1);
+}
+function sfxBlip(f1,f2,dur,type,vol){
+  const a=ac(); if(!a)return;
+  const o=a.createOscillator(),g=a.createGain();
+  o.type=type||"sine"; o.frequency.setValueAtTime(f1,a.currentTime);
+  o.frequency.exponentialRampToValueAtTime(Math.max(20,f2),a.currentTime+dur);
+  g.gain.setValueAtTime(0,a.currentTime);
+  g.gain.linearRampToValueAtTime(vol||0.1,a.currentTime+0.02);
+  g.gain.exponentialRampToValueAtTime(0.0005,a.currentTime+dur);
+  o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime+dur+0.05);
+}
+function sfx(k){
+  const a=ac(); if(!a)return;
+  switch(k){
+    case "horn":{ /* two low tones a fourth apart, slow attack — D key */
+      for(const [f,v] of [[mfreq(38),0.16],[mfreq(45),0.10]]){
+        const o=a.createOscillator(),g=a.createGain();
+        o.type="triangle"; o.frequency.value=f;
+        g.gain.setValueAtTime(0.0001,a.currentTime);
+        g.gain.linearRampToValueAtTime(v,a.currentTime+0.35);
+        g.gain.setValueAtTime(v,a.currentTime+1.6);
+        g.gain.exponentialRampToValueAtTime(0.0005,a.currentTime+2.6);
+        o.connect(g); g.connect(MUS.started?MUS.bus:a.destination);
+        o.start(); o.stop(a.currentTime+2.8);
+      }
+      break;}
+    case "bell": [0,7,12].forEach((sm,i)=>setTimeout(()=>sfxBlip(mfreq(74+sm),mfreq(74+sm)*0.99,1.6,"triangle",0.07),i*160)); break;
+    case "flare": sfxBlip(300,900,0.5,"sine",0.05); break;
+    case "aground": sfxBlip(120,50,1.2,"triangle",0.1); break;
+    case "drowse": sfxBlip(500,300,0.6,"sine",0.03); break;
+    case "whale": sfxBlip(90,180,2.2,"sine",0.08); sfxBlip(180,140,2.4,"sine",0.04); break;
+    case "ghost": sfxBlip(880,860,2.4,"sine",0.025); break;
+    case "crank": sfxBlip(160,180,0.08,"square",0.03); break;
+  }
+}
+
+/* ============================================================
+   INPUT + LOOP + BOOT
+   ============================================================ */
+function aimFromEvent(e){
+  const r=cv.getBoundingClientRect();
+  const x=(e.clientX-r.left)/r.width*W.w, y=(e.clientY-r.top)/r.height*W.h;
+  const [lx,ly]=lampPos();
+  S.beamTarget=clamp(Math.atan2(x-lx,y-ly),-1.68,1.68);
+}
+cv.addEventListener("pointermove",e=>{if(S.running)aimFromEvent(e);});
+cv.addEventListener("pointerdown",e=>{ac();startMusic();if(S.running){aimFromEvent(e);S.focus=true;}});
+addEventListener("pointerup",()=>{S.focus=false;S.winding=false;});
+addEventListener("pointercancel",()=>{S.focus=false;S.winding=false;});
+$("hornbtn").addEventListener("pointerdown",e=>{e.stopPropagation();soundHorn();});
+$("windbtn").addEventListener("pointerdown",e=>{e.stopPropagation();S.winding=true;sfx("crank");});
+addEventListener("keydown",e=>{
+  if(e.code==="Space"){e.preventDefault();soundHorn();}
+  if(e.code==="KeyW"){S.winding=true;}
+});
+addEventListener("keyup",e=>{if(e.code==="KeyW")S.winding=false;});
+let crankT=0;
+
+$("bStart").onclick=()=>{
+  ac(); startMusic();
+  $("scTitle").classList.remove("on");
+  startNight();
+};
+$("bNext").onclick=()=>{
+  $("scDawn") .classList.remove("on");
+  S.night++;
+  startNight();
+};
+$("bRest").onclick=()=>{
+  $("scDawn").classList.remove("on");
+  $("scTitle").classList.add("on");
+  S.night=1;
+};
+
+let last=0;
+function frame(ms){
+  requestAnimationFrame(frame);
+  const now=ms/1000; let dt=now-last; last=now;
+  if(!(dt>0))dt=0.016; dt=Math.min(0.05,dt);
+  if(S.winding){crankT+=dt;if(crankT>0.22){crankT=0;sfx("crank");}}
+  tick(dt);
+  musicTick();
+  $("hornbtn").classList.toggle("cool",S.hornCd>0);
+  render();
+}
+function boot(){
+  layout();
+  const raw=store.get("longlight");
+  if(raw){try{const d=JSON.parse(raw);S.totalSaved=d.totalSaved||0;}catch(e){}}
+  requestAnimationFrame(frame);
+}
+let rzT=null;
+addEventListener("resize",()=>{clearTimeout(rzT);rzT=setTimeout(layout,150);});
+boot();
+</script>
+</body>
+</html>

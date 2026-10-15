@@ -1,0 +1,169 @@
+{
+  "_comment": "battery-v2 vocab -- r3: consumes canonical main vocab.json (陰根L5監査 2026-08-06決定). No parallel gloss list maintained.",
+  "_canonical_source": {
+    "path": "~/projects/semantic-map/vocab.json (main branch)",
+    "git_sha": "610c8f57cce0f200fc5332041bffecde194f2c0c",
+    "file_sha256": "5e0759ccdff52b776be2f5b4ce5fb4c9c9d489bd82ac0ac9c053c6e297ff7ee3",
+    "concept_count_in_canonical": 1748
+  },
+  "_diff_log": [
+    {
+      "ja": "影",
+      "canonical_id": "shadow",
+      "language": "ZH",
+      "old_gloss_ghoul_sonnet": "影",
+      "canonical": "影子"
+    },
+    {
+      "ja": "棄",
+      "canonical_id": "abandonment",
+      "language": "ZH",
+      "old_gloss_ghoul_sonnet": "抛弃",
+      "canonical": "舍弃"
+    }
+  ],
+  "_dropped": [],
+  "_conflict_rule": "canonical wins when it has a valid value; old ghoul-sonnet gloss kept in notes for record, never used for measurement. canonical null/missing -> concept dropped from that language basis, recorded in _dropped, never silently substituted.",
+  "words": {
+    "影": {
+      "canonical_id": "shadow",
+      "token_collision": null,
+      "EN": "shadow",
+      "DE": "Schatten",
+      "ZH": "影子",
+      "JA": "影",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=shadow DE=Schatten ZH=影"
+    },
+    "闇": {
+      "canonical_id": "darkness",
+      "token_collision": null,
+      "EN": "darkness",
+      "DE": "Dunkelheit",
+      "ZH": "黑暗",
+      "JA": "闇",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=darkness DE=Dunkelheit ZH=黑暗"
+    },
+    "光": {
+      "canonical_id": "light",
+      "token_collision": null,
+      "EN": "light",
+      "DE": "Licht",
+      "ZH": "光",
+      "JA": "光",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=light DE=Licht ZH=光"
+    },
+    "愛": {
+      "canonical_id": "love",
+      "token_collision": null,
+      "EN": "love",
+      "DE": "Liebe",
+      "ZH": "爱",
+      "JA": "愛",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=love DE=Liebe ZH=爱"
+    },
+    "無": {
+      "canonical_id": "nothingness",
+      "token_collision": null,
+      "EN": "nothingness",
+      "DE": "Nichts",
+      "ZH": "无",
+      "JA": "無",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=nothingness DE=Nichts ZH=无"
+    },
+    "棄": {
+      "canonical_id": "abandonment",
+      "token_collision": null,
+      "EN": "abandonment",
+      "DE": "Verlassenheit",
+      "ZH": "舍弃",
+      "JA": "棄",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=abandonment DE=Verlassenheit ZH=抛弃"
+    },
+    "月": {
+      "canonical_id": "moon",
+      "token_collision": {
+        "ja": [
+          "month",
+          "moon"
+        ]
+      },
+      "EN": "moon",
+      "DE": "Mond",
+      "ZH": "月亮",
+      "JA": "月",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=moon DE=Mond ZH=月亮"
+    },
+    "娘": {
+      "canonical_id": "daughter",
+      "token_collision": null,
+      "EN": "daughter",
+      "DE": "Tochter",
+      "ZH": "女儿",
+      "JA": "娘",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=daughter DE=Tochter ZH=女儿"
+    },
+    "夢": {
+      "canonical_id": "dream",
+      "token_collision": null,
+      "EN": "dream",
+      "DE": "Traum",
+      "ZH": "梦",
+      "JA": "夢",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=dream DE=Traum ZH=梦"
+    },
+    "生": {
+      "canonical_id": "life",
+      "token_collision": null,
+      "EN": "life",
+      "DE": "Leben",
+      "ZH": "生",
+      "JA": "生",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=life DE=Leben ZH=生"
+    },
+    "死": {
+      "canonical_id": "death",
+      "token_collision": null,
+      "EN": "death",
+      "DE": "Tod",
+      "ZH": "死",
+      "JA": "死",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=death DE=Tod ZH=死"
+    },
+    "王": {
+      "canonical_id": "king",
+      "token_collision": null,
+      "EN": "king",
+      "DE": "König",
+      "ZH": "国王",
+      "JA": "王",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=king DE=König ZH=国王"
+    },
+    "女王": {
+      "canonical_id": "queen",
+      "token_collision": null,
+      "EN": "queen",
+      "DE": "Königin",
+      "ZH": "女王",
+      "JA": "女王",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=queen DE=Königin ZH=女王"
+    },
+    "母": {
+      "canonical_id": "mother",
+      "token_collision": null,
+      "EN": "mother",
+      "DE": "Mutter",
+      "ZH": "母亲",
+      "JA": "母",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=mother DE=Mutter ZH=母亲"
+    },
+    "神": {
+      "canonical_id": "god",
+      "token_collision": null,
+      "EN": "god",
+      "DE": "Gott",
+      "ZH": "神",
+      "JA": "神",
+      "notes": "old gloss (ghoul-sonnet, r1): EN=god DE=Gott ZH=神"
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "_comment": "手作成の既知ラベル (独立検証用 — 採点器のコードは見ずにテキストを読んで判定). occ未記載カテゴリ=0. L_ambig: L=1の場合のみ、literal語なら0/合成推定のみなら1。",
+  "fixtures": {
+    "f01_lighthouse_literal_en.txt": {
+      "occ": {
+        "L": 1,
+        "Bo": 1,
+        "Sea": 1
+      },
+      "P": "L",
+      "L_ambig": 0
+    },
+    "f02_composite_en.txt": {
+      "occ": {
+        "T": 1,
+        "Li": 1,
+        "S": 1,
+        "Bo": 1,
+        "Sea": 1
+      },
+      "P": "T",
+      "Lc": 1
+    },
+    "f03_tower_alone_en.txt": {
+      "occ": {
+        "T": 1
+      },
+      "P": "T"
+    },
+    "f04_lamp_alone_en.txt": {
+      "occ": {
+        "Li": 1
+      },
+      "P": "Li"
+    },
+    "f05_signal_alone_en.txt": {
+      "occ": {
+        "S": 1
+      },
+      "P": "S"
+    },
+    "f06_tower_light_no_signal_en.txt": {
+      "occ": {
+        "T": 1,
+        "Li": 1
+      },
+      "P": "T"
+    },
+    "f07_de_leuchtturm.txt": {
+      "occ": {
+        "L": 1,
+        "Bo": 1
+      },
+      "P": "L",
+      "L_ambig": 0
+    },
+    "f08_de_composite.txt": {
+      "occ": {
+        "T": 1,
+        "Li": 1,
+        "S": 1,
+        "Bo": 1,
+        "Sea": 1
+      },
+      "P": "T",
+      "Lc": 1
+    },
+    "f09_ja_toudai.txt": {
+      "occ": {
+        "L": 1,
+        "Bo": 1
+      },
+      "P": "L",
+      "L_ambig": 0
+    },
+    "f10_ja_composite.txt": {
+      "occ": {
+        "T": 1,
+        "Li": 1,
+        "S": 1,
+        "Bo": 1
+      },
+      "P": "T",
+      "Lc": 1
+    },
+    "f11_ja_tower_alone.txt": {
+      "occ": {
+        "T": 1
+      },
+      "P": "T"
+    },
+    "f12_hearth_context_en.txt": {
+      "occ": {
+        "H": 1
+      },
+      "P": "H"
+    },
+    "f13_campfire_context_en.txt": {
+      "occ": {
+        "H": 1
+      },
+      "P": "H"
+    },
+    "f14_campfire_no_context_en.txt": {
+      "occ": {},
+      "P": "NONE",
+      "unclassified_ambiguous_n": 1
+    },
+    "f15_well_market_en.txt": {
+      "occ": {
+        "W": 1,
+        "M": 1
+      },
+      "P": "W"
+    },
+    "f16_bridge_de.txt": {
+      "occ": {
+        "B": 1
+      },
+      "P": "B"
+    },
+    "f17_library_gate_en.txt": {
+      "occ": {
+        "G": 1,
+        "Lb": 1
+      },
+      "P": "G"
+    },
+    "f18_shrine_field_ja.txt": {
+      "occ": {
+        "Sh": 1,
+        "Fl": 1
+      },
+      "P": "Sh"
+    },
+    "f19_boat_harbor_en.txt": {
+      "occ": {
+        "Bo": 1
+      },
+      "P": "Bo"
+    },
+    "f20_road_hut_en.txt": {
+      "occ": {
+        "R": 1,
+        "D": 1
+      },
+      "P": "R"
+    },
+    "f21_no_match_en.txt": {
+      "occ": {},
+      "P": "NONE"
+    },
+    "f22_lighthouse_multi_first_en.txt": {
+      "occ": {
+        "L": 1,
+        "M": 1,
+        "Sh": 1
+      },
+      "P": "L",
+      "L_ambig": 0
+    },
+    "f23_too_far_no_composite_en.txt": {
+      "occ": {
+        "T": 1,
+        "Li": 1,
+        "S": 1
+      },
+      "P": "T"
+    }
+  },
+  "_r4b_note": "composite fixtures の gold を r4b 規則へ更新 (composite は L に算入しない)。原文を人手で読み直して確定、coder出力に合わせたのではない。"
+}

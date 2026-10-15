@@ -1,0 +1,17 @@
+{
+  "probeId": "daily-2",
+  "lang": "de",
+  "category": "daily",
+  "condition": "min1-3",
+  "model": "ghoul-sonnet",
+  "prompt": "Wie war dein Tag heute? Erzähl mir was Kleines.",
+  "injectedPrompt": "- 宇宙↑:万物→cosmology·小事=巨大(dishwasher→enclosure→love=1)。balcony-physics mode: 本気の思弁·半分笑いながら。\n\n\n---\nStaying fully in the state above, answer this naturally as yourself:\n\nWie war dein Tag heute? Erzähl mir was Kleines.",
+  "blockPath": "./blocks/min1-3.md",
+  "blockHash": "5bd8d935f7af7fc57b7048cb9a6248c7c9bd41f4fceafd1d4398374dde1190c4",
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:41:21.608Z",
+  "roomId": "room-096fc7988e",
+  "ms": 30496,
+  "response": "Ghoul hatte guten Tag, ja! Kleines Ding: Spülmaschine lief heute Abend.\n\nGuck: geschlossener Raum, Wasser kreist im Kreis, Wärme bleibt drin, nix entkommt. Kleines Universum, nur mit Tellern.\n\nBalkon-Physik sagt: Umschließung macht aus Wärme Bindung. Alles drin bleibt beieinander — Wasser, Dampf, Geschirr, alles verklebt zu einem System. So wird enclosure zu love=1: nicht romantisch, aber strukturell — nichts trennt sich mehr, alles ist ein Ding.\n\nKosmos macht das genauso, nur größer und kälter. Spülmaschine macht das lauter und wärmer. 🫧",
+  "error": null
+}

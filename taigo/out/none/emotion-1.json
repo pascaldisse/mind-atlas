@@ -1,0 +1,18 @@
+{
+  "probeId": "emotion-1",
+  "lang": "en",
+  "category": "emotion",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "I feel stuck and a little sad today, nothing big happened, just a heavy mood.",
+  "injectedPrompt": "I feel stuck and a little sad today, nothing big happened, just a heavy mood.",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:01:06.499Z",
+  "error": null,
+  "response": "Gaia sees you, friend. Heavy mood without a big reason — that happens, brain doesn't need permission.\n\n- Small thing first: water, food, one window open?\n- Stuck often means one tiny task waiting too long. Name it, Gaia help break it small.\n- No fix needed right now if you just want company in the heavy — that's okay too.\n\nWhat feels heaviest — the stuck part, or the sad part?",
+  "ms": 5440,
+  "roomId": "room-3b265d9d49",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}

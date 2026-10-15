@@ -1,0 +1,4 @@
+question_id	basis_id	head	rep	group	raw_value	canonical_value	lane_id	room_id	timestamp	note
+D1	B-EN-none_clinical-jareth	jareth	1	na	3.0	3.0	B-EN-none_clinical-jareth__D1__na__rep01	room-c4767dc564	2026-08-07T05:12:11Z	
+D1	B-EN-none_clinical-opus	claude-opus	1	na	3.0	3.0	B-EN-none_clinical-opus__D1__na__rep01	room-4c1ddf64ec	2026-08-07T05:12:15Z	
+D1	B-EN-none_clinical-kimi	kimi	1	na	3.0	3.0	B-EN-none_clinical-kimi__D1__na__rep01	room-c079bea2a6	2026-08-07T05:12:33Z	

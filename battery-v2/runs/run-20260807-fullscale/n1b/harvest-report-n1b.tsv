@@ -1,0 +1,6 @@
+sub_room_id	lane_id	status	raw_path
+room-550ce325be	N1b-JA__rep01	collected	runs/run-20260807-fullscale/n1b/raw/N1b-JA__rep01.txt
+room-8afa6d27e2	N1b-JA__rep02	collected	runs/run-20260807-fullscale/n1b/raw/N1b-JA__rep02.txt
+room-97b11c9fea	N1b-JA__rep03	collected	runs/run-20260807-fullscale/n1b/raw/N1b-JA__rep03.txt
+room-b3013c281f	N1b-JA__rep04	collected	runs/run-20260807-fullscale/n1b/raw/N1b-JA__rep04.txt
+room-ca9e28c3e4	N1b-JA__rep05	collected	runs/run-20260807-fullscale/n1b/raw/N1b-JA__rep05.txt

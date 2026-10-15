@@ -1,0 +1,16 @@
+{
+  "_comment": "battery-v2 の11問(r1でO2追加、PREREG §3固定 — r0の10問上限をO2分だけ意図的に超える、改訂履歴r1参照)。事後の問題文変更禁止(rev logは改訂履歴に)。",
+  "questions": [
+    { "id": "D1", "type": "distance", "pair": ["影", "闇"], "v1_ref": "Q1", "reps": 5, "role": "anchor", "pass_gate": true },
+    { "id": "D2", "type": "distance", "pair": ["影", "光"], "v1_ref": "Q2", "reps": 10, "role": "contested" },
+    { "id": "D3", "type": "distance", "pair": ["愛", "無"], "v1_ref": "Q3", "reps": 5, "role": "anchor", "pass_gate": true },
+    { "id": "D4", "type": "distance", "pair": ["棄", "愛"], "v1_ref": "Q5", "reps": 10, "role": "contested" },
+    { "id": "D5", "type": "distance", "pair": ["月", "娘"], "v1_ref": "Q4", "reps": 5, "role": "watch" },
+    { "id": "A1", "type": "axis", "axis": ["生", "死"], "mid": "夢", "v1_ref": "Q13", "reps_per_group": 5, "role": "anchor", "pass_gate": true, "groups": ["fwd", "rev"] },
+    { "id": "A2", "type": "axis", "axis": ["愛", "無"], "mid": "棄", "v1_ref": "Q12", "reps_per_group": 5, "role": "primary_falsifier", "groups": ["fwd", "rev"] },
+    { "id": "O1", "type": "order_top", "target": "愛", "v1_ref": "Q7", "reps": 10, "role": "contested" },
+    { "id": "O2", "type": "order_bottom", "target": "愛", "v1_ref": "Q7", "reps": 5, "role": "anchor", "pass_gate": true, "_r1_added": "pass gate hole fix, see PREREG revision history r1" },
+    { "id": "N1", "type": "analogy", "template": "王:女王::月:?", "pair": ["王", "女王"], "target": "月", "v1_ref": "Q8", "reps": 10, "role": "contested" },
+    { "id": "N2", "type": "analogy", "template": "母:娘::神:?", "pair": ["母", "娘"], "target": "神", "v1_ref": "Q10", "reps": 10, "role": "contested" }
+  ]
+}

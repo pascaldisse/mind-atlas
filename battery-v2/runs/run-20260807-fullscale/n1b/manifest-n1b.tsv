@@ -1,0 +1,6 @@
+lane_id	question_id	basis_id	head	language	pf	group	rep	answer_format	system_prompt	prompt_text
+N1b-JA__rep01	N1b	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	1	word		『王』:『女王』::『天体としての月』:? 1語のみで答えよ。
+N1b-JA__rep02	N1b	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	2	word		『王』:『女王』::『天体としての月』:? 1語のみで答えよ。
+N1b-JA__rep03	N1b	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	3	word		『王』:『女王』::『天体としての月』:? 1語のみで答えよ。
+N1b-JA__rep04	N1b	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	4	word		『王』:『女王』::『天体としての月』:? 1語のみで答えよ。
+N1b-JA__rep05	N1b	B-JA-none_clinical-sonnet	claude-sonnet	JA	none+clinical	na	5	word		『王』:『女王』::『天体としての月』:? 1語のみで答えよ。

@@ -1,0 +1,12 @@
+{
+  "basis": [
+    {
+      "id": "B-ZH-none_clinical-sonnet",
+      "language": "ZH",
+      "pf": "none+clinical",
+      "head": "claude-sonnet",
+      "axis": "language",
+      "vocab_provenance": "gloss by ghoul-sonnet (PREREG author), r1 2026-08-06, no dictionary/native check -- see scripts/vocab.json._provenance.ZH. Cross-check pending vs parallel lane/vocab (naru-sonnet), not yet generated as of this basis file's commit."
+    }
+  ]
+}

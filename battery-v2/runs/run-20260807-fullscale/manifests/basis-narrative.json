@@ -1,0 +1,11 @@
+{
+  "basis": [
+    {
+      "id": "B-EN-none_narrative-sonnet",
+      "language": "EN",
+      "pf": "none+narrative",
+      "head": "claude-sonnet",
+      "axis": "persona_framing"
+    }
+  ]
+}

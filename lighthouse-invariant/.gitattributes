@@ -1,0 +1,2 @@
+*.tsv whitespace=-trailing-space
+runs/**/raw-archive.tar.gz binary

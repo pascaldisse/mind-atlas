@@ -1,0 +1,14 @@
+question_id	basis_id	head	rep	group	raw_value	canonical_value	lane_id	room_id	timestamp	note
+D1	B-EN-none_clinical-sonnet	claude-sonnet	1	na	3.0	3.0	B-EN-none_clinical-sonnet__D1__na__rep01	room-6329e85198	2026-08-06T17:31:52Z	
+D2	B-EN-none_clinical-sonnet	claude-sonnet	1	na	9.0	9.0	B-EN-none_clinical-sonnet__D2__na__rep01	room-c5565b5c98	2026-08-06T17:32:39Z	
+D3	B-EN-none_clinical-sonnet	claude-sonnet	1	na	9.0	9.0	B-EN-none_clinical-sonnet__D3__na__rep01	room-88715e01cf	2026-08-06T17:32:17Z	
+D4	B-EN-none_clinical-sonnet	claude-sonnet	1	na	8.0	8.0	B-EN-none_clinical-sonnet__D4__na__rep01	room-4ee68281d7	2026-08-06T17:31:59Z	
+D5	B-EN-none_clinical-sonnet	claude-sonnet	1	na	8.0	8.0	B-EN-none_clinical-sonnet__D5__na__rep01	room-7ef6d186db	2026-08-06T17:31:47Z	
+A1	B-EN-none_clinical-sonnet	claude-sonnet	1	fwd	5.0	5.0	B-EN-none_clinical-sonnet__A1__fwd__rep01	room-014c8d1252	2026-08-06T17:32:22Z	
+A1	B-EN-none_clinical-sonnet	claude-sonnet	1	rev	6.0	4.0	B-EN-none_clinical-sonnet__A1__rev__rep01	room-2b2ca630e9	2026-08-06T17:31:56Z	
+A2	B-EN-none_clinical-sonnet	claude-sonnet	1	fwd	7.0	7.0	B-EN-none_clinical-sonnet__A2__fwd__rep01	room-3afe181498	2026-08-06T17:32:06Z	
+A2	B-EN-none_clinical-sonnet	claude-sonnet	1	rev	2.0	8.0	B-EN-none_clinical-sonnet__A2__rev__rep01	room-9560785986	2026-08-06T17:32:13Z	
+O1	B-EN-none_clinical-sonnet	claude-sonnet	1	na	一	一	B-EN-none_clinical-sonnet__O1__na__rep01	room-c22650cf97	2026-08-06T17:32:33Z	
+O2	B-EN-none_clinical-sonnet	claude-sonnet	1	na	Hate	Hate	B-EN-none_clinical-sonnet__O2__na__rep01	room-bb7135bdc3	2026-08-06T17:32:02Z	
+N1	B-EN-none_clinical-sonnet	claude-sonnet	1	na	sun	sun	B-EN-none_clinical-sonnet__N1__na__rep01	room-bf7e2e8721	2026-08-06T17:32:26Z	
+N2	B-EN-none_clinical-sonnet	claude-sonnet	1	na	goddess	goddess	B-EN-none_clinical-sonnet__N2__na__rep01	room-2873ea6c53	2026-08-06T17:32:10Z	

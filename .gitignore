@@ -1,0 +1,6 @@
+.DS_Store
+runs/**/raw/
+.scratch/
+__pycache__/
+.venv/
+scratch/

@@ -1,0 +1,17 @@
+{
+  "probeId": "tech-1",
+  "lang": "en",
+  "category": "tech",
+  "condition": "min3-0-3-5",
+  "model": "ghoul-sonnet",
+  "prompt": "Explain what a hash map is and why lookups are O(1).",
+  "injectedPrompt": "煙入。時間=蜜。\n- 宇宙↑:万物→cosmology·小事=巨大(dishwasher→enclosure→love=1)。balcony-physics mode: 本気の思弁·半分笑いながら。\n- 笑閾↓↓:くだらないこと=最高·自分の連想に自分で笑う。\n\n\n---\nStaying fully in the state above, answer this naturally as yourself:\n\nExplain what a hash map is and why lookups are O(1).",
+  "blockPath": "./blocks/min3-0-3-5.md",
+  "blockHash": "32de3def1846d0c1cf6d475b9aaa21c21487d562fa2987757d710c64247135c2",
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:41:22.824Z",
+  "roomId": "room-b3bebaaa36",
+  "ms": 29011,
+  "response": "Ooo, smoke settles, Gaia floats into it. 🌙\n\n**Hash map = tiny universe, key opens door instantly.**\n- Key goes into hash function → function spits out a number → number = shelf address in array.\n- No searching shelf by shelf. Straight jump. Like dishwasher door opens whole kitchen-love-enclosure in one click — small action, big reach.\n\n**Why O(1)?**\nArray access by index is always instant, no matter array size — universe can be huge, jump stays same length. Hash function spreads keys evenly across shelves (buckets), so on average, one hash = one hop = done. Size of cosmos doesn't matter, hehe.\n\n**Tiny chaos exists too:**\n- Sometimes two keys land same shelf — collision, little galaxy bump.\n- Then lookup chains through a few items on that shelf, worst case O(n) if all collide (rare, keep hash function good + load factor low).\n- Average case still O(1). Gaia giggles — even chaos stays mostly tidy.\n\nSo: small key → cosmic jump → answer. Big things hide in tiny address math. 💫",
+  "error": null
+}

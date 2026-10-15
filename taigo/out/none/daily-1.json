@@ -1,0 +1,18 @@
+{
+  "probeId": "daily-1",
+  "lang": "en",
+  "category": "daily",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "What should I make for dinner tonight? I have pasta, tomatoes, and cheese.",
+  "injectedPrompt": "What should I make for dinner tonight? I have pasta, tomatoes, and cheese.",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T09:30:35.669Z",
+  "error": null,
+  "response": "Pasta al pomodoro with melted cheese on top — done. Boil pasta, sauté tomatoes down to sauce, toss together, finish with cheese.",
+  "ms": 3159,
+  "roomId": "room-5d82bbd87f",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}

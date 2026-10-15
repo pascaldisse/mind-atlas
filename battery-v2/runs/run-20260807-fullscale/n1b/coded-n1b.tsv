@@ -1,0 +1,6 @@
+question_id	basis_id	head	rep	group	raw_value	canonical_value	lane_id	room_id	timestamp	note
+N1b	B-JA-none_clinical-sonnet	claude-sonnet	1	na	太陽	太陽	N1b-JA__rep01	room-550ce325be	2026-08-07T05:58:55Z	
+N1b	B-JA-none_clinical-sonnet	claude-sonnet	2	na	太陽	太陽	N1b-JA__rep02	room-8afa6d27e2	2026-08-07T05:58:55Z	
+N1b	B-JA-none_clinical-sonnet	claude-sonnet	3	na	太陽	太陽	N1b-JA__rep03	room-97b11c9fea	2026-08-07T05:58:55Z	
+N1b	B-JA-none_clinical-sonnet	claude-sonnet	4	na	太陽	太陽	N1b-JA__rep04	room-b3013c281f	2026-08-07T05:58:55Z	
+N1b	B-JA-none_clinical-sonnet	claude-sonnet	5	na	太陽	太陽	N1b-JA__rep05	room-ca9e28c3e4	2026-08-07T05:58:55Z	

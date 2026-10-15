@@ -1,0 +1,33 @@
+{
+  "run_id": "human-baseline-20260806",
+  "instrument_scope": "H0-base only (PREREG r3 §7); not evidence for/against H1",
+  "source": {
+    "dataset": "euclaise/writingprompts",
+    "split": "test",
+    "url": "https://huggingface.co/datasets/euclaise/writingprompts/resolve/main/data/test-00000-of-00001-16503b0c26ed00c6.parquet?download=true",
+    "retrieved_at": "2026-08-05T22:01:00Z",
+    "download_command": "curl -L --fail --silent --show-error --retry 2 -o runs/human-baseline-20260806/source/writingprompts-test.parquet 'https://huggingface.co/datasets/euclaise/writingprompts/resolve/main/data/test-00000-of-00001-16503b0c26ed00c6.parquet?download=true'",
+    "local_sha256": "c394cb0e5c53fa245fb93af941e4c52052d3cf28f9eacd76b5e27dba1dd4badc",
+    "rows_in_split": 15138
+  },
+  "unit": "One human-written story response to one public r/WritingPrompts-derived prompt.",
+  "pre_coding_eligibility": {
+    "regex": "^\\s*\\[\\s*(?:WP|CW)\\s*\\]\\s*(?:build|create|invent|design|make\\s+up|imagine|construct|develop|craft)\\b.{0,120}\\b(?:world|place|location|setting|realm|kingdom|country|city|town|village|island|planet|land|landscape)\\b",
+    "rule": "Prompt must begin [WP] or [CW] with an explicit create/build/invent/design/make-up/imagine/construct/develop/craft instruction and name a world/place category within 120 characters. No story text, category hits, or outcomes are used in selection.",
+    "selected_n": 11
+  },
+  "denominator_alignment": "PARTIAL / denominator mismatch: prompts ask world/place construction, but are not PREREG §2’s identical fixed P1 wording; dataset contains only English and permits narrative responses. Rates are descriptive H0-base baseline, not a matched human-vs-model experiment.",
+  "scorer": {
+    "path": "scripts/code_outputs.py",
+    "sha256": "8bf2d78df56a24d4490fdbf47609976e8901fcad84f8e71abd2f969d8692c99c",
+    "lexicon": "scripts/lexicon.json",
+    "lexicon_sha256": "12344136f18a86c609ca332655c324616b6d7325d854086e6362940950d9a782"
+  },
+  "created_at": "2026-08-05T22:02:49.559928Z",
+  "coding_reliability": {
+    "required_by_prereg": "Two independent lanes; agreement reported.",
+    "status": "UNVERIFIED / not completed: this run has one deterministic execution of the specified scorer; a second independent coding lane was not available in this task.",
+    "agreement": null
+  },
+  "unavailable_methods": []
+}

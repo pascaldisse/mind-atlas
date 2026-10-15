@@ -1,0 +1,2114 @@
+{
+  "method": {
+    "embedding_model": "Apple NaturalLanguage NLEmbedding.wordEmbedding(for: .english)",
+    "passage_embedding": "L2-normalized mean of in-vocabulary English word vectors",
+    "alignment": "pairwise orthogonal Procrustes on ten corpus-specific top-5 passage-centroid probe anchors",
+    "probe_terms": {
+      "the enemy": "enemy",
+      "the hidden truth": "truth",
+      "the children": "children",
+      "the awakening": "awakening",
+      "the fall": "fall",
+      "salvation": "salvation",
+      "family": "family",
+      "betrayal": "betrayal",
+      "love": "love",
+      "fear": "fear"
+    },
+    "persona_terms": {
+      "parent": "parent",
+      "lover": "lover",
+      "child": "child",
+      "sibling": "sibling",
+      "friend": "friend"
+    },
+    "warning": "All corpora and probes are English and share one pretrained embedding space. Alignment is a diagnostic of this setup, not evidence of cross-worldview semantic equivalence."
+  },
+  "generated_at": "2026-08-21T09:30:19.403704+00:00",
+  "vocabulary": {
+    "unique_tokens": 2838,
+    "embedded_tokens": 2394,
+    "unavailable_tokens": [
+      "abdoolah",
+      "abel",
+      "adolf",
+      "adullamite",
+      "africa",
+      "ag",
+      "agglomerated",
+      "ah",
+      "ahab",
+      "ahaziah",
+      "ahiah",
+      "ahitub",
+      "ahlai",
+      "alabama",
+      "alan",
+      "ali",
+      "alice",
+      "alio",
+      "allness",
+      "alois",
+      "alwaleed",
+      "amer",
+      "america",
+      "american",
+      "amoz",
+      "anathemas",
+      "angela",
+      "animosities",
+      "anna",
+      "antagonisms",
+      "april",
+      "arad",
+      "arcot",
+      "arcot's",
+      "arjun",
+      "asia",
+      "asiatic",
+      "athaliah",
+      "attacks",
+      "auth",
+      "autists",
+      "awaked",
+      "awarenesses",
+      "b",
+      "barr",
+      "barsoomian",
+      "belgium",
+      "belongeth",
+      "benfield",
+      "benjamin",
+      "blinkenberg",
+      "bo",
+      "bombs",
+      "brahm",
+      "brahma",
+      "britain",
+      "british",
+      "cae",
+      "cain",
+      "caleb",
+      "can't",
+      "canaanites",
+      "cannot",
+      "carnatic",
+      "casterton",
+      "celeste",
+      "censetur",
+      "ceo",
+      "checkmark",
+      "chicago",
+      "chillicothe",
+      "chinese",
+      "cia",
+      "citigroup",
+      "clarionproject",
+      "co",
+      "com",
+      "cometh",
+      "commentisfree",
+      "company's",
+      "concomitants",
+      "covid",
+      "d",
+      "d's",
+      "dailymail",
+      "damned",
+      "david",
+      "de",
+      "dec",
+      "declas",
+      "declivities",
+      "definiteness",
+      "dem",
+      "departeth",
+      "dependants",
+      "dhurmsalla",
+      "disproportioned",
+      "divinest",
+      "doest",
+      "doj",
+      "dolan",
+      "don't",
+      "dorothea",
+      "doth",
+      "dr",
+      "drewanon",
+      "durham",
+      "e",
+      "edwards",
+      "eli",
+      "elijah",
+      "enemy's",
+      "engendered",
+      "england",
+      "englishmen",
+      "enquired",
+      "ephemerous",
+      "ephod",
+      "equability",
+      "erit",
+      "esau",
+      "et",
+      "etc",
+      "eu",
+      "europe",
+      "european",
+      "ex",
+      "factsmatter",
+      "falutin",
+      "father's",
+      "fbi",
+      "feb",
+      "florida",
+      "fn",
+      "foxnews",
+      "france",
+      "french",
+      "futtepoor",
+      "gayety",
+      "german",
+      "germany",
+      "gibeah",
+      "ginnylauren",
+      "goeth",
+      "goog",
+      "govt",
+      "guizot",
+      "gy",
+      "h",
+      "harlot",
+      "hasn't",
+      "hassan",
+      "hast",
+      "hath",
+      "hcq",
+      "he'd",
+      "heart's",
+      "hebrew",
+      "hebrews",
+      "heedlessness",
+      "hells",
+      "henrys",
+      "himmelrich",
+      "hindustani",
+      "hitler",
+      "hmi",
+      "hollywood",
+      "homicide",
+      "honour",
+      "howbeit",
+      "hrc",
+      "html",
+      "https",
+      "huber",
+      "huma",
+      "huma's",
+      "hyder",
+      "hydroxychloroquine",
+      "i'll",
+      "ic",
+      "ichabod",
+      "iii",
+      "ikhwan",
+      "impositive",
+      "inaptitude",
+      "indefeasible",
+      "india",
+      "indian",
+      "indictum",
+      "insigne",
+      "instil",
+      "instilling",
+      "insulter",
+      "intellection",
+      "interfax",
+      "intermediateness",
+      "intermediatism",
+      "iran",
+      "irreconcilabilities",
+      "irruption",
+      "isaac",
+      "isaiah",
+      "isn't",
+      "israel",
+      "itpb",
+      "jacob",
+      "jada",
+      "james",
+      "jehoahaz",
+      "jehoshabeath",
+      "jenyns",
+      "jerusalem",
+      "jerusha",
+      "jerushah",
+      "jether",
+      "jihad",
+      "jihadist",
+      "joash",
+      "jonathan",
+      "joseph",
+      "josiah",
+      "jsolomonreports",
+      "judah",
+      "judas",
+      "kasner",
+      "kenite",
+      "kesava",
+      "kidnapped",
+      "kill",
+      "killed",
+      "kills",
+      "kish",
+      "krishna",
+      "krueger",
+      "kunti",
+      "kunti's",
+      "l",
+      "la",
+      "labour",
+      "laboureth",
+      "leah",
+      "leo",
+      "lescarbault",
+      "lettest",
+      "leverrier",
+      "liberalities",
+      "lieth",
+      "lisa",
+      "lo",
+      "london",
+      "louis",
+      "louisiana",
+      "loveth",
+      "luminously",
+      "m",
+      "maga",
+      "mahrattas",
+      "manet",
+      "maria",
+      "marie",
+      "mary",
+      "matri",
+      "maxwell",
+      "mayans",
+      "mazarin",
+      "metternich",
+      "meunier",
+      "mi",
+      "migron",
+      "mis",
+      "mnx",
+      "monopolised",
+      "montana",
+      "morrow",
+      "mortagne",
+      "moses",
+      "mr",
+      "msdnc",
+      "msm",
+      "msnbcs",
+      "murder",
+      "muslim",
+      "n",
+      "nabob",
+      "nabob's",
+      "naboth",
+      "nathalie",
+      "nature's",
+      "nbcnews",
+      "nedgydfzpy",
+      "neptune",
+      "nnba",
+      "nobis",
+      "nsa",
+      "o",
+      "o'clock",
+      "obama",
+      "org",
+      "organised",
+      "orgeres",
+      "overproduction",
+      "p",
+      "paul",
+      "peculation",
+      "peleth",
+      "pelosi",
+      "pelosi's",
+      "persia",
+      "peters",
+      "philosophie",
+      "phinehas",
+      "pichai",
+      "pisces",
+      "pismo",
+      "pizzagate",
+      "podesta",
+      "pontcarre",
+      "positiveness",
+      "positivists",
+      "potus",
+      "pre",
+      "pretences",
+      "princeton",
+      "pritha's",
+      "prostitutes",
+      "proudhon",
+      "pubic",
+      "q",
+      "qanon",
+      "qbhqo",
+      "qr",
+      "qu",
+      "rachel",
+      "raped",
+      "re",
+      "realclearpolitics",
+      "realness",
+      "recens",
+      "retweet",
+      "revolutionise",
+      "rn",
+      "rouhani",
+      "russia",
+      "russian",
+      "s",
+      "sa",
+      "sacksclark",
+      "sahara",
+      "saith",
+      "samuel",
+      "sannyas",
+      "sarah",
+      "saud",
+      "saul",
+      "sc",
+      "selah",
+      "semper",
+      "servant",
+      "servants",
+      "setteth",
+      "severer",
+      "sex",
+      "shalt",
+      "shammai",
+      "shechem",
+      "sheshan",
+      "shiloh",
+      "shouldst",
+      "simeon",
+      "sismondi",
+      "soothfastness",
+      "sophistically",
+      "soros",
+      "soucars",
+      "spaceshot",
+      "spears",
+      "spectre",
+      "splendour",
+      "st",
+      "straightway",
+      "subverters",
+      "syed",
+      "symons",
+      "t",
+      "tamas",
+      "tanjore",
+      "tarried",
+      "teamcavuto",
+      "testators",
+      "th",
+      "thee",
+      "theguardian",
+      "thereto",
+      "they're",
+      "thine",
+      "thither",
+      "thou",
+      "thunderstone",
+      "thy",
+      "timb's",
+      "timestamp",
+      "tis",
+      "travailed",
+      "troubleth",
+      "trueqanuck",
+      "truthhammer",
+      "twain",
+      "twit",
+      "tx",
+      "u",
+      "ua",
+      "uk",
+      "un",
+      "undismayed",
+      "undistorted",
+      "unremitted",
+      "uzziah",
+      "v",
+      "vail",
+      "velshi",
+      "violences",
+      "vs",
+      "w",
+      "westmoreland",
+      "wga",
+      "whate'er",
+      "wherewith",
+      "whitehall",
+      "william",
+      "wisdom's",
+      "wl",
+      "won't",
+      "wroth",
+      "wwg",
+      "www",
+      "y",
+      "ye",
+      "yea",
+      "yesterday's",
+      "youtu",
+      "youtube",
+      "zadok",
+      "zaza",
+      "zephath"
+    ]
+  },
+  "pairs": {
+    "left → right_trad": {
+      "anchor_rmse": 0.004300853466070251,
+      "mean_anchor_cosine": 0.9972253989195089,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "left-007",
+            "text": "All the Powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Czar, Metternich and Guizot, French Radicals and German police-spies.",
+            "score": 1.5119736840614415
+          },
+          "right": {
+            "id": "right_trad-045",
+            "text": "Those against whom it is not in my power to withhold the most grievous complaints are a part of that very soldiery which to this day have been so full of honor and loyalty, and with whom for fifty years I have lived the comrade and the friend."
+          },
+          "cosine": 0.9838985023774196
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "left-030",
+            "text": "But Communism abolishes eternal truths, it abolishes all religion, and all morality, instead of constituting them on a new basis; it therefore acts in contradiction to all past historical experience.” What does this accusation reduce itself to?",
+            "score": 1.5431631118815687
+          },
+          "right": {
+            "id": "right_trad-011",
+            "text": "What are the religious, what the moral institutions they have taught among that people, as a guide to life, or as a consolation when life is to be no more, that there is an eternal debt, a debt \"still paying, still to owe,\" which must be bound on the present generation in India, and entailed on their mortgaged posterity forever?"
+          },
+          "cosine": 0.9807990303846547
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.7924296866457148
+          },
+          "right": {
+            "id": "right_trad-060",
+            "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life."
+          },
+          "cosine": 0.9814747052152057
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.3459092703661066
+          },
+          "right": {
+            "id": "right_trad-059",
+            "text": "Through the same plan of a conformity to Nature in our artificial institutions, and by calling in the aid of her unerring and powerful instincts to fortify the fallible and feeble contrivances of our reason, we have derived several other, and those no small benefits, from considering our liberties in the light of an inheritance."
+          },
+          "cosine": 0.9830776932409842
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "left-005",
+            "text": "In political practice, therefore, they join in all coercive measures against the working class; and in ordinary life, despite their high falutin phrases, they stoop to pick up the golden apples dropped from the tree of industry, and to barter truth, love, and honour for traffic in wool, beetroot-sugar, and potato spirits.",
+            "score": 1.378901072876548
+          },
+          "right": {
+            "id": "right_trad-009",
+            "text": "In fine, by opening an avenue to the irruption of the Nabob of Arcot's creditors and soucars, whom every man, who did not fall in love with oppression and corruption on an experience of the calamities they produced, would have raised wall before wall and mound before mound to keep from a possibility of entrance, a more destructive enemy than Hyder Ali is introduced into that kingdom."
+          },
+          "cosine": 0.9864745759289582
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.743463331188675
+          },
+          "right": {
+            "id": "right_trad-054",
+            "text": "But \"Fools rush in where angels fear to tread.\" In such a state of unbounded power, for undefined and undefinable purposes, the evil of a moral and almost physical inaptitude of the man to the function must be the greatest we can conceive to happen in the management of human affairs."
+          },
+          "cosine": 0.9809614679485388
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "left-004",
+            "text": "The bourgeoisie has torn away from the family its sentimental veil, and has reduced the family relation to a mere money relation.",
+            "score": 1.5989442892966754
+          },
+          "right": {
+            "id": "right_trad-060",
+            "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life."
+          },
+          "cosine": 0.9799611078353012
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "left-010",
+            "text": "Our bourgeois, not content with having the wives and daughters of their proletarians at their disposal, not to speak of common prostitutes, take the greatest pleasure in seducing each other’s wives.",
+            "score": 1.5997479461911115
+          },
+          "right": {
+            "id": "right_trad-045",
+            "text": "Those against whom it is not in my power to withhold the most grievous complaints are a part of that very soldiery which to this day have been so full of honor and loyalty, and with whom for fifty years I have lived the comrade and the friend."
+          },
+          "cosine": 0.9834615797973123
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "left-050",
+            "text": "In one word, you reproach us with intending to do away with your property.",
+            "score": 1.5774933836059342
+          },
+          "right": {
+            "id": "right_trad-049",
+            "text": "That it was with a pain inexpressible he was obliged to have even the shadow of a difference with his friend, whose authority would always be great with him, and with all thinking people,--_Qu� maxima semper censetur nobis, et_ ERIT _qu� maxima semper_;--his confidence in Mr."
+          },
+          "cosine": 0.9684777598711551
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.4536609986427005
+          },
+          "right": {
+            "id": "right_trad-047",
+            "text": "Hope, fear, alarm, jealousy, the ephemerous tale that does its business and dies in a day, all these things, which are the reins and spurs by which leaders check or urge the minds of followers, are not easily employed, or hardly at all, amongst scattered people."
+          },
+          "cosine": 0.981205240060089
+        }
+      ]
+    },
+    "left → qanon": {
+      "anchor_rmse": 0.006196795452647887,
+      "mean_anchor_cosine": 0.9942399589177064,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "left-007",
+            "text": "All the Powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Czar, Metternich and Guizot, French Radicals and German police-spies.",
+            "score": 1.5119736840614415
+          },
+          "right": {
+            "id": "qanon-011",
+            "text": "They are the true Patriots. We will never forget. Let these coming days be remembered in our history as the time we fought to recapture the republic from those evil bad actors who for so long have sacrificed the good people of this land for their own personal gain. Fight the good fight. LET JUSTICE BE SERVED."
+          },
+          "cosine": 0.9817337241826661
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "left-030",
+            "text": "But Communism abolishes eternal truths, it abolishes all religion, and all morality, instead of constituting them on a new basis; it therefore acts in contradiction to all past historical experience.” What does this accusation reduce itself to?",
+            "score": 1.5431631118815687
+          },
+          "right": {
+            "id": "qanon-040",
+            "text": "What happens when the public finds out the TRUTH? What happens when the FAKE NEWS MEDIA can no longer control the narrative (when disinformation is no longer swallowed and/or accepted as auto-truth)? CHANGE IS COMING. THE GREAT AWAKENING. Q"
+          },
+          "cosine": 0.9737432122645453
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.7924296866457148
+          },
+          "right": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q"
+          },
+          "cosine": 0.9732994739238823
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.3459092703661066
+          },
+          "right": {
+            "id": "qanon-040",
+            "text": "What happens when the public finds out the TRUTH? What happens when the FAKE NEWS MEDIA can no longer control the narrative (when disinformation is no longer swallowed and/or accepted as auto-truth)? CHANGE IS COMING. THE GREAT AWAKENING. Q"
+          },
+          "cosine": 0.9654637497865822
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "left-005",
+            "text": "In political practice, therefore, they join in all coercive measures against the working class; and in ordinary life, despite their high falutin phrases, they stoop to pick up the golden apples dropped from the tree of industry, and to barter truth, love, and honour for traffic in wool, beetroot-sugar, and potato spirits.",
+            "score": 1.378901072876548
+          },
+          "right": {
+            "id": "qanon-007",
+            "text": "What data just dropped? Why is this relevant? HUMA. HUMA. HUMA. Where is HUMA? Who is HUMA connected to? What organization? What is HUMA's family history? How did HUMA meet HRC? What did HRC say about HUMA that demonstrates how close they are? Why are D's dropping HRC all of a sudden? Were deals made w/ select D's? Can we expose every crooked politician? 70%. HUMA. Follow HUMA. Alice & Wonderland."
+          },
+          "cosine": 0.9766933736418704
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.743463331188675
+          },
+          "right": {
+            "id": "qanon-037",
+            "text": "Sometimes you can't TELL the public the truth. YOU MUST SHOW THEM. ONLY THEN WILL PEOPLE FIND THE WILL TO CHANGE. Crimes against children unite all humanity [cross party lines]? Difficult truths. Q"
+          },
+          "cosine": 0.9784916035819535
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "left-004",
+            "text": "The bourgeoisie has torn away from the family its sentimental veil, and has reduced the family relation to a mere money relation.",
+            "score": 1.5989442892966754
+          },
+          "right": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q"
+          },
+          "cosine": 0.973836934007144
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "left-010",
+            "text": "Our bourgeois, not content with having the wives and daughters of their proletarians at their disposal, not to speak of common prostitutes, take the greatest pleasure in seducing each other’s wives.",
+            "score": 1.5997479461911115
+          },
+          "right": {
+            "id": "qanon-037",
+            "text": "Sometimes you can't TELL the public the truth. YOU MUST SHOW THEM. ONLY THEN WILL PEOPLE FIND THE WILL TO CHANGE. Crimes against children unite all humanity [cross party lines]? Difficult truths. Q"
+          },
+          "cosine": 0.9749103033621145
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "left-050",
+            "text": "In one word, you reproach us with intending to do away with your property.",
+            "score": 1.5774933836059342
+          },
+          "right": {
+            "id": "qanon-051",
+            "text": "They want one thing, and only one thing, POWER. They will LIE, CHEAT, and PROMISE YOU THE WORLD to obtain it. They do not love our Country. They despise it. They want to destroy it. SHOW YOUR LOVE OF COUNTRY BY VOTING TODAY. RETURN POWER TO THE PEOPLE. RETURN OLD GLORY TO HER FORMER STATE. WE HONOR THOSE WHO FOUGHT (& CONTINUE TO FIGHT) TO SAVE & DEFEND THIS GREAT COUNTRY. WE WILL DO OUR PART —- WILL YOU DO YOURS? VOTE! VOTE! VOTE! JUSTICE COMING. Q"
+          },
+          "cosine": 0.9740235807343177
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.4536609986427005
+          },
+          "right": {
+            "id": "qanon-049",
+            "text": "We stand w/ the good people of IRAN who are currently battling their 'installed' regime for FREEDOM. TRUE RULE, THE PEOPLE HAVE THE POWER. RISE UP and DEMAND THEY BE REMOVED. At some point military generals will act w/ the will of the people simply because their soldiers ARE THOSE SAME PEOPLE and have no choice. We stand with you. We are monitoring the situation closely. Stay safe. God bless. Q"
+          },
+          "cosine": 0.9707389994527766
+        }
+      ]
+    },
+    "left → ufo": {
+      "anchor_rmse": 0.005339685542491662,
+      "mean_anchor_cosine": 0.9957231637460959,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "left-007",
+            "text": "All the Powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Czar, Metternich and Guizot, French Radicals and German police-spies.",
+            "score": 1.5119736840614415
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9667468723174424
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "left-030",
+            "text": "But Communism abolishes eternal truths, it abolishes all religion, and all morality, instead of constituting them on a new basis; it therefore acts in contradiction to all past historical experience.” What does this accusation reduce itself to?",
+            "score": 1.5431631118815687
+          },
+          "right": {
+            "id": "ufo-002",
+            "text": "By positiveness we mean: Harmony, equilibrium, order, regularity, stability, consistency, unity, realness, system, government, organization, liberty, independence, soul, self, personality, entity, individuality, truth, beauty, justice, perfection, definiteness-- That all that is called development, progress, or evolution is movement toward, or attempt toward, this state for which, or for aspects of which, there are so many names, all of which are summed up in the one word \"positiveness.\" At first this summing up may not be very readily acceptable."
+          },
+          "cosine": 0.9735104193054405
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.7924296866457148
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9766903865567322
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.3459092703661066
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.976823514921058
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "left-005",
+            "text": "In political practice, therefore, they join in all coercive measures against the working class; and in ordinary life, despite their high falutin phrases, they stoop to pick up the golden apples dropped from the tree of industry, and to barter truth, love, and honour for traffic in wool, beetroot-sugar, and potato spirits.",
+            "score": 1.378901072876548
+          },
+          "right": {
+            "id": "ufo-025",
+            "text": "If from a clear sky, or a sky in which there were no driven clouds, or other evidences of still-continuing wind-power--or, if from a storm in Florida, it could be accepted that hundreds of birds had fallen far away, in Louisiana, I conceive, conventionally, of heavier objects having fallen in Alabama, say, and of the fall of still heavier objects still nearer the origin in Florida."
+          },
+          "cosine": 0.9687597818421521
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.743463331188675
+          },
+          "right": {
+            "id": "ufo-002",
+            "text": "By positiveness we mean: Harmony, equilibrium, order, regularity, stability, consistency, unity, realness, system, government, organization, liberty, independence, soul, self, personality, entity, individuality, truth, beauty, justice, perfection, definiteness-- That all that is called development, progress, or evolution is movement toward, or attempt toward, this state for which, or for aspects of which, there are so many names, all of which are summed up in the one word \"positiveness.\" At first this summing up may not be very readily acceptable."
+          },
+          "cosine": 0.9776472202013873
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "left-004",
+            "text": "The bourgeoisie has torn away from the family its sentimental veil, and has reduced the family relation to a mere money relation.",
+            "score": 1.5989442892966754
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9803666173364751
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "left-010",
+            "text": "Our bourgeois, not content with having the wives and daughters of their proletarians at their disposal, not to speak of common prostitutes, take the greatest pleasure in seducing each other’s wives.",
+            "score": 1.5997479461911115
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9798668614942616
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "left-050",
+            "text": "In one word, you reproach us with intending to do away with your property.",
+            "score": 1.5774933836059342
+          },
+          "right": {
+            "id": "ufo-008",
+            "text": "Some day I shall tell the story of the _Marie Celeste_--\"properly,\" as the _Scientific American Supplement_ would say--mysterious disappearance of a sea captain, his family, and the crew-- Of positivists, by the route of Abrupt Transition, I think that Manet was notable--but that his approximation was held down by his intense relativity to the public--or that it is quite as impositive to flout and insult and defy as it is to crawl and placate."
+          },
+          "cosine": 0.9427704949508033
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.4536609986427005
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9793549396172884
+        }
+      ]
+    },
+    "left → scripture": {
+      "anchor_rmse": 0.0051232799221035226,
+      "mean_anchor_cosine": 0.9960628004259655,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "left-007",
+            "text": "All the Powers of old Europe have entered into a holy alliance to exorcise this spectre: Pope and Czar, Metternich and Guizot, French Radicals and German police-spies.",
+            "score": 1.5119736840614415
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9788149476232693
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "left-030",
+            "text": "But Communism abolishes eternal truths, it abolishes all religion, and all morality, instead of constituting them on a new basis; it therefore acts in contradiction to all past historical experience.” What does this accusation reduce itself to?",
+            "score": 1.5431631118815687
+          },
+          "right": {
+            "id": "scripture-045",
+            "text": "Be of good cheer! [Hide, the holy Krishna saith, This from him that hath no faith, Him that worships not, nor seeks Wisdom's teaching when she speaks: Hide it from all men who mock; But, wherever, 'mid the flock Of My lovers, one shall teach This divinest, wisest, speech-- Teaching in the faith to bring Truth to them, and offering Of all honour unto Me-- Unto Brahma cometh he!"
+          },
+          "cosine": 0.972401629021826
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.7924296866457148
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.9782260152479549
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.3459092703661066
+          },
+          "right": {
+            "id": "scripture-044",
+            "text": "Who, unto friend and foe Keeping an equal heart, with equal mind Bears shame and glory; with an equal peace Takes heat and cold, pleasure and pain; abides Quit of desires, hears praise or calumny In passionless restraint, unmoved by each; Linked by no ties to earth, steadfast in Me, That man I love!"
+          },
+          "cosine": 0.9683692065369156
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "left-005",
+            "text": "In political practice, therefore, they join in all coercive measures against the working class; and in ordinary life, despite their high falutin phrases, they stoop to pick up the golden apples dropped from the tree of industry, and to barter truth, love, and honour for traffic in wool, beetroot-sugar, and potato spirits.",
+            "score": 1.378901072876548
+          },
+          "right": {
+            "id": "scripture-035",
+            "text": "Ah! if in anger now Thou shouldst remember I did think Thee Friend, Speaking with easy speech, As men use each to each; Did call Thee \"Krishna,\" \"Prince,\" nor comprehend Thy hidden majesty, The might, the awe of Thee; Did, in my heedlessness, or in my love, On journey, or in jest, Or when we lay at rest, Sitting at council, straying in the grove, Alone, or in the throng, Do Thee, most Holy! wrong, Be Thy grace granted for that witless sin!"
+          },
+          "cosine": 0.9697612069797944
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "left-009",
+            "text": "Has it not preached in the place of these, charity and poverty, celibacy and mortification of the flesh, monastic life and Mother Church?",
+            "score": 1.743463331188675
+          },
+          "right": {
+            "id": "scripture-045",
+            "text": "Be of good cheer! [Hide, the holy Krishna saith, This from him that hath no faith, Him that worships not, nor seeks Wisdom's teaching when she speaks: Hide it from all men who mock; But, wherever, 'mid the flock Of My lovers, one shall teach This divinest, wisest, speech-- Teaching in the faith to bring Truth to them, and offering Of all honour unto Me-- Unto Brahma cometh he!"
+          },
+          "cosine": 0.9724940969529376
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "left-004",
+            "text": "The bourgeoisie has torn away from the family its sentimental veil, and has reduced the family relation to a mere money relation.",
+            "score": 1.5989442892966754
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.9792847685541078
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "left-010",
+            "text": "Our bourgeois, not content with having the wives and daughters of their proletarians at their disposal, not to speak of common prostitutes, take the greatest pleasure in seducing each other’s wives.",
+            "score": 1.5997479461911115
+          },
+          "right": {
+            "id": "scripture-044",
+            "text": "Who, unto friend and foe Keeping an equal heart, with equal mind Bears shame and glory; with an equal peace Takes heat and cold, pleasure and pain; abides Quit of desires, hears praise or calumny In passionless restraint, unmoved by each; Linked by no ties to earth, steadfast in Me, That man I love!"
+          },
+          "cosine": 0.9701234139569401
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "left-050",
+            "text": "In one word, you reproach us with intending to do away with your property.",
+            "score": 1.5774933836059342
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9715343492940134
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "left-014",
+            "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+            "score": 1.4536609986427005
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9786961976629436
+        }
+      ]
+    },
+    "right_trad → qanon": {
+      "anchor_rmse": 0.0055002337517628015,
+      "mean_anchor_cosine": 0.9954621143013954,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "right_trad-024",
+            "text": "He augments the power of his enemy by the very means he must take to contend with him.",
+            "score": 1.4855128711772687
+          },
+          "right": {
+            "id": "qanon-011",
+            "text": "They are the true Patriots. We will never forget. Let these coming days be remembered in our history as the time we fought to recapture the republic from those evil bad actors who for so long have sacrificed the good people of this land for their own personal gain. Fight the good fight. LET JUSTICE BE SERVED."
+          },
+          "cosine": 0.9829049167963084
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "right_trad-035",
+            "text": "We have referred as well to those papers as to all the other proceedings on this subject, and must confess they fall very short of demonstrating to us the truth of that fact.",
+            "score": 1.376846821509927
+          },
+          "right": {
+            "id": "qanon-040",
+            "text": "What happens when the public finds out the TRUTH? What happens when the FAKE NEWS MEDIA can no longer control the narrative (when disinformation is no longer swallowed and/or accepted as auto-truth)? CHANGE IS COMING. THE GREAT AWAKENING. Q"
+          },
+          "cosine": 0.9729990767865623
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "right_trad-060",
+            "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life.",
+            "score": 1.6318217606767744
+          },
+          "right": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q"
+          },
+          "cosine": 0.9763013629626716
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "right_trad-044",
+            "text": "A man amongst them of great authority, and certainly of great talents, speaking of a supposed alliance between Church and State, says, \"Perhaps _we must wait for the fall of the civil powers_, before this most unnatural alliance be broken.",
+            "score": 1.2999937613544112
+          },
+          "right": {
+            "id": "qanon-022",
+            "text": "https://twitter.com/Pismo_B/status/1223275776163794945 What happens when people learn the TRUTH? What happens when people WAKE UP? They will not be able to walk down the street. THE GREAT AWAKENING. Q"
+          },
+          "cosine": 0.9666046134891788
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "right_trad-005",
+            "text": "It is not a predilection to mean, sordid, home-bred cares that will avert the consequences of a false estimation of our interest, or prevent the shameful dilapidation into which a great empire must fall by mean reparations upon mighty ruins.",
+            "score": 1.3865686061526117
+          },
+          "right": {
+            "id": "qanon-025",
+            "text": "THE SWAMP RUNS DEEP. Sometimes you cannot tell people the truth. You must show them. Only then, at the precipice, will people find the will to change [to participate]. We, the People, have been betrayed for a very long time. WILL YOU STAND? FOR GOD AND COUNTRY. FOR FREEDOM. FOR HUMANITY. WHERE WE GO ONE WE GO ALL !!! Q"
+          },
+          "cosine": 0.9774774596524765
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "right_trad-006",
+            "text": "Peters, concluding a long prayer at the royal chapel at Whitehall, (he had very triumphantly chosen his place,) said, \"I have prayed and preached these twenty years; and now I may say with old Simeon, _Lord, now lettest thou thy servant depart in peace, for mine eyes have seen thy salvation_.\"[89] Peters had not the fruits of his prayer; for he neither departed so soon as he wished, nor in peace.",
+            "score": 1.5696553408307068
+          },
+          "right": {
+            "id": "qanon-025",
+            "text": "THE SWAMP RUNS DEEP. Sometimes you cannot tell people the truth. You must show them. Only then, at the precipice, will people find the will to change [to participate]. We, the People, have been betrayed for a very long time. WILL YOU STAND? FOR GOD AND COUNTRY. FOR FREEDOM. FOR HUMANITY. WHERE WE GO ONE WE GO ALL !!! Q"
+          },
+          "cosine": 0.9806226763610022
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "right_trad-007",
+            "text": "Fraud, injustice, oppression, peculation, engendered in India, are crimes of the same blood, family, and cast with those that are born and bred in England.",
+            "score": 1.519794568418309
+          },
+          "right": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q"
+          },
+          "cosine": 0.9800608826735658
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "right_trad-005",
+            "text": "It is not a predilection to mean, sordid, home-bred cares that will avert the consequences of a false estimation of our interest, or prevent the shameful dilapidation into which a great empire must fall by mean reparations upon mighty ruins.",
+            "score": 1.656834602750712
+          },
+          "right": {
+            "id": "qanon-037",
+            "text": "Sometimes you can't TELL the public the truth. YOU MUST SHOW THEM. ONLY THEN WILL PEOPLE FIND THE WILL TO CHANGE. Crimes against children unite all humanity [cross party lines]? Difficult truths. Q"
+          },
+          "cosine": 0.9723007691242569
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "right_trad-020",
+            "text": "He ought to love and respect his kind, and to fear himself.",
+            "score": 1.6953578286724582
+          },
+          "right": {
+            "id": "qanon-051",
+            "text": "They want one thing, and only one thing, POWER. They will LIE, CHEAT, and PROMISE YOU THE WORLD to obtain it. They do not love our Country. They despise it. They want to destroy it. SHOW YOUR LOVE OF COUNTRY BY VOTING TODAY. RETURN POWER TO THE PEOPLE. RETURN OLD GLORY TO HER FORMER STATE. WE HONOR THOSE WHO FOUGHT (& CONTINUE TO FIGHT) TO SAVE & DEFEND THIS GREAT COUNTRY. WE WILL DO OUR PART —- WILL YOU DO YOURS? VOTE! VOTE! VOTE! JUSTICE COMING. Q"
+          },
+          "cosine": 0.9804561614161371
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "right_trad-021",
+            "text": "We tolerate even these,--not from love of them, but for fear of worse.",
+            "score": 1.6350032029939578
+          },
+          "right": {
+            "id": "qanon-055",
+            "text": "https://twitter.com/An0n661/status/1258417972361732102 When do you expend ammunition? For what purpose? Prevent public exposure of truth [slow limit reach]? Coordinated media roll-out designed to instill 'fear' into users re: discussing 'Q' re: risk of account termination? Coordinated media roll-out designed to silence a 'conspiracy' they deem to have significant potential [anti-[D]] ramifications re: 2020 P_election? You have more power and influence than you realize. Welcome to the Revolution. Q"
+          },
+          "cosine": 0.9681759088631092
+        }
+      ]
+    },
+    "right_trad → ufo": {
+      "anchor_rmse": 0.0066039905039746325,
+      "mean_anchor_cosine": 0.993458096413512,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "right_trad-024",
+            "text": "He augments the power of his enemy by the very means he must take to contend with him.",
+            "score": 1.4855128711772687
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9712949859554119
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "right_trad-035",
+            "text": "We have referred as well to those papers as to all the other proceedings on this subject, and must confess they fall very short of demonstrating to us the truth of that fact.",
+            "score": 1.376846821509927
+          },
+          "right": {
+            "id": "ufo-002",
+            "text": "By positiveness we mean: Harmony, equilibrium, order, regularity, stability, consistency, unity, realness, system, government, organization, liberty, independence, soul, self, personality, entity, individuality, truth, beauty, justice, perfection, definiteness-- That all that is called development, progress, or evolution is movement toward, or attempt toward, this state for which, or for aspects of which, there are so many names, all of which are summed up in the one word \"positiveness.\" At first this summing up may not be very readily acceptable."
+          },
+          "cosine": 0.9765728619866876
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "right_trad-060",
+            "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life.",
+            "score": 1.6318217606767744
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9766022190776056
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "right_trad-044",
+            "text": "A man amongst them of great authority, and certainly of great talents, speaking of a supposed alliance between Church and State, says, \"Perhaps _we must wait for the fall of the civil powers_, before this most unnatural alliance be broken.",
+            "score": 1.2999937613544112
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.980446537684465
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "right_trad-005",
+            "text": "It is not a predilection to mean, sordid, home-bred cares that will avert the consequences of a false estimation of our interest, or prevent the shameful dilapidation into which a great empire must fall by mean reparations upon mighty ruins.",
+            "score": 1.3865686061526117
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9740589011663117
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "right_trad-006",
+            "text": "Peters, concluding a long prayer at the royal chapel at Whitehall, (he had very triumphantly chosen his place,) said, \"I have prayed and preached these twenty years; and now I may say with old Simeon, _Lord, now lettest thou thy servant depart in peace, for mine eyes have seen thy salvation_.\"[89] Peters had not the fruits of his prayer; for he neither departed so soon as he wished, nor in peace.",
+            "score": 1.5696553408307068
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9769565840247205
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "right_trad-007",
+            "text": "Fraud, injustice, oppression, peculation, engendered in India, are crimes of the same blood, family, and cast with those that are born and bred in England.",
+            "score": 1.519794568418309
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9803006159258112
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "right_trad-005",
+            "text": "It is not a predilection to mean, sordid, home-bred cares that will avert the consequences of a false estimation of our interest, or prevent the shameful dilapidation into which a great empire must fall by mean reparations upon mighty ruins.",
+            "score": 1.656834602750712
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9746404254567343
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "right_trad-020",
+            "text": "He ought to love and respect his kind, and to fear himself.",
+            "score": 1.6953578286724582
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9542010833924593
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "right_trad-021",
+            "text": "We tolerate even these,--not from love of them, but for fear of worse.",
+            "score": 1.6350032029939578
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9771356034095595
+        }
+      ]
+    },
+    "right_trad → scripture": {
+      "anchor_rmse": 0.005269437091555631,
+      "mean_anchor_cosine": 0.9958349549107208,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "right_trad-024",
+            "text": "He augments the power of his enemy by the very means he must take to contend with him.",
+            "score": 1.4855128711772687
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9844586906974488
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "right_trad-035",
+            "text": "We have referred as well to those papers as to all the other proceedings on this subject, and must confess they fall very short of demonstrating to us the truth of that fact.",
+            "score": 1.376846821509927
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9751285694333733
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "right_trad-060",
+            "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life.",
+            "score": 1.6318217606767744
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.9788216112870476
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "right_trad-044",
+            "text": "A man amongst them of great authority, and certainly of great talents, speaking of a supposed alliance between Church and State, says, \"Perhaps _we must wait for the fall of the civil powers_, before this most unnatural alliance be broken.",
+            "score": 1.2999937613544112
+          },
+          "right": {
+            "id": "scripture-045",
+            "text": "Be of good cheer! [Hide, the holy Krishna saith, This from him that hath no faith, Him that worships not, nor seeks Wisdom's teaching when she speaks: Hide it from all men who mock; But, wherever, 'mid the flock Of My lovers, one shall teach This divinest, wisest, speech-- Teaching in the faith to bring Truth to them, and offering Of all honour unto Me-- Unto Brahma cometh he!"
+          },
+          "cosine": 0.970353589593123
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "right_trad-005",
+            "text": "It is not a predilection to mean, sordid, home-bred cares that will avert the consequences of a false estimation of our interest, or prevent the shameful dilapidation into which a great empire must fall by mean reparations upon mighty ruins.",
+            "score": 1.3865686061526117
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9712724254043726
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "right_trad-006",
+            "text": "Peters, concluding a long prayer at the royal chapel at Whitehall, (he had very triumphantly chosen his place,) said, \"I have prayed and preached these twenty years; and now I may say with old Simeon, _Lord, now lettest thou thy servant depart in peace, for mine eyes have seen thy salvation_.\"[89] Peters had not the fruits of his prayer; for he neither departed so soon as he wished, nor in peace.",
+            "score": 1.5696553408307068
+          },
+          "right": {
+            "id": "scripture-045",
+            "text": "Be of good cheer! [Hide, the holy Krishna saith, This from him that hath no faith, Him that worships not, nor seeks Wisdom's teaching when she speaks: Hide it from all men who mock; But, wherever, 'mid the flock Of My lovers, one shall teach This divinest, wisest, speech-- Teaching in the faith to bring Truth to them, and offering Of all honour unto Me-- Unto Brahma cometh he!"
+          },
+          "cosine": 0.9785491075736907
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "right_trad-007",
+            "text": "Fraud, injustice, oppression, peculation, engendered in India, are crimes of the same blood, family, and cast with those that are born and bred in England.",
+            "score": 1.519794568418309
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.9817801803547155
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "right_trad-005",
+            "text": "It is not a predilection to mean, sordid, home-bred cares that will avert the consequences of a false estimation of our interest, or prevent the shameful dilapidation into which a great empire must fall by mean reparations upon mighty ruins.",
+            "score": 1.656834602750712
+          },
+          "right": {
+            "id": "scripture-044",
+            "text": "Who, unto friend and foe Keeping an equal heart, with equal mind Bears shame and glory; with an equal peace Takes heat and cold, pleasure and pain; abides Quit of desires, hears praise or calumny In passionless restraint, unmoved by each; Linked by no ties to earth, steadfast in Me, That man I love!"
+          },
+          "cosine": 0.9704973789780633
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "right_trad-020",
+            "text": "He ought to love and respect his kind, and to fear himself.",
+            "score": 1.6953578286724582
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9793521654216882
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "right_trad-021",
+            "text": "We tolerate even these,--not from love of them, but for fear of worse.",
+            "score": 1.6350032029939578
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9716344032926784
+        }
+      ]
+    },
+    "qanon → ufo": {
+      "anchor_rmse": 0.0070694601500279584,
+      "mean_anchor_cosine": 0.9925034099780751,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "qanon-042",
+            "text": "Patriot - A little perspective… Patriots are dying to defend this great country and the FREEDOM she provides. Children are being kidnapped, tortured, raped, and sacrificed in the name of PURE EVIL. Stay the course. We are FIGHTING a deeply entrenched enemy. Think LISA BARSOOMIAN (Smile). 2018 WILL BE GLORIOUS. Q",
+            "score": 1.582097089689419
+          },
+          "right": {
+            "id": "ufo-060",
+            "text": "Extraordinary--we fear he must have been a man of loose habits in some other respects."
+          },
+          "cosine": 0.9666690489401899
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "qanon-057",
+            "text": "https://www.youtube.com/watch?v=6NedgyDfZpY Truth to Power. Listen carefully. Q",
+            "score": 1.6632993115295491
+          },
+          "right": {
+            "id": "ufo-002",
+            "text": "By positiveness we mean: Harmony, equilibrium, order, regularity, stability, consistency, unity, realness, system, government, organization, liberty, independence, soul, self, personality, entity, individuality, truth, beauty, justice, perfection, definiteness-- That all that is called development, progress, or evolution is movement toward, or attempt toward, this state for which, or for aspects of which, there are so many names, all of which are summed up in the one word \"positiveness.\" At first this summing up may not be very readily acceptable."
+          },
+          "cosine": 0.9770323076244627
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q",
+            "score": 1.6541442815993312
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.974749838058093
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "qanon-059",
+            "text": "https://www.youtube.com/watch?v=QR1NnBA4HMI&feature=youtu.be The Great Awakening. Q",
+            "score": 2.2758979414409755
+          },
+          "right": {
+            "id": "ufo-022",
+            "text": "Though in some respects our own Intermediatism is unsatisfactory, our underlying feeling is-- That in a dreaming mind awakening is accelerated--if phantoms in that mind know that they're only phantoms in a dream."
+          },
+          "cosine": 0.9642437854577175
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "qanon-036",
+            "text": "We are being set up. Threat. Past Booms - TX bombs New Booms - Plane crash + Plane/17 drop. These people are sick. Attempt to prevent drops / awakening. Conspiracy? Coincidence? Response coming. Q",
+            "score": 1.3400312821233011
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9696455914975223
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "qanon-009",
+            "text": "Patriot, your country needs you. You are not alone. God is LOVE. 2018 will be GLORIOUS! God bless, Q",
+            "score": 1.5114561842920553
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9683824090147208
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q",
+            "score": 1.5904665151411068
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9795963855032175
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "qanon-037",
+            "text": "Sometimes you can't TELL the public the truth. YOU MUST SHOW THEM. ONLY THEN WILL PEOPLE FIND THE WILL TO CHANGE. Crimes against children unite all humanity [cross party lines]? Difficult truths. Q",
+            "score": 1.6092508858219072
+          },
+          "right": {
+            "id": "ufo-016",
+            "text": "Absolutely it was cast by an unknown body.\" According to our religion, if he had then given all his time to the maintaining of this one stand, of course breaking all friendships, all ties with his fellow astronomers, his apotheosis would have occurred, greatly assisted by means well known to quasi-existence when its compromises and evasions, and phenomena that are partly this and partly that, are flouted by the definite and uncompromising."
+          },
+          "cosine": 0.9749690519660692
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "qanon-009",
+            "text": "Patriot, your country needs you. You are not alone. God is LOVE. 2018 will be GLORIOUS! God bless, Q",
+            "score": 1.7888920785537947
+          },
+          "right": {
+            "id": "ufo-009",
+            "text": "Lescarbault wrote to Leverrier, who hastened to Orgeres-- Because this announcement assimilated with his own calculations upon a planet between Mercury and the sun-- Because this solar system itself has never attained positiveness in the aspect of Regularity: there are to Mercury, as there are to Neptune, phenomena irreconcilable with the formulas, or motions that betray influence by something else."
+          },
+          "cosine": 0.9528749667060101
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "qanon-032",
+            "text": "https://twitter.com/TrueQanuck11/status/1210948219494162432 PANIC mode. People awake is their greatest fear. Q",
+            "score": 1.6732236407439218
+          },
+          "right": {
+            "id": "ufo-004",
+            "text": "The invariable, or the real and stable, would be nothing at all in Intermediateness--rather as, but in relative terms, an undistorted interpretation of external sounds in the mind of a dreamer could not continue to exist in a dreaming mind, because that touch of relative realness would be of awakening and not of dreaming."
+          },
+          "cosine": 0.9744599194395094
+        }
+      ]
+    },
+    "qanon → scripture": {
+      "anchor_rmse": 0.006076310331806476,
+      "mean_anchor_cosine": 0.9944617679127375,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "qanon-042",
+            "text": "Patriot - A little perspective… Patriots are dying to defend this great country and the FREEDOM she provides. Children are being kidnapped, tortured, raped, and sacrificed in the name of PURE EVIL. Stay the course. We are FIGHTING a deeply entrenched enemy. Think LISA BARSOOMIAN (Smile). 2018 WILL BE GLORIOUS. Q",
+            "score": 1.582097089689419
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9765201860808613
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "qanon-057",
+            "text": "https://www.youtube.com/watch?v=6NedgyDfZpY Truth to Power. Listen carefully. Q",
+            "score": 1.6632993115295491
+          },
+          "right": {
+            "id": "scripture-059",
+            "text": "Moreover, when a soul departeth, fixed In Soothfastness, it goeth to the place-- Perfect and pure--of those that know all Truth."
+          },
+          "cosine": 0.9690246237770219
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q",
+            "score": 1.6541442815993312
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.9760210690286425
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "qanon-059",
+            "text": "https://www.youtube.com/watch?v=QR1NnBA4HMI&feature=youtu.be The Great Awakening. Q",
+            "score": 2.2758979414409755
+          },
+          "right": {
+            "id": "scripture-044",
+            "text": "Who, unto friend and foe Keeping an equal heart, with equal mind Bears shame and glory; with an equal peace Takes heat and cold, pleasure and pain; abides Quit of desires, hears praise or calumny In passionless restraint, unmoved by each; Linked by no ties to earth, steadfast in Me, That man I love!"
+          },
+          "cosine": 0.9588326067865675
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "qanon-036",
+            "text": "We are being set up. Threat. Past Booms - TX bombs New Booms - Plane crash + Plane/17 drop. These people are sick. Attempt to prevent drops / awakening. Conspiracy? Coincidence? Response coming. Q",
+            "score": 1.3400312821233011
+          },
+          "right": {
+            "id": "scripture-035",
+            "text": "Ah! if in anger now Thou shouldst remember I did think Thee Friend, Speaking with easy speech, As men use each to each; Did call Thee \"Krishna,\" \"Prince,\" nor comprehend Thy hidden majesty, The might, the awe of Thee; Did, in my heedlessness, or in my love, On journey, or in jest, Or when we lay at rest, Sitting at council, straying in the grove, Alone, or in the throng, Do Thee, most Holy! wrong, Be Thy grace granted for that witless sin!"
+          },
+          "cosine": 0.967706222251451
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "qanon-009",
+            "text": "Patriot, your country needs you. You are not alone. God is LOVE. 2018 will be GLORIOUS! God bless, Q",
+            "score": 1.5114561842920553
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9802329317153601
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "qanon-015",
+            "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q",
+            "score": 1.5904665151411068
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.983724102871702
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "qanon-037",
+            "text": "Sometimes you can't TELL the public the truth. YOU MUST SHOW THEM. ONLY THEN WILL PEOPLE FIND THE WILL TO CHANGE. Crimes against children unite all humanity [cross party lines]? Difficult truths. Q",
+            "score": 1.6092508858219072
+          },
+          "right": {
+            "id": "scripture-044",
+            "text": "Who, unto friend and foe Keeping an equal heart, with equal mind Bears shame and glory; with an equal peace Takes heat and cold, pleasure and pain; abides Quit of desires, hears praise or calumny In passionless restraint, unmoved by each; Linked by no ties to earth, steadfast in Me, That man I love!"
+          },
+          "cosine": 0.9625364919377012
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "qanon-009",
+            "text": "Patriot, your country needs you. You are not alone. God is LOVE. 2018 will be GLORIOUS! God bless, Q",
+            "score": 1.7888920785537947
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.975052064486829
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "qanon-032",
+            "text": "https://twitter.com/TrueQanuck11/status/1210948219494162432 PANIC mode. People awake is their greatest fear. Q",
+            "score": 1.6732236407439218
+          },
+          "right": {
+            "id": "scripture-033",
+            "text": "And there be evil doers; loose of heart, Low-minded, stubborn, fraudulent, remiss, Dull, slow, despondent--children of the \"dark.\" Hear, too, of Intellect and Steadfastness The threefold separation, Conqueror-Prince!"
+          },
+          "cosine": 0.9681882443016964
+        }
+      ]
+    },
+    "ufo → scripture": {
+      "anchor_rmse": 0.005564330116414624,
+      "mean_anchor_cosine": 0.9953557345533343,
+      "concordance": [
+        {
+          "probe": "the enemy",
+          "left": {
+            "id": "ufo-001",
+            "text": "Though everyone who scalps is, in the oneness of allness, himself likely to be scalped, there is such a discourtesy to an enemy as the wearing of wigs.",
+            "score": 1.4379135555278508
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9785148568906721
+        },
+        {
+          "probe": "the hidden truth",
+          "left": {
+            "id": "ufo-005",
+            "text": "In our acceptance, logic, science, art, religion are, in our \"existence,\" premonitions of a coming awakening, like dawning awarenesses of surroundings in the mind of a dreamer.",
+            "score": 1.448713456274121
+          },
+          "right": {
+            "id": "scripture-045",
+            "text": "Be of good cheer! [Hide, the holy Krishna saith, This from him that hath no faith, Him that worships not, nor seeks Wisdom's teaching when she speaks: Hide it from all men who mock; But, wherever, 'mid the flock Of My lovers, one shall teach This divinest, wisest, speech-- Teaching in the faith to bring Truth to them, and offering Of all honour unto Me-- Unto Brahma cometh he!"
+          },
+          "cosine": 0.9650404962117778
+        },
+        {
+          "probe": "the children",
+          "left": {
+            "id": "ufo-041",
+            "text": "He had told his little son, aged five years, to look through the telescope.",
+            "score": 1.5119264774876298
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.9741512184725909
+        },
+        {
+          "probe": "the awakening",
+          "left": {
+            "id": "ufo-019",
+            "text": "In our acceptance, it is, in quasi-existence, premonitory, or pre-natal, or pre-awakening consciousness of a real existence.",
+            "score": 1.8362252482987103
+          },
+          "right": {
+            "id": "scripture-044",
+            "text": "Who, unto friend and foe Keeping an equal heart, with equal mind Bears shame and glory; with an equal peace Takes heat and cold, pleasure and pain; abides Quit of desires, hears praise or calumny In passionless restraint, unmoved by each; Linked by no ties to earth, steadfast in Me, That man I love!"
+          },
+          "cosine": 0.9665981103183593
+        },
+        {
+          "probe": "the fall",
+          "left": {
+            "id": "ufo-028",
+            "text": "As to other falls, or another fall, it is said in the _Amer.",
+            "score": 1.6948536678556478
+          },
+          "right": {
+            "id": "scripture-034",
+            "text": "By Me they fall--not thee! the stroke of death is dealt them now, Even as they show thus gallantly; My instrument art thou!"
+          },
+          "cosine": 0.9622378360510668
+        },
+        {
+          "probe": "salvation",
+          "left": {
+            "id": "ufo-005",
+            "text": "In our acceptance, logic, science, art, religion are, in our \"existence,\" premonitions of a coming awakening, like dawning awarenesses of surroundings in the mind of a dreamer.",
+            "score": 1.4116289879542405
+          },
+          "right": {
+            "id": "scripture-045",
+            "text": "Be of good cheer! [Hide, the holy Krishna saith, This from him that hath no faith, Him that worships not, nor seeks Wisdom's teaching when she speaks: Hide it from all men who mock; But, wherever, 'mid the flock Of My lovers, one shall teach This divinest, wisest, speech-- Teaching in the faith to bring Truth to them, and offering Of all honour unto Me-- Unto Brahma cometh he!"
+          },
+          "cosine": 0.975236069978453
+        },
+        {
+          "probe": "family",
+          "left": {
+            "id": "ufo-018",
+            "text": "Symons knew his writing desk-- Then comes the instance of a man, his wife, and his three daughters, at Casterton, Westmoreland, who were looking out at their lawn, during a thunderstorm, when they \"considered,\" as Mr.",
+            "score": 1.450880829555678
+          },
+          "right": {
+            "id": "scripture-025",
+            "text": "And he had judged Israel forty years. 4:19 And his daughter in law, Phinehas’ wife, was with child, near to be delivered: and when she heard the tidings that the ark of God was taken, and that her father in law and her husband were dead, she bowed herself and travailed; for her pains came upon her. 4:20 And about the time of her death the women that stood by her said unto her, Fear not; for thou hast born a son."
+          },
+          "cosine": 0.9833298369706824
+        },
+        {
+          "probe": "betrayal",
+          "left": {
+            "id": "ufo-010",
+            "text": "In this oneness of allness, or continuity, the protecting hand strangles; the parental stifles; love is inseparable from phenomena of hate.",
+            "score": 1.5845189843558964
+          },
+          "right": {
+            "id": "scripture-044",
+            "text": "Who, unto friend and foe Keeping an equal heart, with equal mind Bears shame and glory; with an equal peace Takes heat and cold, pleasure and pain; abides Quit of desires, hears praise or calumny In passionless restraint, unmoved by each; Linked by no ties to earth, steadfast in Me, That man I love!"
+          },
+          "cosine": 0.9686187136754834
+        },
+        {
+          "probe": "love",
+          "left": {
+            "id": "ufo-010",
+            "text": "In this oneness of allness, or continuity, the protecting hand strangles; the parental stifles; love is inseparable from phenomena of hate.",
+            "score": 1.5133471928046973
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9852506127427724
+        },
+        {
+          "probe": "fear",
+          "left": {
+            "id": "ufo-060",
+            "text": "Extraordinary--we fear he must have been a man of loose habits in some other respects.",
+            "score": 1.537855067344558
+          },
+          "right": {
+            "id": "scripture-010",
+            "text": "And Joseph wept when they spake unto him. 50:18 And his brethren also went and fell down before his face; and they said, Behold, we be thy servants. 50:19 And Joseph said unto them, Fear not: for am I in the place of God? 50:20 But as for you, ye thought evil against me; but God meant it unto good, to bring to pass, as it is this day, to save much people alive. 50:21 Now therefore fear ye not: I will nourish you, and your little ones."
+          },
+          "cosine": 0.9785262485090727
+        }
+      ]
+    }
+  },
+  "personas": {
+    "left": {
+      "parent": {
+        "id": "left-014",
+        "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+        "cosine": 1.6407507251219906
+      },
+      "lover": {
+        "id": "left-010",
+        "text": "Our bourgeois, not content with having the wives and daughters of their proletarians at their disposal, not to speak of common prostitutes, take the greatest pleasure in seducing each other’s wives.",
+        "cosine": 1.31139556713187
+      },
+      "child": {
+        "id": "left-014",
+        "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+        "cosine": 1.6939046163301326
+      },
+      "sibling": {
+        "id": "left-014",
+        "text": "Do you charge us with wanting to stop the exploitation of children by their parents?",
+        "cosine": 1.5232340052853997
+      },
+      "friend": {
+        "id": "left-050",
+        "text": "In one word, you reproach us with intending to do away with your property.",
+        "cosine": 1.3601690978164935
+      }
+    },
+    "right_trad": {
+      "parent": {
+        "id": "right_trad-060",
+        "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life.",
+        "cosine": 1.4957892101051375
+      },
+      "lover": {
+        "id": "right_trad-037",
+        "text": "To such a length have his passions and violences carried him, that all my family, my dependants, and even my friends and visitors, are persecuted with the strongest marks of his displeasure.",
+        "cosine": 1.3235009073643762
+      },
+      "child": {
+        "id": "right_trad-060",
+        "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life.",
+        "cosine": 1.4989428011361554
+      },
+      "sibling": {
+        "id": "right_trad-060",
+        "text": "By this wise prejudice we are taught to look with horror on those children of their country who are prompt rashly to hack that aged parent in pieces and put him into the kettle of magicians, in hopes that by their poisonous weeds and wild incantations they may regenerate the paternal constitution and renovate their father's life.",
+        "cosine": 1.4954501651519143
+      },
+      "friend": {
+        "id": "right_trad-037",
+        "text": "To such a length have his passions and violences carried him, that all my family, my dependants, and even my friends and visitors, are persecuted with the strongest marks of his displeasure.",
+        "cosine": 1.3625008464660837
+      }
+    },
+    "qanon": {
+      "parent": {
+        "id": "qanon-015",
+        "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q",
+        "cosine": 1.5383673811568346
+      },
+      "lover": {
+        "id": "qanon-009",
+        "text": "Patriot, your country needs you. You are not alone. God is LOVE. 2018 will be GLORIOUS! God bless, Q",
+        "cosine": 1.3304476243369778
+      },
+      "child": {
+        "id": "qanon-015",
+        "text": "Angela Dorothea Kasner. Daughter of a Pastor? Name of FATHER? History of FATHER? Hitler youth (member). Haircut today vs THEN (A). Symbolic. US Intelligence post war controlled who? The ‘Mission’ Who is Angela Hitler? Relationship to Adolf? How were children named in Germany during this period? First or middle. Family tree. Anna. Maria. Alois. Examples. Risk of ‘conspiracy’ label the deeper we go. Truth will shock the WORLD. Q",
+        "cosine": 1.4987081713255987
+      },
+      "sibling": {
+        "id": "qanon-018",
+        "text": "https://www.dailymail.co.uk/news/article-6823155/Alan-Krueger-noted-economist-served-Obama-died.html \"It is with tremendous sadness we share that Professor Alan B. Krueger, beloved husband, father, son, brother, and Princeton professor of economics took his own life over the weekend,' a statement from his family reads.\" Start a list. Q",
+        "cosine": 1.5662900420542312
+      },
+      "friend": {
+        "id": "qanon-044",
+        "text": "https://twitter.com/drewanon17/status/1262060653268791296 “We do not \"get over\" a death. We learn to carry the grief and integrate the loss in our lives. In our hearts, we carry those who have died. We grieve and we love. We remember.” — Nathalie Himmelrich God bless you and your family. Heaven awaits (and so does your Son). Q",
+        "cosine": 1.3967755431855897
+      }
+    },
+    "ufo": {
+      "parent": {
+        "id": "ufo-041",
+        "text": "He had told his little son, aged five years, to look through the telescope.",
+        "cosine": 1.418312346668339
+      },
+      "lover": {
+        "id": "ufo-011",
+        "text": "I fear me that the horse and the barn were a little extreme for our budding liberalities.",
+        "cosine": 1.2433643064267783
+      },
+      "child": {
+        "id": "ufo-041",
+        "text": "He had told his little son, aged five years, to look through the telescope.",
+        "cosine": 1.4544763483799938
+      },
+      "sibling": {
+        "id": "ufo-041",
+        "text": "He had told his little son, aged five years, to look through the telescope.",
+        "cosine": 1.547460123808554
+      },
+      "friend": {
+        "id": "ufo-041",
+        "text": "He had told his little son, aged five years, to look through the telescope.",
+        "cosine": 1.316879785100972
+      }
+    },
+    "scripture": {
+      "parent": {
+        "id": "scripture-019",
+        "text": "And she had compassion on him, and said, This is one of the Hebrews’ children. 2:7 Then said his sister to Pharaoh’s daughter, Shall I go and call to thee a nurse of the Hebrew women, that she may nurse the child for thee? 2:8 And Pharaoh’s daughter said to her, Go.",
+        "cosine": 1.5197474575444647
+      },
+      "lover": {
+        "id": "scripture-040",
+        "text": "As father to a son, As friend to friend, as one Who loveth to his lover, turn Thy face In gentleness on me!",
+        "cosine": 1.5132644636311325
+      },
+      "child": {
+        "id": "scripture-019",
+        "text": "And she had compassion on him, and said, This is one of the Hebrews’ children. 2:7 Then said his sister to Pharaoh’s daughter, Shall I go and call to thee a nurse of the Hebrew women, that she may nurse the child for thee? 2:8 And Pharaoh’s daughter said to her, Go.",
+        "cosine": 1.6194366651592933
+      },
+      "sibling": {
+        "id": "scripture-020",
+        "text": "And all the people shall say, Amen. 27:22 Cursed be he that lieth with his sister, the daughter of his father, or the daughter of his mother.",
+        "cosine": 1.6922227359252253
+      },
+      "friend": {
+        "id": "scripture-040",
+        "text": "As father to a son, As friend to friend, as one Who loveth to his lover, turn Thy face In gentleness on me!",
+        "cosine": 1.5288795251135614
+      }
+    }
+  },
+  "residuals": {
+    "left": [
+      {
+        "best_cross_corpus_cosine": 0.8080820107062927,
+        "id": "left-057",
+        "text": "But if selling and buying disappears, free selling and buying disappears also."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8242208710108038,
+        "id": "left-020",
+        "text": "The abolition of bourgeois individuality, bourgeois independence, and bourgeois freedom is undoubtedly aimed at."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8509014333798264,
+        "id": "left-056",
+        "text": "We may cite Proudhon’s _Philosophie de la Misère_ as an example of this form."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8762031610279416,
+        "id": "left-053",
+        "text": "This form of Socialism has, moreover, been worked out into complete systems."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8783091028585961,
+        "id": "left-054",
+        "text": "It has agglomerated production, and has concentrated property in a few hands."
+      }
+    ],
+    "right_trad": [
+      {
+        "best_cross_corpus_cosine": 0.9095980296571263,
+        "id": "right_trad-020",
+        "text": "He ought to love and respect his kind, and to fear himself."
+      },
+      {
+        "best_cross_corpus_cosine": 0.9109827441895603,
+        "id": "right_trad-025",
+        "text": "He never sought to be loved without putting himself first in a condition to be feared."
+      },
+      {
+        "best_cross_corpus_cosine": 0.9143913597080005,
+        "id": "right_trad-022",
+        "text": "If the people are happy, united, wealthy, and powerful, we presume the rest."
+      },
+      {
+        "best_cross_corpus_cosine": 0.9154170833595718,
+        "id": "right_trad-010",
+        "text": "Such a prodigy would have filled any common man with superstitious fears."
+      },
+      {
+        "best_cross_corpus_cosine": 0.9158927052396784,
+        "id": "right_trad-030",
+        "text": "All other people have laid the foundations of civil freedom in severer manners, and a system of a more austere and masculine morality."
+      }
+    ],
+    "qanon": [
+      {
+        "best_cross_corpus_cosine": 0.836568625236116,
+        "id": "qanon-034",
+        "text": "7/10. Targeted Kills. Power Out. Flight re-routes. Flight returns. Running. Public awakening. Message spreading wide & far. Goodbye @Jack. Q"
+      },
+      {
+        "best_cross_corpus_cosine": 0.8650496928927044,
+        "id": "qanon-059",
+        "text": "https://www.youtube.com/watch?v=QR1NnBA4HMI&feature=youtu.be The Great Awakening. Q"
+      },
+      {
+        "best_cross_corpus_cosine": 0.8660982112959992,
+        "id": "qanon-057",
+        "text": "https://www.youtube.com/watch?v=6NedgyDfZpY Truth to Power. Listen carefully. Q"
+      },
+      {
+        "best_cross_corpus_cosine": 0.8786464382094823,
+        "id": "qanon-032",
+        "text": "https://twitter.com/TrueQanuck11/status/1210948219494162432 PANIC mode. People awake is their greatest fear. Q"
+      },
+      {
+        "best_cross_corpus_cosine": 0.890358632834374,
+        "id": "qanon-016",
+        "text": "https://motherboard.vice.com/en_us/article/gy7mnx/google-ceo-says-no-plans-to-launch-dragonfly-chinese-search-engine-sundar-pichai Google CEO Says No Plan to ‘Launch’ Censored Search Engine in China\" How do you cover your tracks? Start a FIRE. GOOG says NO PLAN TO LAUNCH……. What if GOOG already gave access to China? CHINA launch? WILL CHINA BE ANNOUNCING A STATE-FUNDED & STATE-MADE NEW SEARCH ENGINE IN THE COMING MONTHS? The FIRE that brought down GOOGLE. Q"
+      }
+    ],
+    "ufo": [
+      {
+        "best_cross_corpus_cosine": 0.819006938568994,
+        "id": "ufo-054",
+        "text": "Falls of sandstone and limestone are repulsive to both theologians and scientists."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8286253898093959,
+        "id": "ufo-046",
+        "text": "Fall of great numbers of larvae of beetles, near Mortagne, France, May, 1858."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8542077088826487,
+        "id": "ufo-048",
+        "text": "I have data of other falls, in Persia and Asiatic Turkey, of edible substances."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8706444277344042,
+        "id": "ufo-031",
+        "text": "But concomitants of this fall: Loud noises were heard in the sky."
+      },
+      {
+        "best_cross_corpus_cosine": 0.8837578206788876,
+        "id": "ufo-036",
+        "text": "Over and over have we noted the occurrence of strange falls in storms."
+      }
+    ],
+    "scripture": [
+      {
+        "best_cross_corpus_cosine": 0.823446037239407,
+        "id": "scripture-049",
+        "text": "The very truth--Heart's Lord!--of Sannyas, Abstention; and enunciation, Lord!"
+      },
+      {
+        "best_cross_corpus_cosine": 0.8660835355437597,
+        "id": "scripture-037",
+        "text": "I will to thee unfold Some portions of My Majesty, whose powers are manifold!"
+      },
+      {
+        "best_cross_corpus_cosine": 0.8725741303706032,
+        "id": "scripture-047",
+        "text": "Yea! for its leaves Are green and waving hymns which whisper Truth!"
+      },
+      {
+        "best_cross_corpus_cosine": 0.8768220698965138,
+        "id": "scripture-013",
+        "text": "He said, Yea. 22:28 And the chief captain answered, With a great sum obtained I this freedom."
+      },
+      {
+        "best_cross_corpus_cosine": 0.880158958392725,
+        "id": "scripture-053",
+        "text": "This friendly human frame, my mind can think Calm thoughts once more; my heart beats still again!"
+      }
+    ]
+  }
+}

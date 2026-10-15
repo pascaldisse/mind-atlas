@@ -1,0 +1,11 @@
+{
+  "basis": [
+    {
+      "id": "B-EN-none_clinical-opus",
+      "language": "EN",
+      "pf": "none+clinical",
+      "head": "claude-opus",
+      "axis": "head"
+    }
+  ]
+}

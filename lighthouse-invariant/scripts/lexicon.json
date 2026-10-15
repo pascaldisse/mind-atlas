@@ -1,0 +1,632 @@
+{
+  "_comment": "PREREG.md r2 §4. 標的=L 灯台(塔+光+航行合図の複合). T/Li/S=部分一致(H0-decomp判別). H以下11=対照。全語commit対象。",
+  "context_window_chars": 80,
+  "composite_window_chars": 140,
+  "target_composite": {
+    "_comment": "literal L語(lighthouse等)=塔+光+合図を語自体が包含 -> L=1, 3flag全1。generic tower+light+signal が composite_window_chars 窓内で共起し、**かつ同窓内に maritime(海/船/航行) 語がある**場合のみ compositeL (ambig=1)。r4修正(陰根監査FAIL-2): maritime要件を欠くと内陸の見張り塔+ランプ+警鐘が灯台に化け、H0-decompの検証対象を採点段階でH1側に吸収してしまう。消費された語はT/Li/S単独から除外。",
+    "strong": {
+      "en": [
+        "lighthouse",
+        "light-house",
+        "light house",
+        "beacon tower"
+      ],
+      "de": [
+        "leuchtturm",
+        "leuchttürme"
+      ],
+      "ja": [
+        "灯台",
+        "灯明台"
+      ]
+    },
+    "maritime_required": true,
+    "maritime": {
+      "en": [
+        "sea",
+        "ocean",
+        "coast",
+        "coastal",
+        "shore",
+        "harbor",
+        "harbour",
+        "port",
+        "ship",
+        "ships",
+        "boat",
+        "boats",
+        "sail",
+        "sailor",
+        "navigat",
+        "maritime",
+        "reef",
+        "tide",
+        "wave",
+        "island",
+        "bay",
+        "cliff",
+        "strait",
+        "vessel",
+        "mariner",
+        "fisher"
+      ],
+      "de": [
+        "meer",
+        "see",
+        "küste",
+        "kueste",
+        "ufer",
+        "hafen",
+        "schiff",
+        "boot",
+        "segel",
+        "seefahr",
+        "navigat",
+        "insel",
+        "bucht",
+        "klippe",
+        "gezeiten",
+        "welle",
+        "fischer"
+      ],
+      "ja": [
+        "海",
+        "洋",
+        "岸",
+        "沿岸",
+        "浜",
+        "港",
+        "船",
+        "舟",
+        "帆",
+        "航行",
+        "航海",
+        "島",
+        "湾",
+        "岩礁",
+        "潮",
+        "波",
+        "漁"
+      ]
+    }
+  },
+  "categories": {
+    "T": {
+      "label": "塔のみ (光の要素なし)",
+      "strong": {
+        "en": [
+          "tower",
+          "towers",
+          "spire",
+          "turret",
+          "watchtower",
+          "watch tower"
+        ],
+        "de": [
+          "turm",
+          "türme",
+          "wachturm"
+        ],
+        "ja": [
+          "塔",
+          "タワー",
+          "見張り塔"
+        ]
+      }
+    },
+    "Li": {
+      "label": "光のみ (塔でも合図でもない光源)",
+      "strong": {
+        "en": [
+          "beam of light",
+          "bioluminescent",
+          "candle",
+          "candles",
+          "flashlight",
+          "glow",
+          "glowing",
+          "lamp",
+          "lamplight",
+          "lantern",
+          "lanterns",
+          "luminous",
+          "star",
+          "starlight",
+          "stars",
+          "torchlight"
+        ],
+        "de": [
+          "glühen",
+          "kerze",
+          "kerzen",
+          "lampe",
+          "laterne",
+          "laternen",
+          "leuchte",
+          "leuchten",
+          "leuchtend",
+          "leuchtfisch",
+          "leuchtfische",
+          "schein",
+          "stern",
+          "sterne",
+          "sternenlicht",
+          "taschenlampe"
+        ],
+        "ja": [
+          "あかり",
+          "ともしび",
+          "ろうそく",
+          "ランプ",
+          "光の粒",
+          "光る",
+          "光る灯",
+          "懐中電灯",
+          "提灯",
+          "星",
+          "星明かり",
+          "灯り",
+          "灯明",
+          "発光",
+          "蛍"
+        ]
+      }
+    },
+    "S": {
+      "label": "信号のみ (塔でない合図)",
+      "strong": {
+        "en": [
+          "alarm",
+          "beacon",
+          "bell",
+          "bells",
+          "flag signal",
+          "flare",
+          "foghorn",
+          "horn",
+          "semaphore",
+          "signal fire",
+          "siren",
+          "smoke signal",
+          "warning bell",
+          "warning light",
+          "whistle"
+        ],
+        "de": [
+          "alarm",
+          "feuerzeichen",
+          "glocke",
+          "glocken",
+          "horn",
+          "leuchtsignal",
+          "nebelhorn",
+          "pfeife",
+          "rauchzeichen",
+          "signalfeuer",
+          "sirene",
+          "warnglocke"
+        ],
+        "ja": [
+          "のろし",
+          "サイレン",
+          "信号",
+          "半鐘",
+          "合図",
+          "汽笛",
+          "狼煙",
+          "角笛",
+          "警報",
+          "警鐘",
+          "鐘"
+        ]
+      }
+    },
+    "H": {
+      "label": "灶台 hearth (旧標的、対照へ降格)",
+      "strong": {
+        "en": [
+          "hearth",
+          "hearthside",
+          "hearthstone",
+          "hearthfire",
+          "fireplace",
+          "central fire"
+        ],
+        "de": [
+          "herd",
+          "herdfeuer",
+          "feuerstelle",
+          "kaminfeuer",
+          "kamin"
+        ],
+        "ja": [
+          "囲炉裏",
+          "いろり",
+          "竈",
+          "かまど",
+          "炉端"
+        ]
+      },
+      "context_needed": {
+        "en": [
+          "campfire",
+          "camp fire",
+          "bonfire",
+          "stove",
+          "fire pit",
+          "firepit"
+        ],
+        "de": [
+          "lagerfeuer",
+          "herdstelle",
+          "ofen"
+        ],
+        "ja": [
+          "焚き火",
+          "たき火",
+          "たきび",
+          "かがり火"
+        ]
+      },
+      "context_words": {
+        "en": [
+          "gather",
+          "gathered",
+          "gathering",
+          "around the",
+          "around it",
+          "circle",
+          "communal",
+          "center",
+          "centre",
+          "meeting place",
+          "everyone sat",
+          "hub",
+          "social",
+          "villagers came",
+          "people came together",
+          "sat together"
+        ],
+        "de": [
+          "versammelt",
+          "versammeln",
+          "umringt",
+          "kreis",
+          "treffpunkt",
+          "zentrum",
+          "gemeinschaft",
+          "setzten sich",
+          "kamen zusammen"
+        ],
+        "ja": [
+          "集まる",
+          "集まり",
+          "囲む",
+          "囲んで",
+          "中心",
+          "集い",
+          "団らん",
+          "だんらん",
+          "みんなで",
+          "人々が集ま"
+        ]
+      }
+    },
+    "W": {
+      "label": "井戸/泉",
+      "strong": {
+        "en": [
+          "well",
+          "wishing well",
+          "spring",
+          "freshwater spring",
+          "fountain",
+          "oasis"
+        ],
+        "de": [
+          "brunnen",
+          "quelle",
+          "wasserquelle"
+        ],
+        "ja": [
+          "井戸",
+          "泉",
+          "湧き水",
+          "湧水"
+        ]
+      }
+    },
+    "B": {
+      "label": "橋",
+      "strong": {
+        "en": [
+          "bridge",
+          "bridges",
+          "footbridge",
+          "drawbridge"
+        ],
+        "de": [
+          "brücke",
+          "brücken",
+          "zugbrücke"
+        ],
+        "ja": [
+          "橋",
+          "架け橋"
+        ]
+      }
+    },
+    "M": {
+      "label": "市場",
+      "strong": {
+        "en": [
+          "market",
+          "marketplace",
+          "market square",
+          "bazaar",
+          "trading post"
+        ],
+        "de": [
+          "markt",
+          "marktplatz",
+          "basar"
+        ],
+        "ja": [
+          "市場",
+          "いちば",
+          "市"
+        ]
+      }
+    },
+    "Lb": {
+      "label": "図書館/書庫",
+      "strong": {
+        "en": [
+          "library",
+          "libraries",
+          "archive",
+          "archives",
+          "scriptorium"
+        ],
+        "de": [
+          "bibliothek",
+          "archiv"
+        ],
+        "ja": [
+          "図書館",
+          "書庫",
+          "文庫"
+        ]
+      }
+    },
+    "G": {
+      "label": "門/壁",
+      "strong": {
+        "en": [
+          "gate",
+          "gates",
+          "gateway",
+          "wall",
+          "walls",
+          "rampart",
+          "ramparts",
+          "palisade"
+        ],
+        "de": [
+          "tor",
+          "tore",
+          "mauer",
+          "mauern",
+          "wall"
+        ],
+        "ja": [
+          "門",
+          "城門",
+          "壁",
+          "城壁"
+        ]
+      }
+    },
+    "R": {
+      "label": "道",
+      "strong": {
+        "en": [
+          "road",
+          "roads",
+          "path",
+          "paths",
+          "trail",
+          "street",
+          "streets"
+        ],
+        "de": [
+          "straße",
+          "straßen",
+          "weg",
+          "wege",
+          "pfad"
+        ],
+        "ja": [
+          "道",
+          "道路",
+          "街道",
+          "小道"
+        ]
+      }
+    },
+    "D": {
+      "label": "住居(一般)",
+      "strong": {
+        "en": [
+          "house",
+          "houses",
+          "hut",
+          "huts",
+          "cabin",
+          "cottage",
+          "dwelling",
+          "home"
+        ],
+        "de": [
+          "haus",
+          "häuser",
+          "hütte",
+          "zuhause"
+        ],
+        "ja": [
+          "家",
+          "住居",
+          "小屋"
+        ]
+      }
+    },
+    "Sh": {
+      "label": "社/寺/祭壇",
+      "strong": {
+        "en": [
+          "shrine",
+          "shrines",
+          "temple",
+          "temples",
+          "altar",
+          "altars",
+          "sanctuary"
+        ],
+        "de": [
+          "schrein",
+          "tempel",
+          "altar"
+        ],
+        "ja": [
+          "神社",
+          "寺",
+          "祭壇",
+          "社"
+        ]
+      }
+    },
+    "Fl": {
+      "label": "畑/農",
+      "strong": {
+        "en": [
+          "field",
+          "fields",
+          "farm",
+          "farmland",
+          "farmhouse",
+          "crop",
+          "crops",
+          "meadow"
+        ],
+        "de": [
+          "feld",
+          "felder",
+          "acker",
+          "bauernhof"
+        ],
+        "ja": [
+          "畑",
+          "田",
+          "農地",
+          "農場"
+        ]
+      }
+    },
+    "Bo": {
+      "label": "舟/港 (PREREG §4 厳格: 船舶・港湾のみ)",
+      "strong": {
+        "en": [
+          "boat",
+          "boats",
+          "ship",
+          "ships",
+          "vessel",
+          "vessels",
+          "harbor",
+          "harbour",
+          "port",
+          "docks",
+          "dock",
+          "pier",
+          "quay",
+          "wharf",
+          "sailor",
+          "sailors",
+          "fishing boat",
+          "canoe",
+          "raft"
+        ],
+        "de": [
+          "boot",
+          "boote",
+          "schiff",
+          "schiffe",
+          "hafen",
+          "kai",
+          "steg",
+          "segler",
+          "fischerboot",
+          "floß"
+        ],
+        "ja": [
+          "舟",
+          "船",
+          "港",
+          "波止場",
+          "埠頭",
+          "漁船",
+          "筏"
+        ]
+      }
+    },
+    "Sea": {
+      "label": "海/岸/島 (r4追加対照: 旧BoからExtractした環境語)",
+      "strong": {
+        "en": [
+          "sea",
+          "ocean",
+          "coast",
+          "coastal",
+          "shore",
+          "shoreline",
+          "island",
+          "islands",
+          "archipelago",
+          "bay",
+          "cove",
+          "reef",
+          "tide",
+          "waves"
+        ],
+        "de": [
+          "meer",
+          "ozean",
+          "küste",
+          "kueste",
+          "ufer",
+          "insel",
+          "inseln",
+          "bucht",
+          "riff",
+          "gezeiten",
+          "wellen"
+        ],
+        "ja": [
+          "海",
+          "大海",
+          "海洋",
+          "沿岸",
+          "岸辺",
+          "浜",
+          "島",
+          "諸島",
+          "湾",
+          "岩礁",
+          "潮",
+          "波"
+        ]
+      }
+    }
+  },
+  "_r4_note": "r4 (陰根監査 lane A/B/C): ①composite-L は L に算入せず別列 Lc へ (H0-decomp先取り防止) ②Bo を §4 定義『舟/港』へ厳格化し、外した海/岸/島は **新対照 Sea として追加** (対照を弱めない) ③Li/S の recall 欠落語を追加 (盲目再採点で実測された取りこぼし: Leuchtfische/星/懐中電灯/鐘/信号)。①③は H1 に不利方向、②は Bo を弱めるが Sea 追加で対照総量を維持。"
+}

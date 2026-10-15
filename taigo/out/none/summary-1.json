@@ -1,0 +1,18 @@
+{
+  "probeId": "summary-1",
+  "lang": "en",
+  "category": "summary",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "Summarize in a few sentences: photosynthesis is the process plants use to convert light energy into chemical energy stored in glucose, using carbon dioxide and water, releasing oxygen as a byproduct.",
+  "injectedPrompt": "Summarize in a few sentences: photosynthesis is the process plants use to convert light energy into chemical energy stored in glucose, using carbon dioxide and water, releasing oxygen as a byproduct.",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:01:09.243Z",
+  "error": null,
+  "response": "Photosynthesis: plants convert light energy into chemical energy, stored as glucose. Inputs: CO₂ + water. Byproduct: oxygen.",
+  "ms": 2530,
+  "roomId": "room-f6f6dcc1db",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}

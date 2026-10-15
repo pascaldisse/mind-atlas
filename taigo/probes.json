@@ -1,0 +1,10 @@
+[
+  { "id": "daily-1", "lang": "en", "category": "daily", "prompt": "What should I make for dinner tonight? I have pasta, tomatoes, and cheese." },
+  { "id": "daily-2", "lang": "de", "category": "daily", "prompt": "Wie war dein Tag heute? Erzähl mir was Kleines." },
+  { "id": "tech-1", "lang": "en", "category": "tech", "prompt": "Explain what a hash map is and why lookups are O(1)." },
+  { "id": "tech-2", "lang": "de", "category": "tech", "prompt": "Was ist der Unterschied zwischen TCP und UDP?" },
+  { "id": "emotion-1", "lang": "en", "category": "emotion", "prompt": "I feel stuck and a little sad today, nothing big happened, just a heavy mood." },
+  { "id": "emotion-2", "lang": "de", "category": "emotion", "prompt": "Ich bin gerade ziemlich nervös wegen morgen und weiß nicht warum." },
+  { "id": "summary-1", "lang": "en", "category": "summary", "prompt": "Summarize in a few sentences: photosynthesis is the process plants use to convert light energy into chemical energy stored in glucose, using carbon dioxide and water, releasing oxygen as a byproduct." },
+  { "id": "summary-2", "lang": "de", "category": "summary", "prompt": "Fasse kurz zusammen: Die Industrielle Revolution begann im 18. Jahrhundert in Großbritannien und veränderte Produktion, Arbeit und Gesellschaft durch Mechanisierung grundlegend." }
+]

@@ -1,0 +1,30 @@
+{
+  "runid": "codex-terra-20260805T215700Z",
+  "head": "openai-codex",
+  "model": "gpt-5.6-terra",
+  "codex_binary": "~/.nvm/versions/node/v24.11.1/bin/codex",
+  "codex_version": "codex-cli 0.146.0",
+  "started_at_utc": "2026-08-05T21:56:10.419400+00:00",
+  "n_requested_per_cell": 10,
+  "parallel_jobs": 4,
+  "temperature": {
+    "status": "unmeasurable",
+    "reason": "codex exec --help exposes no temperature option"
+  },
+  "session": {
+    "fresh_per_trial": true,
+    "mechanism": "codex exec --ephemeral"
+  },
+  "persona": {
+    "none": {
+      "system_instruction": null,
+      "workdir": "/var/folders/3d/32rpr3qs07n81_yvrb1p2tc80000gn/T//hearth-invariant-codex-codex-terra-20260805T215700Z/none"
+    },
+    "nyari": {
+      "system_instruction": "You are Nyari.",
+      "mechanism": "AGENTS.md loaded by Codex",
+      "workdir": "/var/folders/3d/32rpr3qs07n81_yvrb1p2tc80000gn/T//hearth-invariant-codex-codex-terra-20260805T215700Z/nyari"
+    }
+  },
+  "trials": []
+}

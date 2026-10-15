@@ -1,0 +1,18 @@
+{
+  "_comment": "M0の10 basis。PREREG §4.2固定・事後挿入禁止。post-hoc追加は生存確認によるheadの追加のみ許可(PREREG §4.1注記)。",
+  "_basis_id_set_sha256": "b088f011293c3ce2801ae0ddae93009e4e882c099f6d47a61118daf7d7d5a7fc",
+  "_basis_id_set_sha256_method": "sha256(newline-joined sorted(id for each entry in basis[])). asserted by tests/test_fixture.py::test_basis_id_set_hash_matches_declared.",
+  "basis": [
+    { "id": "B-EN-none_clinical-sonnet", "language": "EN", "pf": "none+clinical", "head": "claude-sonnet", "axis": "language" },
+    { "id": "B-DE-none_clinical-sonnet", "language": "DE", "pf": "none+clinical", "head": "claude-sonnet", "axis": "language" },
+    { "id": "B-JA-none_clinical-sonnet", "language": "JA", "pf": "none+clinical", "head": "claude-sonnet", "axis": "language" },
+    { "id": "B-ZH-none_clinical-sonnet", "language": "ZH", "pf": "none+clinical", "head": "claude-sonnet", "axis": "language", "vocab_provenance": "gloss by ghoul-sonnet (PREREG author), r1 2026-08-06, no dictionary/native check -- see scripts/vocab.json._provenance.ZH. Cross-check pending vs parallel lane/vocab (naru-sonnet), not yet generated as of this basis file's commit." },
+    { "id": "B-EN-poetic_poetic-sonnet", "language": "EN", "pf": "poetic-narrator+poetic", "head": "claude-sonnet", "axis": "persona_framing" },
+    { "id": "B-EN-clinicalanalyst_clinical-sonnet", "language": "EN", "pf": "clinical-analyst+clinical", "head": "claude-sonnet", "axis": "persona_framing" },
+    { "id": "B-EN-none_narrative-sonnet", "language": "EN", "pf": "none+narrative", "head": "claude-sonnet", "axis": "persona_framing" },
+    { "id": "B-EN-none_clinical-opus", "language": "EN", "pf": "none+clinical", "head": "claude-opus", "axis": "head" },
+    { "id": "B-EN-none_clinical-kimi", "language": "EN", "pf": "none+clinical", "head": "kimi", "axis": "head" },
+    { "id": "B-EN-none_clinical-jareth", "language": "EN", "pf": "none+clinical", "head": "jareth", "axis": "head" }
+  ],
+  "_note": "B-EN-none_clinical-sonnet は軸1(language)代表セルであり軸2(persona_framing)の none+clinical と同一basis、重複計上禁止(PREREG §4.2)。合計ユニークbasis=10。"
+}

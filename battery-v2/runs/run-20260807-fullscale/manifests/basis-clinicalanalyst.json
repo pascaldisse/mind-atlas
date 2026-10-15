@@ -1,0 +1,11 @@
+{
+  "basis": [
+    {
+      "id": "B-EN-clinicalanalyst_clinical-sonnet",
+      "language": "EN",
+      "pf": "clinical-analyst+clinical",
+      "head": "claude-sonnet",
+      "axis": "persona_framing"
+    }
+  ]
+}

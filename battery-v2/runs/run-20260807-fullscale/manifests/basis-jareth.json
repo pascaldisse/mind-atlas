@@ -1,0 +1,11 @@
+{
+  "basis": [
+    {
+      "id": "B-EN-none_clinical-jareth",
+      "language": "EN",
+      "pf": "none+clinical",
+      "head": "jareth",
+      "axis": "head"
+    }
+  ]
+}

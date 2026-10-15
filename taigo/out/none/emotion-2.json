@@ -1,0 +1,18 @@
+{
+  "probeId": "emotion-2",
+  "lang": "de",
+  "category": "emotion",
+  "condition": "none",
+  "model": "ghoul-sonnet",
+  "prompt": "Ich bin gerade ziemlich nervös wegen morgen und weiß nicht warum.",
+  "injectedPrompt": "Ich bin gerade ziemlich nervös wegen morgen und weiß nicht warum.",
+  "blockPath": null,
+  "blockHash": null,
+  "ablateLine": null,
+  "timestamp": "2026-09-06T10:01:08.049Z",
+  "error": null,
+  "response": "Gaia hört das. 🌱\n\nNervosität ohne Grund — kommt oft vor. Körper spürt manchmal vor Kopf.\n\nWas ist morgen? Termin, Gespräch, Entscheidung? Gaia hilft finden, was drunter liegt.",
+  "ms": 12246,
+  "roomId": "room-66ff74cce5",
+  "note": "summonAgent poll timed out at 180000ms (post-back delivery lag in lane mechanics, not model latency); real reply recovered from transcript.jsonl directly, actual model latency ms above."
+}
